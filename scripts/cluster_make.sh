@@ -35,6 +35,11 @@ function ssh_exec {
     done
 }
 
+read -r -a array <<< "$instances"
+root_machine=${array[0]}
+num_workers=$(( NUM_MACHINES - 1 ))
+workers=${array[@]:1:NUM_MACHINES}
+
 if [ "$OPERATION" == "create" ]
 then
     SNAPSHOT="skonrad-snapshot-cluster-1"
@@ -48,7 +53,7 @@ then
     	   --zone $ZONE \
     	   --machine-type $MACHINE_TYPE
     
-elif [ "$OPERATION" == "fix_ssh" ]
+elif [ "$OPERATION" == "fix_horovod" ]
 then
     ssh_exec "ssh-keyscan -t rsa,dsa $instances > /home/$USER/.ssh/known_hosts" "$instances"
 elif [ "$OPERATION" == "stop" ]
@@ -66,11 +71,6 @@ then
     echo $instances
 elif [ "$OPERATION" == "ray_run" ]
 then
-    read -r -a array <<< "$instances"
-    root_machine=${array[0]}
-    num_workers=$(( NUM_MACHINES - 1 ))
-    workers=${array[@]:1:NUM_MACHINES}
-
     ssh_exec "$RAY_LOCATION start --head --redis-port=$RAY_PORT" \
 	     "$root_machine"
 
@@ -79,6 +79,13 @@ then
 elif [ "$OPERATION" == "ray_stop" ]
 then
     ssh_exec "$RAY_LOCATION stop" $instances
+elif [ "$OPERATION" == "ssh" ]
+then
+    gcloud compute ssh "$USER@$root_machine"
+elif [ "$OPERATION" == "fix_firewall" ]
+then
+    gcloud compute firewall-rules create ssh --allow tcp:22 --source-ranges=0.0.0.0/0 --description="ssh"
+    gcloud compute firewall-rules create allow-tensorboard --allow tcp:6006 --source-ranges=0.0.0.0/0 --description="allow-tensorboard"
 else
     echo "Bad op"
 fi
