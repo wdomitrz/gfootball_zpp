@@ -26,8 +26,8 @@ do
 done
 
 function ssh_exec {
-    cmd="$1"
-    inst="$2"
+    local cmd="$1"
+    local inst="$2"
     for i in $inst
     do
 	echo "$i $cmd"
