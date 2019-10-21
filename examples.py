@@ -77,8 +77,7 @@ def example_single_agent():
 
             'env': 'gfootball', # environment was registered before
 
-            # example of custom metric
-            # can be found at
+            # example of custom metric can be found at
             # https://ray.readthedocs.io/en/latest/rllib-training.html#callbacks-and-custom-metrics
             #'callbacks': ,
 
@@ -88,7 +87,7 @@ def example_single_agent():
             # number of steps after episode is forced to terminate
             'horizon': None,
 
-            # sample_from
+            # gamma set with usage of tune.sample_from((spec->value))
             # https://ray.readthedocs.io/en/latest/tune-usage.html#tune-search-space-default
             'gamma': tune.sample_from(lambda spec: 0.99 if spec.config.horizon == None else 0.98),
 
@@ -173,7 +172,7 @@ def example_single_agent():
 
 # fixed version of
 # https://github.com/google-research/football/blob/master/gfootball/examples/run_multiagent_rllib.py
-# for more see https://github.com/ray-project/ray/blob/master/rllib/env/multi_agent_env.
+# for more see https://github.com/ray-project/ray/blob/master/rllib/env/multi_agent_env.py
 class RllibGFootball(MultiAgentEnv):
     """An example of a wrapper for GFootball to make it compatible with rllib."""
 
@@ -236,6 +235,7 @@ def example_multi_agent():
     act_space = single_env.action_space
 
     # the first tuple value is None -> uses default policy
+    # (policy, observation_space (gym), action_space (gym), policy_config(for example {gamma="0.23"}))
     def gen_policy():
         return (None, obs_space, act_space, {})
 
@@ -263,9 +263,11 @@ def example_multi_agent():
           'num_gpus': 1,
           'lr': 2.5e-4,
           'log_level': 'DEBUG',
-          # one policy applied to all iteratively
+          # in this case one policy is applied to all agents (one by one)
           'multiagent': {
               'policies': {'P1': gen_policy()},
+              
+              # specifies policy for each agent
               'policy_mapping_fn': tune.function(
                   lambda agent_id: 'P1'),
           },
