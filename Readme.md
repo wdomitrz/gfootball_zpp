@@ -1,6 +1,6 @@
-#### Ray utils
+# Ray utils
 
-### Provided file (examples.py) should be better source of information!!!! 
+# Provided file (examples.py) should be better source of information!!!! 
 
 ## Algorithms
 * common: https://ray.readthedocs.io/en/latest/rllib-training.html#common-parameters
