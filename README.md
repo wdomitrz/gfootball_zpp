@@ -1,0 +1,13 @@
+## Dokumenty
+* [ZPP log (log dla: UW,Henryka)](https://docs.google.com/document/d/1F90ttWgq6XfTBKmJoVkcgiPcrEjFmlhIYqdAHpSR8Pk/edit?ts=5db14a89#heading=h.y4y97jycxznj)
+* [Notatki ze spotkań](https://docs.google.com/document/d/1pAm-LEy9wWheGRkp9GPu8p829o_9NW8ldME_BAhxC-s/edit)
+
+## Papery
+### Algorytmy
+* [imapla](https://arxiv.org/abs/1802.01561)
+* [seed_rl](https://arxiv.org/abs/1910.06591)
+
+### Błażej 25.10.2019
+* M. Jaderberg, W. M. Czarnecki, et al. "Human-level performance in 3d multiplayer games with population-based reinforcement learning."
+* [S.  Liu,  G.  Lever,  N.  Heess,  J.  Merel,  S.  Tunyasuvunakool,  and  T.  Graepel.   Emergent coordination through competition.](https://arxiv.org/abs/1902.07151)
+* [J. Z. Leibo, E. Hughes, M. Lanctot, and T. Graepel.  Autocurricula and the emergence of innovation from social interaction:  A manifesto for multi-agent intelligence research.](https://arxiv.org/abs/1903.00742)
