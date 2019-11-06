@@ -3,6 +3,8 @@
 * [Notatki ze spotkań](https://docs.google.com/document/d/1pAm-LEy9wWheGRkp9GPu8p829o_9NW8ldME_BAhxC-s/edit)
 
 ## Papery
+* [gfootball](https://arxiv.org/abs/1907.11180) ([github](https://github.com/google-research/football))
+
 ### Algorytmy
 * [imapla](https://arxiv.org/abs/1802.01561)
 * [seed_rl](https://arxiv.org/abs/1910.06591)
