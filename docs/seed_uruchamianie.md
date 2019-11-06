@@ -22,6 +22,11 @@
 9. odpalamy
 10. jeżeli nie działa to `gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io`
 
+# seed na gcp
+* `./cluster_make.sh skonrad 1 start; ./cluster_make.sh skonrad 1 fix_firewall; ./cluster_make.sh skonrad 1 ssh;`
+* `./moj_seed.sh nick` (zmieni nazwy bucketow na `nick_seed_rl`; nazwe job też)
+* `cd nick_seed_rl`
+
 # tensorboard
 * `gcloud auth application-default login`
 * `tensorboard --logdir=gs://skonrad_seed_rl`
