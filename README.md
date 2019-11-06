@@ -7,9 +7,9 @@
 
 ### Algorytmy
 * [imapla](https://arxiv.org/abs/1802.01561)
-* [seed_rl](https://arxiv.org/abs/1910.06591)
+* [seed_rl](https://arxiv.org/abs/1910.06591) ([github](https://github.com/google-research/seed_rl))
 
 ### Błażej 25.10.2019
-* M. Jaderberg, W. M. Czarnecki, et al. "Human-level performance in 3d multiplayer games with population-based reinforcement learning."
+* M. Jaderberg, W. M. Czarnecki, et al. "Human-level performance in 3d multiplayer games with population-based reinforcement learning." (żeby pobrać trzeba użyć multiwyszukiwarki ze strony BUWu będąc zalogowanym)
 * [S.  Liu,  G.  Lever,  N.  Heess,  J.  Merel,  S.  Tunyasuvunakool,  and  T.  Graepel.   Emergent coordination through competition.](https://arxiv.org/abs/1902.07151)
 * [J. Z. Leibo, E. Hughes, M. Lanctot, and T. Graepel.  Autocurricula and the emergence of innovation from social interaction:  A manifesto for multi-agent intelligence research.](https://arxiv.org/abs/1903.00742)
