@@ -20,6 +20,7 @@
 	* https://github.com/google-research/seed_rl/blob/08fef21e1aa46f399ce225d3fdbb8f8cd737e7b8/gcp/setup.sh#L25
 	* https://github.com/google-research/seed_rl/blob/08fef21e1aa46f399ce225d3fdbb8f8cd737e7b8/gcp/setup.sh#L30
 9. odpalamy
+10. jeżeli nie działa to `gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io`
 
 # tensorboard
 * `gcloud auth application-default login`
