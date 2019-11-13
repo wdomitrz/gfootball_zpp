@@ -1,0 +1,2 @@
+log_dir="/home/staniszewskiconrad/logs/8runs_3vs1_multi_2_act_perm_fix_$1"
+OPENAI_LOG_FORMAT='stdout,log,csv,tensorboard' OPENAI_LOGDIR="$log_dir" python3 -m gfootball.examples.run_ppo2_act_perm --level=academy_3_vs_1_with_keeper --render=False --log_dir="$log_dir" --policy="gfootball_impala_cnn" --save_interval="50" --gamma="0.997" --num_envs="16" --nminibatches="8" --num_timesteps="500000000"  --lr="0.00011879" --cliprange="0.2"
