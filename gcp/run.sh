@@ -2,9 +2,9 @@
 
 set -e
 
-if [ "$#" -ne "5" ]
+if [ "$#" -ne "4" ]
 then
-    echo "JOB_NAME_PREFIX BUCKET_NAME AI_PLATFORM_CONFIG_FILE ENV_CONFIG_FILE SEED_PATH"
+    echo "JOB_NAME_PREFIX BUCKET_NAME AI_PLATFORM_CONFIG_FILE ENV_CONFIG_FILE"
     exit 1
 fi
 
@@ -12,7 +12,6 @@ JOB_NAME_PREFIX="$1"
 BUCKET_NAME="$2"
 AI_PLATFORM_CONFIG_FILE="$3"
 ENV_CONFIG_FILE="$4"
-export SEED_PATH="$5"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 CONFIG_OUT_FILE="/tmp/${JOB_NAME_PREFIX}.yaml"

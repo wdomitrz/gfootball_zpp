@@ -7,4 +7,4 @@ GRPC_IMAGE=gcr.io/seedimages/seed:grpc
 
 echo docker build --build-arg grpc_image=${GRPC_IMAGE} --build-arg seed_path=${SEED_PATH} -t seed_rl:${CONFIG} -f $DIR/Dockerfile.${CONFIG}
 
-docker build --build-arg grpc_image=${GRPC_IMAGE} --build-arg seed_path=${SEED_PATH} -t seed_rl:${CONFIG} -f $DIR/Dockerfile.${CONFIG} .
+docker build --build-arg grpc_image=${GRPC_IMAGE} --build-arg seed_path=${SEED_PATH} -t seed_rl:${CONFIG} -f $DIR/Dockerfile.${CONFIG} ..

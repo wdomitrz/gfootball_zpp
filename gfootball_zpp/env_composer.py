@@ -99,6 +99,10 @@ def config_compose_environment(config):
 
   return compose_environment(config, wrappers)
 
+
+def kwargs_compose_environment(**config):
+  return config_compose_environment(config)
+
 # def sample_composed_environment():
 #   return compose_environment(DEFAULT_EXTENDED_CONFIG, [
 #     dump_wrapper,

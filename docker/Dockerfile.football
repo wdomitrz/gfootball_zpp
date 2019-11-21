@@ -49,11 +49,11 @@ RUN python3 setup.py install
 WORKDIR /
 RUN pip3 install gfootball==1.3
 
-ADD . /gfootball_zpp/
+ADD ./gfootball_zpp /gfootball_zpp/
 WORKDIR /gfootball_zpp
 RUN pip3 install -e .
 
 # Copy SEED codebase and SEED GRPC library.
-ADD  $seed_path /seed_rl/
+ADD  ./seed_rl /seed_rl/
 WORKDIR /seed_rl
 ENTRYPOINT ["python", "gcp/run.py"]
