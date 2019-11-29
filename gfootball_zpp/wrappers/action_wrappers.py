@@ -2,7 +2,7 @@ import numpy as np
 import gym
 
 def encoded_player_position(observation):
-  team = 'left_team' if observation['is_left'] == True else 'right_team'
+  team = 'left_team' # if observation['is_left'] == True else 'right_team'
   player_id = observation['active']
   player_position = observation[team][player_id]
   return np.floor(player_position[0] * 1000.0) + player_position[1]
