@@ -92,7 +92,14 @@ def compose_environment(env_config, wrappers):
 
   return env
 
+def log_videos_when_logging(config):
+  if config['logdir'] != '':
+    config['enable_goal_videos'] = True
+    config['enable_full_episode_videos'] = True
+    config['write_video'] = True
+
 def config_compose_environment(config):
+  log_videos_when_logging(config)
   wrappers = []
   for w in config['wrappers'].split(','):
     wrappers.append(KNOWN_WRAPPERS[w])

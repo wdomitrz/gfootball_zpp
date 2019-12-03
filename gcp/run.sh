@@ -45,8 +45,8 @@ start_training () {
 
 ENV_CONFIG=$(cat "$ENV_CONFIG_FILE" | tr '\n' ' ')
 
-sed "s/ENV_CONFIG_HERE/${ENV_CONFIG}/g" "$AI_PLATFORM_CONFIG_FILE" > "$CONFIG_OUT_FILE"
-sed -i "s;\${IMAGE_URI};${IMAGE_URI};g" "$CONFIG_OUT_FILE"
-sed -i "s/\${CONFIG}/${CONFIG}/g" "$CONFIG_OUT_FILE"
-sed -i "s/\${WORKERS}/${WORKERS}/g" "$CONFIG_OUT_FILE"
+sed "s|ENV_CONFIG_HERE|${ENV_CONFIG}|g" "$AI_PLATFORM_CONFIG_FILE" > "$CONFIG_OUT_FILE"
+sed -i "s|\${IMAGE_URI}|${IMAGE_URI}|g" "$CONFIG_OUT_FILE"
+sed -i "s|\${CONFIG}|${CONFIG}|g" "$CONFIG_OUT_FILE"
+sed -i "s|\${WORKERS}|${WORKERS}|g" "$CONFIG_OUT_FILE"
 start_training
