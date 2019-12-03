@@ -7,6 +7,11 @@ from .wrappers.player_stack_wrapper import PlayerStackWrapper
 import collections
 import gym
 import numpy as np
+import subprocess
+import os
+import threading
+import time
+import tensorflow as tf
 
 class FrameStack(gym.Wrapper):
   """Stack k last observations."""
@@ -92,13 +97,37 @@ def compose_environment(env_config, wrappers):
 
   return env
 
+def upload_logs(local_logdir, remote_logdir):
+  tf.io.gfile.makedirs(remote_logdir)
+  while True:
+    local_files = tf.io.gfile.listdir(local_logdir)
+    remote_files = tf.io.gfile.listdir(remote_logdir)
+    diff = list(set(local_files) - set(remote_files))
+    for f in diff:
+      tf.io.gfile.copy(os.path.join(local_logdir, f),
+                       os.path.join(remote_logdir, f))
+    time.sleep(1)
+
+def remote_logs(config):
+  if config['logdir'] != '' and config['logdir'].startswith('gs://'):
+    pruned_logdir = config['logdir'].replace('/', '_').replace(':', '')
+    local_logdir = '/tmp/env_log/' + pruned_logdir
+    os.makedirs(local_logdir)
+    remote_logdir = config['logdir']
+    t = threading.Thread(target=upload_logs, args=(local_logdir, remote_logdir))
+    t.start()
+    # subprocess.Popen(['gsutil', 'rsync', local_logdir, remote_logdir])
+    config['logdir'] = local_logdir
+
 def log_videos_when_logging(config):
   if config['logdir'] != '':
     config['enable_goal_videos'] = True
     config['enable_full_episode_videos'] = True
     config['write_video'] = True
 
+
 def config_compose_environment(config):
+  remote_logs(config)
   log_videos_when_logging(config)
   wrappers = []
   for w in config['wrappers'].split(','):
