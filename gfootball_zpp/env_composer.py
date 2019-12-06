@@ -39,9 +39,38 @@ class FrameStack(gym.Wrapper):
   def _get_observation(self):
     return np.concatenate(list(self.obs), axis=-1)
 
+class PeriodicDumpWriter(gym.Wrapper):
+  """A wrapper that only dumps traces/videos periodically."""
+
+  def __init__(self, env, dump_frequency):
+    gym.Wrapper.__init__(self, env)
+    self._dump_frequency = dump_frequency
+    self._original_dump_config = {
+        'write_video': env._config['write_video'],
+        'dump_full_episodes': env._config['dump_full_episodes'],
+        'dump_scores': env._config['dump_scores'],
+    }
+    self._current_episode_number = 0
+
+  def step(self, action):
+    return self.env.step(action)
+
+  def reset(self):
+    if (self._dump_frequency > 0 and
+        (self._current_episode_number % self._dump_frequency == 0)):
+      self.env._config.update(self._original_dump_config)
+      #self.env.render()
+    else:
+      self.env._config.update({'write_video': False,
+                               'dump_full_episodes': False,
+                               'dump_scores': False})
+      self.env.disable_render()
+    self._current_episode_number += 1
+    return self.env.reset()
+  
 def dump_wrapper(env, config):
   if config['dump_frequency'] > 1:
-    return wrappers.PeriodicDumpWriter(env, config['dump_frequency'])
+    return PeriodicDumpWriter(env, config['dump_frequency'])
   else:
     return env
 
