@@ -18,9 +18,11 @@ class PlayerStackWrapper(gym.Env):
         obs_shape = np.array(env.observation_space.shape[1:])
         obs_shape[len(obs_shape) - 1] = self.frame_size * 4
 
-        print('!!!PlayerStackWrapper: Squashed observations to!!!', obs_shape, env.action_space)
+        print('!!!PlayerStackWrapper: Squashed observations to!!!',
+              obs_shape, env.action_space)
 
-        self.observation_space = gym.spaces.Box(low=0, high=255, shape=obs_shape, dtype=np.uint8)
+        self.observation_space = gym.spaces.Box(
+            low=0, high=255, shape=obs_shape, dtype=np.uint8)
         self.action_space = env.action_space
 
     def _convert_obs(self, observation):
@@ -36,7 +38,8 @@ class PlayerStackWrapper(gym.Env):
             elif layer_id == 3:
                 layer = observation[0, ..., j * 4 + 3]
                 for player_id in range(self.players):
-                    layer = np.maximum(layer, observation[player_id, ..., j * 4 + 3])
+                    layer = np.maximum(
+                        layer, observation[player_id, ..., j * 4 + 3])
             else:
                 layer = observation[0, ..., j * 4 + 2]
 
@@ -67,4 +70,3 @@ class PlayerStackWrapper(gym.Env):
 
     def seed(self, seed=None):
         return self.env.seed(seed)
-
