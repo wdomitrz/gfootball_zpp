@@ -1,0 +1,9 @@
+cd ..
+
+./run.sh self_play_11_vs_11_hard_s_1v1 skonrad_seed_rl aip_std_scoring.yaml selfplay_initial_experiments/11v11_hard_scoring.json
+
+./run.sh self_play_test skonrad_seed_rl aip_std_scoring.yaml selfplay_initial_experiments/1v1.json
+
+./run.sh self_play_11_vs_11_hard_s_3v0 selfplay_initial_experiments aip_std_scoring.yaml selfplay_initial_experiments/11v11_hard_scoring.json
+
+./run.sh self_play_11_vs_11_hard_s_0v3 selfplay_initial_experiments aip_std_scoring.yaml selfplay_initial_experiments/11v11_hard_scoring.json
