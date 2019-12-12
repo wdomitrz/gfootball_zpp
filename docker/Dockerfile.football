@@ -53,6 +53,11 @@ ADD ./gfootball_zpp /gfootball_zpp/
 WORKDIR /gfootball_zpp
 RUN pip3 install -e .
 
+RUN cp gfootball_zpp/scenarios/* /usr/local/lib/python3.6/dist-packages/gfootball/scenarios/
+RUN rm -rf /usr/local/lib/python3.6/dist-packages/gfootball/scenarios/__pycache__
+
+
+
 # Copy SEED codebase and SEED GRPC library.
 ADD  ./seed_rl /seed_rl/
 WORKDIR /seed_rl
