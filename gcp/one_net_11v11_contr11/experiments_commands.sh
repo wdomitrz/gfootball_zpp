@@ -6,4 +6,6 @@ cd ..
 
 ./run.sh easy_scor_11v11_contr11_action_order one_net_11v11_contr11 aip_std_scoring.yaml one_net_11v11_contr11/easy_scor_11v11_contr11_action_order.json
 
-cd -
+./run.sh easy_check_11v11_contr11_action_order_smaller_lr one_net_11v11_contr11 one_net_11v11_contr11/checkpoints_smaller_lr.yaml one_net_11v11_contr11/easy_check_11v11_contr11_action_order.json
+
+./run.sh easy_check_11v11_contr11_action_order_vtrace_modification one_net_11v11_contr11 aip_std_checkpoints.yaml one_net_11v11_contr11/easy_check_11v11_contr11_action_order.json
