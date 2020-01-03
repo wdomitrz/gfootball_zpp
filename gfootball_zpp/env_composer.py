@@ -4,6 +4,7 @@ from gfootball.env import wrappers
 
 from .wrappers.action_wrappers import ActionOrder
 from .wrappers.player_stack_wrapper import PlayerStackWrapper
+from .wrappers.old_2_multihead_nets import MultiHeadNets2
 import collections
 import gym
 import numpy as np
@@ -104,6 +105,7 @@ KNOWN_WRAPPERS = {
     'obs_stack': lambda env, config: FrameStack(env, config['stacked_frames']),
     'action_order': ActionOrder,
     'psw': PlayerStackWrapper,
+    'old_w': MultiHeadNets2,
 }
 
 
