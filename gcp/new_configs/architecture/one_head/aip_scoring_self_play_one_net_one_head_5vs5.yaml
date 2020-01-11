@@ -7,7 +7,7 @@ trainingInput:
       type: NVIDIA_TESLA_P100
     imageUri: ${IMAGE_URI}:${CONFIG}
   workerCount: ${WORKERS}
-  workerType: n1-standard-8
+  workerType: n1-highmem-8
   workerConfig:
     imageUri: ${IMAGE_URI}:${CONFIG}
   parameterServerCount: 0
