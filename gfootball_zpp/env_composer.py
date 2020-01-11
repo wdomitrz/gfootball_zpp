@@ -5,6 +5,7 @@ from gfootball.env import wrappers
 from .wrappers.action_wrappers import ActionOrder
 from .wrappers.player_stack_wrapper import PlayerStackWrapper
 from .wrappers.old_2_multihead_nets import MultiHeadNets2
+from .wrappers.old_1_multihead_net import MultiHeadNet
 import collections
 import gym
 import numpy as np
@@ -106,6 +107,7 @@ KNOWN_WRAPPERS = {
     'action_order': ActionOrder,
     'psw': PlayerStackWrapper,
     'old_w': MultiHeadNets2,
+    'old_single_map': MultiHeadNet
 }
 
 

@@ -25,7 +25,8 @@ trainingInput:
     - parameterName: nnm_config
       type: CATEGORICAL
       categoricalValues:
-      - '{"network_actions_spec": [[19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19]], "observation_to_network_mapping": [0, 0], "network_learning": [true] }'
+      - '{"network_actions_spec": [[19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19]], "observation_to_network_mapping": [0, 0], "network_learning": [true],
+      "network_config": [{"sample_actions": true}]}'
     - parameterName: inference_batch_size
       type: INTEGER
       minValue: 64
