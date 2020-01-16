@@ -30,3 +30,8 @@
 # tensorboard
 * `gcloud auth application-default login`
 * `tensorboard --logdir=gs://skonrad_seed_rl`
+
+# Zmienianie regionu
+* `gcloud compute regions list` listuje dostępne regiony z zajęciem i dostępnością zasobów,
+* `gcloud config set compute/region <NAME>` ustawia region,
+* `gcloud config unset compute/region` resetuje region do domyślnego.
