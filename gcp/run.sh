@@ -2,9 +2,8 @@
 
 set -e
 
-if [ "$#" -ne "4" ]
-then
-    echo "JOB_NAME_PREFIX BUCKET_NAME AI_PLATFORM_CONFIG_FILE ENV_CONFIG_FILE"
+if [ "$#" -ne "4" ] && [ "$#" -ne "5" ] ; then
+    echo "JOB_NAME_PREFIX BUCKET_NAME AI_PLATFORM_CONFIG_FILE ENV_CONFIG_FILE REGION(default=us-central1)"
     exit 1
 fi
 
@@ -12,6 +11,11 @@ JOB_NAME_PREFIX="$1"
 BUCKET_NAME="$2"
 AI_PLATFORM_CONFIG_FILE="$3"
 ENV_CONFIG_FILE="$4"
+if [ "$#" -ne "5" ] ; then
+    REGION="us-central1"
+else
+    REGION="$5"
+fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 CONFIG_OUT_FILE="/tmp/${JOB_NAME_PREFIX}.yaml"
@@ -36,7 +40,7 @@ start_training () {
   gcloud beta ai-platform jobs submit training ${JOB_NAME} \
     --project=${PROJECT_ID} \
     --job-dir "gs://${BUCKET_NAME}/${JOB_NAME}" \
-    --region us-central1 \
+    --region "$REGION" \
     --config "$CONFIG_OUT_FILE" \
     --stream-logs -- --environment=${ENVIRONMENT} --agent=${AGENT} \
     --actors_per_worker=${ACTORS_PER_WORKER} --workers=${WORKERS} --
