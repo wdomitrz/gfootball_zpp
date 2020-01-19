@@ -45,6 +45,8 @@ class MultiHeadNets2(gym.Env):
                 conv_obs[1, ..., i] = layer2
             else:
                 layer = observation[0, ..., j * 4 + 2]
+                conv_obs[0, ..., i] = layer
+                conv_obs[1, ..., i] = layer
 
             
             #print(np.where(conv_obs > 0))
