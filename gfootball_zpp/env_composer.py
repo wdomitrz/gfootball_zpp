@@ -6,6 +6,7 @@ from .wrappers.action_wrappers import ActionOrder
 from .wrappers.player_stack_wrapper import PlayerStackWrapper
 from .wrappers.old_2_multihead_nets import MultiHeadNets2
 from .wrappers.old_1_multihead_net import MultiHeadNet
+from .wrappers.ball_ownership import BallOwnershipRewardWrapper
 import collections
 import gym
 import numpy as np
@@ -88,6 +89,10 @@ def checkpoint_wrapper(env, config):
         return env
 
 
+def ball_ownership_reward_wrapper(env, config):
+    return BallOwnershipRewardWrapper(env)
+
+
 def single_agent_wrapper(env, config):
     if (config['number_of_left_players_agent_controls'] +
             config['number_of_right_players_agent_controls'] == 1):
@@ -101,6 +106,7 @@ def single_agent_wrapper(env, config):
 KNOWN_WRAPPERS = {
     'periodic_dump': dump_wrapper,
     'checkpoint_score': checkpoint_wrapper,
+    'ball_ownership_reward': ball_ownership_reward_wrapper,
     'single_agent': single_agent_wrapper,
     'obs_extract': lambda env, config: wrappers.SMMWrapper(env, config['channel_dimensions']),
     'obs_stack': lambda env, config: FrameStack(env, config['stacked_frames']),
