@@ -27,7 +27,7 @@ class BallOwnershipRewardWrapper(gym.RewardWrapper):
         for rew_index in range(len(reward)):
             o = observation[rew_index]
 
-            if 'ball_owned_team' not in o:
+            if 'ball_owned_team' in o:
                 if o['ball_owned_team'] == 0:
                     reward[rew_index] += self._ball_ownership_reward
                 elif o['ball_owned_team'] == 1:
