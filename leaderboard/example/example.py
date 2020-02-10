@@ -4,13 +4,14 @@ from absl import app
 from absl import logging
 from gfootball.env import create_environment, create_remote_environment
 import grpc
+from gym import spaces
 
 from network import GFootball
 from old_1_multihead_net import MultiHeadNet
 import observation
 
 
-flags.DEFINE_string('ckpt', './f5v5_bots_one_net_then_self_play_3_2_1_ckpt_0_ckpt-456', 'Path to checkpoint')
+flags.DEFINE_string('ckpt', '', 'Path to checkpoint')
 flags.DEFINE_string('username', 'multiPandasUW', 'Username to use')
 flags.DEFINE_string('token', None, 'Token to use.')
 flags.mark_flag_as_required('token')
@@ -35,6 +36,9 @@ def convert_observations(obs):
 
 
 def wrap_env(env):
+    # It's not present in remote env
+    env.observation_space = spaces.Box(0, 255, (4, 72, 96, 16))
+
     env = MultiHeadNet(env, ())
 
     # Used in order to maintain compatibility with network
@@ -76,6 +80,12 @@ def example_play_with_bots():
         print(action)
         obs, rew, done, _ = env.step(action)
 
+def seed_rl_preprocessing(observation):
+  observation = np.expand_dims(observation, axis=0)
+  data = np.packbits(observation, axis=-1)  # This packs to uint8
+  if data.shape[-1] % 2 == 1:
+    data = np.pad(data, [(0, 0)] * (data.ndim - 1) + [(0, 1)], 'constant')
+  return data.view(np.uint16)
 
 def leaderboard(unused_argv):
   env = create_remote_environment(
@@ -84,7 +94,7 @@ def leaderboard(unused_argv):
   env = wrap_env(env)
   obs = env.reset()
   model = restore_checkpoint(env, obs)
-  for _ in range(FLAGS.how_many):
+  for game_number in range(FLAGS.how_many):
       ob = obs
       cnt = 1
       done = False
@@ -100,6 +110,8 @@ def leaderboard(unused_argv):
           except grpc.RpcError as e:
               print(e)
               break
+      if game_number < FLAGS.how_many - 1:
+          obs = env.reset()
       print('=' * 50)
 
 def leaderboard_test(unused_argv):
@@ -128,6 +140,5 @@ def leaderboard_test(unused_argv):
     print('=' * 50)
 
 
-
 if __name__ == '__main__':
-    app.run(leaderboard)
+    app.run(leaderboard_test)
