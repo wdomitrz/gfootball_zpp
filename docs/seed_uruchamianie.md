@@ -33,4 +33,4 @@
 
 # Zmienianie regionu uruchamiania seed-a
 * `gcloud compute regions list` listuje dostępne regiony z zajęciem i dostępnością zasobów,
-* sklrypt `run.sh` ma 5., opcjonalny parametr - nazwę regionu z domyślną wartością `us-central1` (tak, jak teraz zawsze). Jeśli zostanie podana odpowiednia nazwa regionu, to seed zostanie uruchomiony w tym regionie.
+* skrypt `run.sh` ma 5., opcjonalny parametr - nazwę regionu z domyślną wartością `us-central1` (tak, jak teraz zawsze). Jeśli zostanie podana odpowiednia nazwa regionu, to seed zostanie uruchomiony w tym regionie.
