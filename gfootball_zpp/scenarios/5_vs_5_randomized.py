@@ -17,12 +17,13 @@
 
 
 
+import random
 from gfootball.scenarios import *
 
 def build_scenario(builder):
   builder.config().game_duration = 3000
-  builder.config().right_team_difficulty = 0.05
-  builder.config().left_team_difficulty = 0.05
+  builder.config().right_team_difficulty = random.random()
+  builder.config().left_team_difficulty = random.random()
   builder.config().deterministic = False
   if builder.EpisodeNumber() % 2 == 0:
     first_team = Team.e_Left
