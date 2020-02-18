@@ -4,6 +4,7 @@ from absl import app
 from absl import logging
 from gfootball.env import create_environment, create_remote_environment
 import grpc
+import time
 from gym import spaces
 
 from network import GFootball
@@ -88,31 +89,38 @@ def seed_rl_preprocessing(observation):
   return data.view(np.uint16)
 
 def leaderboard(unused_argv):
-  env = create_remote_environment(
-      FLAGS.username, FLAGS.token, FLAGS.model_name, track=FLAGS.track,
-      representation='raw', stacked=True, include_rendering=FLAGS.render)
-  env = wrap_env(env)
-  obs = env.reset()
-  model = restore_checkpoint(env, obs)
-  for game_number in range(FLAGS.how_many):
-      ob = obs
-      cnt = 1
-      done = False
-      while not done:
-          try:
-              ob = convert_observations(ob)
-              agent_output, _ = model(ob, ())
-              action = agent_output.action.numpy().flatten()
-              ob, rew, done, _ = env.step(action)
-              logging.info('Playing the game, step %d, action %s, rew %s, done %d',
-                           cnt, action, rew, done)
-              cnt += 1
-          except grpc.RpcError as e:
-              print(e)
-              break
-      if game_number < FLAGS.how_many - 1:
-          obs = env.reset()
-      print('=' * 50)
+  game_number = 0
+  while game_number < FLAGS.how_many:
+      print('Creating environment...')
+      env = create_remote_environment(
+          FLAGS.username, FLAGS.token, FLAGS.model_name, track=FLAGS.track,
+          representation='extracted', stacked=True, include_rendering=FLAGS.render)
+      env = wrap_env(env)
+      obs = env.reset()
+      model = restore_checkpoint(env, obs)
+      print('Restored checkpoint. Starting game.')
+      while game_number < FLAGS.how_many:
+          ob = obs
+          cnt = 1
+          done = False
+          while not done:
+              try:
+                  ob = convert_observations(ob)
+                  agent_output, _ = model(ob, ())
+                  action = agent_output.action.numpy().flatten()
+                  ob, rew, done, _ = env.step(action)
+                  logging.info('Playing the game, step %d, action %s, rew %s, done %d',
+                               cnt, action, rew, done)
+                  cnt += 1
+              except grpc.RpcError as e:
+                  print(e)
+                  print('Waiting 1 minute before retrying...')
+                  time.sleep(60)
+                  break
+          game_number += 1
+          if game_number < FLAGS.how_many:
+              obs = env.reset()
+          print('=' * 50)
 
 def leaderboard_test(unused_argv):
   env = create_environment('5_vs_5', stacked=True, representation='extracted',
