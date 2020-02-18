@@ -1,6 +1,6 @@
 # Tutorial seed
 1. instalujemy docker
-2. dodajemy się do grupy docker `usermod -aG docker $USER` 
+2. dodajemy się do grupy docker `usermod -aG docker $USER`
    (ważne jak ktoś odpala z sudo (czyli jako inny user) to dostanie od gcloud)
 	`
 	unauthorized: You don't have the needed permissions to perform this operation,
@@ -30,3 +30,7 @@
 # tensorboard
 * `gcloud auth application-default login`
 * `tensorboard --logdir=gs://skonrad_seed_rl`
+
+# Zmienianie regionu uruchamiania seed-a
+* `gcloud compute regions list` listuje dostępne regiony z zajęciem i dostępnością zasobów,
+* skrypt `run.sh` ma 5., opcjonalny parametr - nazwę regionu z domyślną wartością `us-central1` (tak, jak teraz zawsze). Jeśli zostanie podana odpowiednia nazwa regionu, to seed zostanie uruchomiony w tym regionie.

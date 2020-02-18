@@ -47,7 +47,7 @@ RUN sed -i.bak -e "s@'tf-nightly-gpu'@'tf-nightly-gpu', 'tf-nightly-2.0-preview'
 RUN python3 setup.py install
 
 WORKDIR /
-RUN pip3 install gfootball==2.0
+RUN pip3 install gfootball==2.0.4
 
 ADD ./gfootball_zpp /gfootball_zpp/
 WORKDIR /gfootball_zpp
