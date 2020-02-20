@@ -21,13 +21,15 @@ from gfootball.scenarios import *
 
 def build_scenario(builder):
     builder.config().game_duration = 3000
-    builder.config().right_team_difficulty = 0.00001
-    builder.config().left_team_difficulty = 0.00001
     builder.config().deterministic = False
     if builder.EpisodeNumber() % 2 == 0:
+        builder.config().right_team_difficulty = 0.00001
+        builder.config().left_team_difficulty = 0.05
         first_team = Team.e_Left
         second_team = Team.e_Right
     else:
+        builder.config().right_team_difficulty = 0.05
+        builder.config().left_team_difficulty = 0.00001
         first_team = Team.e_Right
         second_team = Team.e_Left
     builder.SetTeam(first_team)
