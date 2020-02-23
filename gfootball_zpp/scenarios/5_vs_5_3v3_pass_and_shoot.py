@@ -23,17 +23,17 @@ def build_scenario(builder):
     builder.config().end_episode_on_score = True
     builder.config().end_episode_on_out_of_play = True
     builder.config().end_episode_on_possession_change = True
-    builder.SetBallPosition(0.77, 0.000000)
+    builder.SetBallPosition(0.68, 0.000000)
 
     builder.SetTeam(Team.e_Left)
     builder.AddPlayer(-1.000000, 0.000000, e_PlayerRole_GK, controllable=False)
-    builder.AddPlayer(0.700000,  0.000000, e_PlayerRole_RM)
-    builder.AddPlayer(0.850000, -0.100000, e_PlayerRole_LM)
-    builder.AddPlayer(0.850000,  0.100000, e_PlayerRole_CF)
+    builder.AddPlayer(0.670000,  0.000000, e_PlayerRole_RM)
+    builder.AddPlayer(0.850000, -0.150000, e_PlayerRole_LM)
+    builder.AddPlayer(0.850000,  0.150000, e_PlayerRole_RM)
     builder.AddPlayer(0.000000,  0.000000, e_PlayerRole_CF)
     builder.SetTeam(Team.e_Right)
     builder.AddPlayer(-1.000000, 0.000000, e_PlayerRole_GK, controllable=False)
-    builder.AddPlayer(-0.750000, 0.000000, e_PlayerRole_RM)
+    builder.AddPlayer(-0.770000, 0.000000, e_PlayerRole_RM)
     builder.AddPlayer(-0.820000, -0.080000, e_PlayerRole_CF)
     builder.AddPlayer(-0.840000, -0.080000, e_PlayerRole_LB)
     builder.AddPlayer(1.000000,  0.900000, e_PlayerRole_CB)
