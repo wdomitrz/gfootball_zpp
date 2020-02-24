@@ -1,5 +1,6 @@
 from gfootball.env import player_base
-from gfootball_zpp.players import build_policy, restore_checkpoint
+from gfootball_zpp.players.players import build_policy, restore_checkpoint
+from gfootball_zpp.players.utils import ObservationStacker
 
 
 class Player(player_base.PlayerBase):
@@ -14,20 +15,18 @@ class Player(player_base.PlayerBase):
 
         self._action_set = 'default'
         self._player_prefix = 'player_{}'.format(player_config['index'])
-        # todo: stack observations if needed
-        # stacking = 4 if player_config.get('stacked', True) else 1
+        stacking = 4 #if player_config.get('stacked', True) else 1
+        self._stacker = ObservationStacker(stacking)
         policy = player_config.get('policy', '')
 
         self._policy, self._convert_observation = build_policy(
-            policy, self.num_controlled_players())
-        restore_checkpoint(self._policy, player_config.get('checkpoint', None))
+            policy, self.num_controlled_players(), player_config.get('checkpoint', None))
 
     def take_action(self, observation):
+        print(observation)
         observation = self._convert_observation(observation)
-        agent_output, _ = self._policy(observation)
-        action = agent_output.action
-        return action
+        observation = self._stacker.get(observation)
+        return self._policy(observation)
 
     def reset(self):
-        # todo: reset stacking
-        pass
+        self._stacker.reset()

@@ -1,4 +1,3 @@
-from .utils import AgentOutput
 from numpy import random
 
 
@@ -8,11 +7,10 @@ class RandomPolicy:
         self.actions = output_actions
 
     def __call__(self, *args, **kwargs):
-        return AgentOutput(random.randint(0, 19, self.actions),
-                           None, None), None
+        return random.randint(0, 19, self.actions)
 
 
-def create_net(controlled_players):
+def create_net(controlled_players, checkpoint):
     return RandomPolicy(controlled_players)
 
 

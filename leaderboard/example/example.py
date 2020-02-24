@@ -7,7 +7,7 @@ import grpc
 import time
 from gym import spaces
 
-from network import GFootball
+from gfootball_zpp.players.network import GFootball
 from old_1_multihead_net import MultiHeadNet
 import observation
 
