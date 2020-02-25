@@ -34,7 +34,7 @@ def build_scenario(builder):
         random.triangular(-1.000000, 1.000000, 0.000000))
     builder.SetTeam(first_team)
     builder.AddPlayer(-1.000000, 0.000000, e_PlayerRole_GK, controllable=False)
-    builder.AddPlayep(
+    builder.AddPlayer(
         random.triangular(-1.000000, 1.000000, 0.000000),
         random.triangular(-1.000000, 1.000000, 0.000000), e_PlayerRole_RM)
     builder.AddPlayer(
