@@ -54,8 +54,8 @@ trainingInput:
       scaleType: UNIT_LOG_SCALE
     - parameterName: entropy_cost
       type: DOUBLE
-      minValue: 0.00027330944745454107
-      maxValue: 0.00027330944745454107
+      minValue: 0.0007330944745454107
+      maxValue: 0.0007330944745454107
       scaleType: UNIT_LOG_SCALE
     - parameterName: lambda_
       type: DOUBLE
@@ -64,6 +64,6 @@ trainingInput:
       scaleType: UNIT_LOG_SCALE
     - parameterName: learning_rate
       type: DOUBLE
-      maxValue: 0.0002542101122072784
-      minValue: 0.0002542101122072784
+      maxValue: 0.00022542101122072784
+      minValue: 0.00022542101122072784
       scaleType: UNIT_LOG_SCALE
