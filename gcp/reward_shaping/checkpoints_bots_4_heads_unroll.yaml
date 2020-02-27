@@ -34,13 +34,13 @@ trainingInput:
       scaleType: UNIT_LOG_SCALE
     - parameterName: batch_size
       type: INTEGER
-      minValue: 32
-      maxValue: 32
+      minValue: 8
+      maxValue: 8
       scaleType: UNIT_LOG_SCALE
     - parameterName: unroll_length
       type: INTEGER
-      minValue: 32
-      maxValue: 32
+      minValue: 128
+      maxValue: 128
       scaleType: UNIT_LOG_SCALE
     - parameterName: total_environment_frames
       type: INTEGER
