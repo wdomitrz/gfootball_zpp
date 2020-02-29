@@ -1,0 +1,20 @@
+{
+    "env_name": "5_vs_5_less_randomized",
+    "enable_goal_videos": false,
+    "enable_full_episode_videos": false,
+    "logdir": "",
+    "enable_sides_swap": false,
+    "number_of_left_players_agent_controls": 4,
+    "number_of_right_players_agent_controls": 0,
+    "extra_players": null,
+    "render": false,
+    "write_video": false,
+    "stacked_frames": 4,
+    "channel_dimensions": [
+        96,
+        72
+    ],
+    "rewards": "scoring,checkpoints",
+    "dump_frequency": 10,
+    "wrappers": "periodic_dump,checkpoint_score,obs_extract,single_agent,obs_stack"
+}
