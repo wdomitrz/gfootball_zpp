@@ -1,0 +1,76 @@
+trainingInput:
+  scaleTier: CUSTOM
+  masterType: n1-highmem-32
+  masterConfig:
+    acceleratorConfig:
+      count: 4
+      type: NVIDIA_TESLA_P100
+    imageUri: ${IMAGE_URI}:${CONFIG}
+  workerCount: ${WORKERS}
+  workerType: n1-highmem-8
+  workerConfig:
+    imageUri: ${IMAGE_URI}:${CONFIG}
+  parameterServerCount: 0
+  hyperparameters:
+    goal: MAXIMIZE
+    hyperparameterMetricTag: episode_return
+    maxTrials: 10
+    maxParallelTrials: 1
+    enableTrialEarlyStopping: True
+    params:
+    - parameterName: env_config
+      type: CATEGORICAL
+      categoricalValues:
+      - 'ENV_CONFIG_HERE'
+    - parameterName: nnm_config
+      type: CATEGORICAL
+      categoricalValues:
+      - '{"network_actions_spec": [[19], [19], [19], [19]],
+      "observation_to_network_mapping": [0, 1, 2, 3],
+      "network_learning": [true, true, true, true],
+      "network_config": [{"sample_actions": true}]}'
+    - parameterName: inference_batch_size
+      type: INTEGER
+      minValue: 64
+      maxValue: 64
+      scaleType: UNIT_LOG_SCALE
+    - parameterName: batch_size
+      type: INTEGER
+      minValue: 32
+      maxValue: 32
+      scaleType: UNIT_LOG_SCALE
+    - parameterName: unroll_length
+      type: INTEGER
+      minValue: 32
+      maxValue: 32
+      scaleType: UNIT_LOG_SCALE
+    - parameterName: total_environment_frames
+      type: INTEGER
+      minValue: 2000000000
+      maxValue: 2000000000
+      scaleType: UNIT_LOG_SCALE
+    - parameterName: discounting
+      type: DOUBLE
+      minValue: 0.997
+      maxValue: 0.997
+      scaleType: UNIT_LOG_SCALE
+    - parameterName: entropy_cost
+      type: DOUBLE
+      minValue: 0.00027330944745454107
+      maxValue: 0.00027330944745454107
+      scaleType: UNIT_LOG_SCALE
+    - parameterName: lambda_
+      type: DOUBLE
+      minValue: 1
+      maxValue: 1
+      scaleType: UNIT_LOG_SCALE
+    - parameterName: learning_rate
+      type: DOUBLE
+      maxValue: 0.00012542101122072784
+      minValue: 0.00012542101122072784
+      scaleType: UNIT_LOG_SCALE
+    - parameterName: loss_adjust_factor
+      type: DOUBLE
+      maxValue: 4.0
+      minValue: 4.0
+      scaleType: UNIT_LOG_SCALE
