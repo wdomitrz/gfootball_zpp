@@ -1,9 +1,9 @@
 trainingInput:
   scaleTier: CUSTOM
-  masterType: n1-highmem-16
+  masterType: n1-highmem-32
   masterConfig:
     acceleratorConfig:
-      count: 1
+      count: 4
       type: NVIDIA_TESLA_P100
     imageUri: ${IMAGE_URI}:${CONFIG}
   workerCount: ${WORKERS}
@@ -25,7 +25,7 @@ trainingInput:
     - parameterName: nnm_config
       type: CATEGORICAL
       categoricalValues:
-      - '{"network_actions_spec": [[19, 19, 19, 19]], "observation_to_network_mapping": [0], "network_learning": [true],
+      - '{"network_actions_spec": [[19, 19, 19, 19]], "observation_to_network_mapping": [0, 0], "network_learning": [true],
       "network_config": [{"sample_actions": true}]}'
     - parameterName: inference_batch_size
       type: INTEGER
@@ -54,8 +54,8 @@ trainingInput:
       scaleType: UNIT_LOG_SCALE
     - parameterName: entropy_cost
       type: DOUBLE
-      minValue: 0.0007330944745454107
-      maxValue: 0.0007330944745454107
+      minValue: 0.00027330944745454107
+      maxValue: 0.00027330944745454107
       scaleType: UNIT_LOG_SCALE
     - parameterName: lambda_
       type: DOUBLE
