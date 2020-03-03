@@ -1,6 +1,7 @@
 import gym
 import numpy as np
 
+
 class MultiHeadNet(gym.Env):
     """Supports only extracted observations (stacked)"""
 
@@ -19,7 +20,8 @@ class MultiHeadNet(gym.Env):
 
         print('!!Squashed observations to!!', obs_shape)
 
-        self.observation_space = gym.spaces.Box(low=0, high=255, shape=obs_shape, dtype=np.uint8)
+        self.observation_space = gym.spaces.Box(
+            low=0, high=255, shape=obs_shape, dtype=np.uint8)
         self.action_space = env.action_space
 
     def _convert_obs(self, observation):
@@ -43,7 +45,6 @@ class MultiHeadNet(gym.Env):
                 layer = observation[0, ..., j * 4 + 2]
                 conv_obs[0, ..., i] = layer
 
-            
             #print(np.where(conv_obs > 0))
 
         return conv_obs
@@ -52,7 +53,7 @@ class MultiHeadNet(gym.Env):
         observation, reward, done, info = self.env.step(action)
 
         observation = self._convert_obs(observation)
-        reward = np.array([reward[0]])
+        reward = np.array([np.max(reward)])
 
         return observation, reward, done, info
 

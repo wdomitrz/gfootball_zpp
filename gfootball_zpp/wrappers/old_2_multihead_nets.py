@@ -1,6 +1,7 @@
 import gym
 import numpy as np
 
+
 class MultiHeadNets2(gym.Env):
     """Supports only extracted observations (stacked)"""
 
@@ -13,13 +14,16 @@ class MultiHeadNets2(gym.Env):
 
         # observation shape will be (_, _, 4*frame_size)
         self.players = env.observation_space.shape[0]
+        self.left_players = env_config["number_of_left_players_agent_controls"]
+        self.right_players = env_config["number_of_right_players_agent_controls"]
         self.frame_size = 2 + (self.players // 2) + 1
         obs_shape = np.array((2,) + env.observation_space.shape[1:])
         obs_shape[len(obs_shape) - 1] = self.frame_size * 4
 
         print('!!Squashed observations to!!', obs_shape)
 
-        self.observation_space = gym.spaces.Box(low=0, high=255, shape=obs_shape, dtype=np.uint8)
+        self.observation_space = gym.spaces.Box(
+            low=0, high=255, shape=obs_shape, dtype=np.uint8)
         self.action_space = env.action_space
 
     def _convert_obs(self, observation):
@@ -40,7 +44,8 @@ class MultiHeadNets2(gym.Env):
             elif layer_id >= 2 and layer_id < self.frame_size - 1:
                 player_id = layer_id - 2
                 layer1 = observation[player_id, ..., j * 4 + 3]
-                layer2 = observation[(observation.shape[0] // 2) + player_id, ..., j * 4 + 3]
+                layer2 = observation[(
+                    observation.shape[0] // 2) + player_id, ..., j * 4 + 3]
                 conv_obs[0, ..., i] = layer1
                 conv_obs[1, ..., i] = layer2
             else:
@@ -48,7 +53,6 @@ class MultiHeadNets2(gym.Env):
                 conv_obs[0, ..., i] = layer
                 conv_obs[1, ..., i] = layer
 
-            
             #print(np.where(conv_obs > 0))
 
         return conv_obs
@@ -57,7 +61,7 @@ class MultiHeadNets2(gym.Env):
         observation, reward, done, info = self.env.step(action)
 
         observation = self._convert_obs(observation)
-        reward = np.array([reward[0], reward[-1]])
+        reward = np.array([np.max(reward[:self.left_players]), np.max(reward[self.left_players:])])
 
         return observation, reward, done, info
 
