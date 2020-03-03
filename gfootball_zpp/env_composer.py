@@ -7,6 +7,7 @@ from .wrappers.player_stack_wrapper import PlayerStackWrapper
 from .wrappers.old_2_multihead_nets import MultiHeadNets2
 from .wrappers.old_1_multihead_net import MultiHeadNet
 from .wrappers.ball_ownership import BallOwnershipRewardWrapper
+from .wrappers.recreatable_env import create_recreatable_football
 import collections
 import gym
 import numpy as np
@@ -127,7 +128,7 @@ def compose_environment(env_config, wrappers):
     if env_config['extra_players'] is not None:
         players.extend(env_config['extra_players'])
     env_config['players'] = players
-    c = config.Config(extract_from_dict(env_config,
+    football_config = extract_from_dict(env_config,
                                         [('enable_sides_swap', 'enable_sides_swap'),
                                          ('dump_full_episodes',
                                           'enable_full_episode_videos'),
@@ -136,8 +137,11 @@ def compose_environment(env_config, wrappers):
                                             ('players', 'players'),
                                             ('render', 'render'),
                                             ('tracesdir', 'logdir'),
-                                            ('write_video', 'write_video')]))
-    env = football_env.FootballEnv(c)
+                                            ('write_video', 'write_video')])
+    if 'env_change_rate' not in env_config:
+        env = football_env.FootballEnv(config.Config(football_config))
+    else:
+        env = create_recreatable_football(env_config, football_config)
 
     for w in wrappers:
         env = w(env, env_config)

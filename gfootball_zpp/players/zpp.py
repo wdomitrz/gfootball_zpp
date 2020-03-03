@@ -1,5 +1,5 @@
 from gfootball.env import player_base
-from gfootball_zpp.players.players import build_policy, restore_checkpoint
+from gfootball_zpp.players.players import build_policy
 from gfootball_zpp.players.utils import ObservationStacker
 
 
