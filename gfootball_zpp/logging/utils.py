@@ -65,6 +65,9 @@ class LogAPI(gym.Wrapper):
         else:
             self._decide_if_log_fn = lambda actor_id: actor_id == 0
 
+        if 'step_log_freq' not in config:
+                config['step_log_freq'] = 10 * config['dump_frequency']
+
         if (self._actor_id is not None) and \
            (self._base_logdir is not None) and \
            (self._decide_if_log_fn(self._actor_id)):
@@ -73,9 +76,6 @@ class LogAPI(gym.Wrapper):
 
             config['tb_logdir'] = os.path.join(self._base_logdir, 'env_tb')
             make_logdir_dirs(config['tb_logdir'])
-
-            if 'step_log_freq' not in config:
-                config['step_log_freq'] = 10 * config['dump_frequency']
 
             enable_video_logs(config)
 
