@@ -22,6 +22,10 @@ def upload_logs(local_logdir, remote_logdir):
 
 
 def fix_remote_logdir(logdir):
+    """gs://... directory does not work with gfootball
+    this function fixes that by creating local logdir
+    and syncing it with remote one"""
+
     if logdir.startswith('gs://'):
         pruned_logdir = logdir.replace('/', '_').replace(':', '')
         local_logdir = '/tmp/env_log/' + pruned_logdir
@@ -43,6 +47,14 @@ def enable_video_logs(config):
 
 
 class LogAPI(gym.Wrapper):
+    """Transparent wrapper that enables logging
+
+    Functionalities:
+    * decides whenever to enable logs ('decide_to_log_fn')
+    * adds specific logdirs to config (based of 'base_logdir')
+    etc
+    """
+
     def __init__(self, env, config):
         gym.Wrapper.__init__(self, env)
         self._actor_id = config['actor_id']
@@ -53,7 +65,9 @@ class LogAPI(gym.Wrapper):
         else:
             self._decide_if_log_fn = lambda actor_id: actor_id == 0
 
-        if self._decide_if_log_fn(self._actor_id):
+        if (self._actor_id is not None) and \
+           (self._base_logdir is not None) and \
+           (self._decide_if_log_fn(self._actor_id)):
             dumps_logdir = os.path.join(self._base_logdir, 'env_dumps')
             config['logdir'] = fix_remote_logdir(dumps_logdir)
 
@@ -83,6 +97,10 @@ def get_summary_writer(config):
     return config['summary_writer']
 
 class LogBasicTracker(gym.Wrapper):
+    """Base class for log wrappers
+    Keeps track of basic statistics used by most wrappers
+    """
+
     def __init__(self, env, config):
         gym.Wrapper.__init__(self, env)
         self.env_resets = 0
