@@ -8,6 +8,8 @@ from .wrappers.old_2_multihead_nets import MultiHeadNets2
 from .wrappers.old_1_multihead_net import MultiHeadNet
 from .wrappers.ball_ownership import BallOwnershipRewardWrapper
 from .wrappers.recreatable_env import create_recreatable_football
+from .logging import api
+
 import collections
 import gym
 import numpy as np
@@ -57,6 +59,9 @@ class PeriodicDumpWriter(gym.Wrapper):
             'dump_scores': env._config['dump_scores'],
         }
         self._current_episode_number = 0
+
+    def __getattr__(self, attr):
+        return getattr(self.env, attr)
 
     def step(self, action):
         return self.env.step(action)
@@ -116,6 +121,8 @@ KNOWN_WRAPPERS = {
     'old_w': MultiHeadNets2,
     'old_single_map': MultiHeadNet
 }
+KNOWN_WRAPPERS.update(api.get_loggers_dict())
+
 
 
 def compose_environment(env_config, wrappers):
@@ -149,41 +156,7 @@ def compose_environment(env_config, wrappers):
     return env
 
 
-def upload_logs(local_logdir, remote_logdir):
-    tf.io.gfile.makedirs(remote_logdir)
-    while True:
-        local_files = tf.io.gfile.listdir(local_logdir)
-        remote_files = tf.io.gfile.listdir(remote_logdir)
-        diff = list(set(local_files) - set(remote_files))
-        for f in diff:
-            tf.io.gfile.copy(os.path.join(local_logdir, f),
-                             os.path.join(remote_logdir, f))
-        time.sleep(1)
-
-
-def remote_logs(config):
-    if config['logdir'] != '' and config['logdir'].startswith('gs://'):
-        pruned_logdir = config['logdir'].replace('/', '_').replace(':', '')
-        local_logdir = '/tmp/env_log/' + pruned_logdir
-        os.makedirs(local_logdir)
-        remote_logdir = config['logdir']
-        t = threading.Thread(target=upload_logs, args=(
-            local_logdir, remote_logdir))
-        t.start()
-        # subprocess.Popen(['gsutil', 'rsync', local_logdir, remote_logdir])
-        config['logdir'] = local_logdir
-
-
-def log_videos_when_logging(config):
-    if config['logdir'] != '':
-        config['enable_goal_videos'] = True
-        config['enable_full_episode_videos'] = True
-        config['write_video'] = True
-
-
 def config_compose_environment(config):
-    remote_logs(config)
-    log_videos_when_logging(config)
     wrappers = []
     for w in config['wrappers'].split(','):
         wrappers.append(KNOWN_WRAPPERS[w])
