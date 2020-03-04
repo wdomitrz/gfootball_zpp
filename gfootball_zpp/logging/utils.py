@@ -1,3 +1,5 @@
+from ..utils import extract_obj_attributes, extract_from_dict
+
 import gym
 import tensorflow as tf
 import os
@@ -59,7 +61,7 @@ class LogAPI(gym.Wrapper):
             make_logdir_dirs(config['tb_logdir'])
 
             if 'step_log_freq' not in config:
-                config['step_log_freq'] = config['dump_frequency']
+                config['step_log_freq'] = 10 * config['dump_frequency']
 
             enable_video_logs(config)
 
@@ -97,3 +99,31 @@ class LogBasicTracker(gym.Wrapper):
         self.env_episode_steps += 1
         self.env_total_steps += 1
         return self.env.step(action)
+
+def extract_data_from_low_level_env_cfg(env_config):
+    data = []
+    data.extend(extract_from_dict(env_config._values,
+                                  ['action_set',
+                                   'players',
+                                   'level']))
+    data.extend(extract_obj_attributes(env_config.ScenarioConfig(),
+                                       [# 'ball_position',
+                                        'deterministic',
+                                        'end_episode_on_out_of_play',
+                                        'end_episode_on_possession_change',
+                                        'end_episode_on_score',
+                                        'game_duration',
+                                        # 'game_engine_random_seed',
+                                        # 'left_agents',
+                                        # 'left_team',
+                                        'left_team_difficulty',
+                                        'offsides',
+                                        # 'right_agents',
+                                        # 'right_team',
+                                        'right_team_difficulty']))
+
+    def second_to_string(p):
+        f, s = p
+        return f, str(s)
+
+    return list(map(second_to_string, data))
