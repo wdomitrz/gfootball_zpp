@@ -18,6 +18,9 @@ class LogLowLevelScenarioData(LogBasicTracker):
 
 
 class LogScenarioDifficulty(LogBasicTracker):
+    """ This is a low level wrapper
+    Logs scenario difficulty after each reset call"""
+
     def __init__(self, env, config):
         LogBasicTracker.__init__(self, env, config)
 
@@ -38,6 +41,11 @@ class LogScenarioDifficulty(LogBasicTracker):
 
 
 class LogScenarioDataOnChange(LogBasicTracker):
+    """ This is a low level wrapper.
+    Logs scenario data after detecting a change.
+    In order to see what is being logged look for
+    extract_data_from_low_level_env_cfg in utils.py"""
+
     def __init__(self, env, config):
         LogBasicTracker.__init__(self, env, config)
         self._current_data = None
