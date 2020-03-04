@@ -7,6 +7,11 @@ from .reward import LogPerPlayerReward
 import gym
 
 def get_default_loggers():
+    """ Returns the list of pairs (logger_name, logger_wrapper)
+    Order of wrappers is relevant in particular
+    low level wrappers should be used before other wrappers.
+    Please note that LogAll wrapper is not included here."""
+
     result = []
     result.append(('log_api', LogAPI))
     # result.append(('log_low_level_scenario_data', LogLowLevelScenarioData))
@@ -18,6 +23,8 @@ def get_default_loggers():
     return result
 
 class LogAll(gym.Wrapper):
+    """ Applies all wrappers returned by get_default_loggers."""
+
     def __init__(self, env, config):
         for _, w in get_default_loggers():
             env = w(env, config)
@@ -25,6 +32,9 @@ class LogAll(gym.Wrapper):
 
 
 def get_loggers_dict():
+    """ Returns the dict of wrappers returned by
+    get_default_loggers() + log_all wrapper."""
+
     result = get_default_loggers()
     result.append(('log_all', LogAll))
     return dict(result)
