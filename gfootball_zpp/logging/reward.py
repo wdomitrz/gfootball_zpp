@@ -100,7 +100,6 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
         self._episode_rewards = self._episode_rewards + reward
 
     def _log_rewards(self):
-        print('rewards:', self._rewards)
         team_names = ['left_team', 'right_team']
         text_log = ''
         for tid, _ in enumerate(self._get_difficulties()):

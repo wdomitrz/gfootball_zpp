@@ -203,7 +203,6 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
             right += 0.5 * span_scale_factor
             data = tf.stack([left, right, counts], axis=1)
             data = tf.reshape(data, shape=(num_buckets, 3))
-            print(name, data)
 
 
             summary_metadata = tensorboard.plugins.histogram.metadata.create_summary_metadata(
