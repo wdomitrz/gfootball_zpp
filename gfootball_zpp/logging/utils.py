@@ -68,6 +68,9 @@ class LogAPI(gym.Wrapper):
         if 'step_log_freq' not in config:
                 config['step_log_freq'] = 10 * config['dump_frequency']
 
+        if 'reset_log_freq' not in config:
+                config['reset_log_freq'] = 1
+
         if (self._actor_id is not None) and \
            (self._base_logdir is not None) and \
            (self._decide_if_log_fn(self._actor_id)):
@@ -79,22 +82,127 @@ class LogAPI(gym.Wrapper):
 
             enable_video_logs(config)
 
-            config['summary_writer'] = tf.summary.create_file_writer(
+            config['tf_summary_writer'] = tf.summary.create_file_writer(
                 config['tb_logdir'],
                 flush_millis=20000,
                 max_queue=1000)
             config['logs_enabled'] = True
         else:
-            config['summary_writer'] = tf.summary.create_noop_writer()
+            config['tf_summary_writer'] = tf.summary.create_noop_writer()
             config['logs_enabled'] = False
             config['logdir'] = ''
 
     def __getattr__(self, attr):
         return getattr(self.env, attr)
 
+import enum
 
-def get_summary_writer(config):
-    return config['summary_writer']
+
+class SummaryWriterBase():
+    def __init__(self):
+        pass
+
+    def is_log_time(self):
+        return NotImplementedError
+
+    def set_stepping(self, step):
+        return NotImplementedError
+
+    def is_log_time(self):
+        return NotImplementedError
+
+    def write_scalar(self, name, scalar):
+        return NotImplementedError
+
+    def write_text(self, name, text):
+        return NotImplementedError
+
+    def write_histogram(self, name, raw_data):
+        return NotImplementedError
+
+    def write(self, name, data):
+        return NotImplementedError
+
+class EnvLogSteppingModes(enum.Enum):
+    provided = 1
+    env_resets = 2
+    env_total_steps = 3
+
+
+class EnvSummaryWriterBase(SummaryWriterBase):
+    def __init__(self, log_tracker, config):
+        SummaryWriterBase.__init__(self)
+        self._step_log_freq = config['step_log_freq']
+        self._reset_log_freq = config['reset_log_freq']
+        self._logs_enabled = config['logs_enabled']
+
+        self._log_tracker = log_tracker
+        self._current_stepping = EnvLogSteppingModes.env_resets
+
+        self._stepping_modes = {
+            EnvLogSteppingModes.provided: None,
+            EnvLogSteppingModes.env_resets: lambda: self._log_tracker.env_resets,
+            EnvLogSteppingModes.env_total_steps: lambda: self._log_tracker.env_total_steps
+        }
+
+    def is_log_time(self):
+        result = self._logs_enabled
+        if self._current_stepping != EnvLogSteppingModes.provided:
+            result = self._log_tracker.env_total_steps % self._reset_log_freq == 0
+            if self._current_stepping == EnvLogSteppingModes.env_total_steps:
+                result = result and (self._log_tracker.env_episode_steps % self._step_log_freq == 0)
+            return result
+        else:
+            return result
+
+    def set_stepping(self, stepping, step=None):
+        if stepping == EnvLogSteppingModes.provided:
+            self._stepping_modes[stepping] = lambda: step
+        elif stepping == EnvLogSteppingModes.env_resets or \
+            stepping == EnvLogSteppingModes.env_total_steps:
+            assert step is None
+        else:
+            raise Exception('Stepping: ' + str(stepping) + ' not supported')
+
+        self._current_stepping = stepping
+
+    def get_current_step(self):
+        return self._stepping_modes[self._current_stepping]()
+
+
+import tensorboard
+
+
+class EnvTFSummaryWriter(EnvSummaryWriterBase):
+    def __init__(self, log_tracker, config):
+        EnvSummaryWriterBase.__init__(self, log_tracker, config)
+        self._tf_summary_writer = config['tf_summary_writer']
+
+    def write_scalar(self, name, scalar):
+        with self._tf_summary_writer.as_default():
+            tf.summary.scalar(name, scalar, self.get_current_step())
+
+    def write_text(self, name, text):
+        with self._tf_summary_writer.as_default():
+            tf.summary.text(name, text, self.get_current_step())
+
+    def write_histogram(self, name, raw_data, buckets=None):
+        with self._tf_summary_writer.as_default():
+            tf.summary.histogram(name, raw_data, self.get_current_step(), buckets=buckets)
+
+    def write_bars(self, name, data):
+        with self._tf_summary_writer.as_default():
+            data = tf.Variable([data], dtype=tf.float32)
+            data.assert_has_rank(1)
+            num_buckets = data.shape[0]
+            summary_metadata = tensorboard.plugins.histogram.metadata.create_summary_metadata(
+                display_name=None, description=None)
+            summary_scope = (getattr(tf.summary.experimental, 'summary_scope', None)
+                             or tf.summary.summary_scope)
+            with summary_scope(name, 'histogram_summary', values=[data, num_buckets, self.get_current_step()]) as (
+            tag, _):
+                tf.summary.write(tag=tag, tensor=data, step=self.get_current_step(), metadata=summary_metadata)
+
 
 class LogBasicTracker(gym.Wrapper):
     """Base class for log wrappers
@@ -106,7 +214,7 @@ class LogBasicTracker(gym.Wrapper):
         self.env_resets = 0
         self.env_episode_steps = 0
         self.env_total_steps = 0
-        self.summary_writer = get_summary_writer(config)
+        self.summary_writer = EnvTFSummaryWriter(self, config)
 
     def reset(self):
         self.env_resets += 1

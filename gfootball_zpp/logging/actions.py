@@ -1,4 +1,4 @@
-from .utils import LogBasicTracker
+from .utils import LogBasicTracker, EnvLogSteppingModes
 from ..utils import scalar_to_list
 
 import tensorflow as tf
@@ -12,14 +12,16 @@ class LogActionStats(LogBasicTracker):
         self._num_players = len(scalar_to_list(
             self.env.action_space.sample()))
 
+        self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
+
     def reset(self):
-        observation = super(LogActionStats, self).reset()
         if self._action_list != []:
             actions = tf.Variable(self._action_list, dtype=tf.int64)
-            with self.summary_writer.as_default():
-                for pid in range(self._num_players):
-                    tf.summary.histogram('actions/player_{}'.format(pid),
-                                         actions[:, pid], self.env_resets)
+            for pid in range(self._num_players):
+                self.summary_writer.write_histogram('actions/player_{}'.format(pid),
+                                                    actions[:, pid])
+
+        observation = super(LogActionStats, self).reset()
 
         self._action_list = []
         return observation

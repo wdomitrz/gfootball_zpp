@@ -23,7 +23,7 @@ CONFIG_OUT_FILE="/tmp/${JOB_NAME_PREFIX}.yaml"
 export CONFIG=football
 export ENVIRONMENT=football
 export AGENT=vtrace
-export WORKERS=25
+export WORKERS=10
 export ACTORS_PER_WORKER=8
 
 PROJECT_ID=$(gcloud config get-value project)

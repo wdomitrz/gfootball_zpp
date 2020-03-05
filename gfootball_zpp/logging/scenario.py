@@ -1,4 +1,4 @@
-from .utils import LogBasicTracker, extract_data_from_low_level_env_cfg
+from .utils import LogBasicTracker, extract_data_from_low_level_env_cfg, EnvLogSteppingModes
 from ..utils import pretty_list_of_pairs_to_string
 
 import tensorflow as tf
@@ -23,20 +23,21 @@ class LogScenarioDifficulty(LogBasicTracker):
 
     def __init__(self, env, config):
         LogBasicTracker.__init__(self, env, config)
+        self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
 
     def __getattr__(self, attr):
         return getattr(self.env, attr)
 
     def reset(self):
-        observation = super(LogScenarioDifficulty, self).reset()
         scenario_config = self.env._config.ScenarioConfig()
         left_team_difficulty = scenario_config.left_team_difficulty
         right_team_difficulty = scenario_config.right_team_difficulty
-        with self.summary_writer.as_default():
-            tf.summary.scalar('scenario/left_team_difficulty',
-                              left_team_difficulty, self.env_resets)
-            tf.summary.scalar('scenario/right_team_difficulty',
-                              right_team_difficulty, self.env_resets)
+        self.summary_writer.write_scalar('scenario/left_team_difficulty',
+                          left_team_difficulty)
+        self.summary_writer.write_scalar('scenario/right_team_difficulty',
+                          right_team_difficulty)
+
+        observation = super(LogScenarioDifficulty, self).reset()
         return observation
 
 
@@ -49,19 +50,19 @@ class LogScenarioDataOnChange(LogBasicTracker):
     def __init__(self, env, config):
         LogBasicTracker.__init__(self, env, config)
         self._current_data = None
+        self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
 
     def __getattr__(self, attr):
         return getattr(self.env, attr)
 
     def reset(self):
-        observation = super(LogScenarioDataOnChange, self).reset()
         low_level_cfg = self.env._config
         new_data = extract_data_from_low_level_env_cfg(low_level_cfg)
-        if new_data != self._current_data:
+        if new_data != self._current_data: # todo czy if is_log_time
             self._current_data = new_data
-            with self.summary_writer.as_default():
-                tf.summary.text('scenario/low_level_cfg',
+            self.summary_writer.write_text('scenario/low_level_cfg',
                                 '# Scenario changed to:  \n' +
-                                pretty_list_of_pairs_to_string(new_data),
-                                self.env_resets)
+                                pretty_list_of_pairs_to_string(new_data))
+
+        observation = super(LogScenarioDataOnChange, self).reset()
         return observation

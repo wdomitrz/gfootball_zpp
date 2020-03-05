@@ -1,9 +1,9 @@
 trainingInput:
   scaleTier: CUSTOM
-  masterType: n1-highmem-32
+  masterType: n1-highmem-16
   masterConfig:
     acceleratorConfig:
-      count: 4
+      count: 1
       type: NVIDIA_TESLA_P100
     imageUri: ${IMAGE_URI}:${CONFIG}
   workerCount: ${WORKERS}
