@@ -6,6 +6,7 @@ from .reward import LogPerPlayerReward, LogAveragePerPlayerRewardByDifficulty
 
 import gym
 
+
 def get_default_loggers():
     """ Returns the list of pairs (logger_name, logger_wrapper)
     Order of wrappers is relevant in particular
@@ -27,6 +28,7 @@ def get_default_loggers():
     high_level_start_id = len(result)
     result.append(('log_per_player_reward', LogPerPlayerReward))
     return result, med_level_start_id, high_level_start_id
+
 
 class LogAll(gym.Wrapper):
     """ Applies all wrappers returned by get_default_loggers."""
@@ -53,12 +55,14 @@ class LogMedLevel(gym.Wrapper):
             env = w(env, config)
         gym.Wrapper.__init__(self, env)
 
+
 class LogHighLevel(gym.Wrapper):
     def __init__(self, env, config):
         wrappers, _, high_level_start_id = get_default_loggers()
         for _, w in get_default_loggers()[high_level_start_id:]:
             env = w(env, config)
         gym.Wrapper.__init__(self, env)
+
 
 def get_loggers_dict():
     """ Returns the dict of wrappers returned by

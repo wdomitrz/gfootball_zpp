@@ -124,7 +124,6 @@ KNOWN_WRAPPERS = {
 KNOWN_WRAPPERS.update(api.get_loggers_dict())
 
 
-
 def compose_environment(env_config, wrappers):
     def extract_from_dict(dictionary, keys):
         return {new_k: dictionary[k] for (new_k, k) in keys}
@@ -139,12 +138,12 @@ def compose_environment(env_config, wrappers):
                                         [('enable_sides_swap', 'enable_sides_swap'),
                                          ('dump_full_episodes',
                                           'enable_full_episode_videos'),
-                                            ('dump_scores', 'enable_goal_videos'),
-                                            ('level', 'env_name'),
-                                            ('players', 'players'),
-                                            ('render', 'render'),
-                                            ('tracesdir', 'logdir'),
-                                            ('write_video', 'write_video')])
+                                         ('dump_scores', 'enable_goal_videos'),
+                                         ('level', 'env_name'),
+                                         ('players', 'players'),
+                                         ('render', 'render'),
+                                         ('tracesdir', 'logdir'),
+                                         ('write_video', 'write_video')])
     if 'env_change_rate' not in env_config:
         env = football_env.FootballEnv(config.Config(football_config))
     else:

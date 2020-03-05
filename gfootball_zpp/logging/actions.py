@@ -27,13 +27,12 @@ class LogActionStats(LogBasicTracker):
             actions = self._action_counter
             for pid in range(self._num_players):
                 self.summary_writer.write_bars('actions/player_{}'.format(pid),
-                                                    actions[pid])
+                                               actions[pid])
 
                 text_actions = [('action_{}'.format(aid), actions[pid][aid]) for aid in range(self._discrete_actions)]
                 text_log += '## For player_{}  \n'.format(pid) + pretty_list_of_pairs_to_string(text_actions)
 
             self.summary_writer.write_text('actions/players', text_log)
-
 
         observation = super(LogActionStats, self).reset()
 

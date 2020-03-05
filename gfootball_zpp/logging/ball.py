@@ -2,10 +2,11 @@ from .utils import LogBasicTracker, EnvLogSteppingModes
 
 import tensorflow as tf
 
+
 class LogBallOwningTeam(LogBasicTracker):
     def _trace_vars_reset(self):
         self._first_team_time = 0  # in environment steps
-        self._second_team_time = 0 # in environment steps
+        self._second_team_time = 0  # in environment steps
 
     def _update_stats(self, observation):
         if observation[0]['ball_owned_team'] == 0:
@@ -24,16 +25,16 @@ class LogBallOwningTeam(LogBasicTracker):
         env_episode_steps = self.env_episode_steps
         if env_episode_steps != 0:
             self.summary_writer.write_scalar('ball/owning_first_team',
-                              self._first_team_time / \
-                              env_episode_steps)
+                                             self._first_team_time / \
+                                             env_episode_steps)
             self.summary_writer.write_scalar('ball/owning_second_team',
-                              self._second_team_time / \
-                              env_episode_steps)
+                                             self._second_team_time / \
+                                             env_episode_steps)
             ball_free_time = env_episode_steps - \
                              (self._first_team_time +
                               self._second_team_time)
             self.summary_writer.write_scalar('ball/not_owning',
-                                  ball_free_time / env_episode_steps)
+                                             ball_free_time / env_episode_steps)
 
         observation = super(LogBallOwningTeam, self).reset()
 

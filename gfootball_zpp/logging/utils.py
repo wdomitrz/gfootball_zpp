@@ -6,6 +6,7 @@ import os
 import threading
 import time
 
+
 def make_logdir_dirs(logdir):
     tf.io.gfile.makedirs(logdir)
 
@@ -66,14 +67,14 @@ class LogAPI(gym.Wrapper):
             self._decide_if_log_fn = lambda actor_id: actor_id == 0
 
         if 'step_log_freq' not in config:
-                config['step_log_freq'] = 10 * config['dump_frequency']
+            config['step_log_freq'] = 10 * config['dump_frequency']
 
         if 'reset_log_freq' not in config:
-                config['reset_log_freq'] = 1
+            config['reset_log_freq'] = 1
 
         if (self._actor_id is not None) and \
-           (self._base_logdir is not None) and \
-           (self._decide_if_log_fn(self._actor_id)):
+                (self._base_logdir is not None) and \
+                (self._decide_if_log_fn(self._actor_id)):
             dumps_logdir = os.path.join(self._base_logdir, 'env_dumps')
             config['logdir'] = fix_remote_logdir(dumps_logdir)
 
@@ -94,6 +95,7 @@ class LogAPI(gym.Wrapper):
 
     def __getattr__(self, attr):
         return getattr(self.env, attr)
+
 
 import enum
 
@@ -122,6 +124,7 @@ class SummaryWriterBase():
 
     def write_bars(self, name, data):
         return NotImplementedError
+
 
 class EnvLogSteppingModes(enum.Enum):
     provided = 1
@@ -159,7 +162,7 @@ class EnvSummaryWriterBase(SummaryWriterBase):
         if stepping == EnvLogSteppingModes.provided:
             self._stepping_modes[stepping] = lambda: step
         elif stepping == EnvLogSteppingModes.env_resets or \
-            stepping == EnvLogSteppingModes.env_total_steps:
+                stepping == EnvLogSteppingModes.env_total_steps:
             assert step is None
         else:
             raise Exception('Stepping: ' + str(stepping) + ' not supported')
@@ -195,22 +198,21 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
             data = tf.Variable(data, dtype=tf.float32)
             assert len(data.shape) == 1
             num_buckets = data.shape[0]
-            #data = tf.expand_dims(tf.expand_dims(data, axis=-1), axis=-1)
+            # data = tf.expand_dims(tf.expand_dims(data, axis=-1), axis=-1)
             counts = data
             left = tf.range(num_buckets, dtype=tf.float32) * span_scale_factor
-            right = left # + 1.0
+            right = left  # + 1.0
             left -= 0.5 * span_scale_factor
             right += 0.5 * span_scale_factor
             data = tf.stack([left, right, counts], axis=1)
             data = tf.reshape(data, shape=(num_buckets, 3))
-
 
             summary_metadata = tensorboard.plugins.histogram.metadata.create_summary_metadata(
                 display_name=None, description=None)
             summary_scope = (getattr(tf.summary.experimental, 'summary_scope', None)
                              or tf.summary.summary_scope)
             with summary_scope(name, 'histogram_summary', values=[data, num_buckets, self.get_current_step()]) as (
-            tag, _):
+                    tag, _):
                 tf.summary.write(tag=tag, tensor=data, step=self.get_current_step(), metadata=summary_metadata)
 
 
@@ -236,6 +238,7 @@ class LogBasicTracker(gym.Wrapper):
         self.env_total_steps += 1
         return self.env.step(action)
 
+
 def extract_data_from_low_level_env_cfg(env_config):
     data = []
     data.extend(extract_from_dict(env_config._values,
@@ -243,20 +246,20 @@ def extract_data_from_low_level_env_cfg(env_config):
                                    'players',
                                    'level']))
     data.extend(extract_obj_attributes(env_config.ScenarioConfig(),
-                                       [# 'ball_position',
-                                        'deterministic',
-                                        'end_episode_on_out_of_play',
-                                        'end_episode_on_possession_change',
-                                        'end_episode_on_score',
-                                        'game_duration',
-                                        # 'game_engine_random_seed',
-                                        # 'left_agents',
-                                        # 'left_team',
-                                        'left_team_difficulty',
-                                        'offsides',
-                                        # 'right_agents',
-                                        # 'right_team',
-                                        'right_team_difficulty']))
+                                       [  # 'ball_position',
+                                           'deterministic',
+                                           'end_episode_on_out_of_play',
+                                           'end_episode_on_possession_change',
+                                           'end_episode_on_score',
+                                           'game_duration',
+                                           # 'game_engine_random_seed',
+                                           # 'left_agents',
+                                           # 'left_team',
+                                           'left_team_difficulty',
+                                           'offsides',
+                                           # 'right_agents',
+                                           # 'right_team',
+                                           'right_team_difficulty']))
 
     def second_to_string(p):
         f, s = p
