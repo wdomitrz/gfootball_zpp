@@ -120,7 +120,7 @@ class SummaryWriterBase():
     def write_histogram(self, name, raw_data):
         return NotImplementedError
 
-    def write(self, name, data):
+    def write_bars(self, name, data):
         return NotImplementedError
 
 class EnvLogSteppingModes(enum.Enum):
@@ -190,11 +190,22 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
         with self._tf_summary_writer.as_default():
             tf.summary.histogram(name, raw_data, self.get_current_step(), buckets=buckets)
 
-    def write_bars(self, name, data):
+    def write_bars(self, name, data, span_scale_factor=1.0):
         with self._tf_summary_writer.as_default():
-            data = tf.Variable([data], dtype=tf.float32)
-            data.assert_has_rank(1)
+            data = tf.Variable(data, dtype=tf.float32)
+            assert len(data.shape) == 1
             num_buckets = data.shape[0]
+            #data = tf.expand_dims(tf.expand_dims(data, axis=-1), axis=-1)
+            counts = data
+            left = tf.range(num_buckets, dtype=tf.float32) * span_scale_factor
+            right = left # + 1.0
+            left -= 0.5 * span_scale_factor
+            right += 0.5 * span_scale_factor
+            data = tf.stack([left, right, counts], axis=1)
+            data = tf.reshape(data, shape=(num_buckets, 3))
+            print(name, data)
+
+
             summary_metadata = tensorboard.plugins.histogram.metadata.create_summary_metadata(
                 display_name=None, description=None)
             summary_scope = (getattr(tf.summary.experimental, 'summary_scope', None)

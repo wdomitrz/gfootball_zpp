@@ -66,3 +66,20 @@ class LogScenarioDataOnChange(LogBasicTracker):
 
         observation = super(LogScenarioDataOnChange, self).reset()
         return observation
+
+
+class LogScenarioReset(LogBasicTracker):
+
+    def __init__(self, env, config):
+        LogBasicTracker.__init__(self, env, config)
+        self._current_data = None
+        self.summary_writer.set_stepping(EnvLogSteppingModes.env_total_steps)
+
+    def __getattr__(self, attr):
+        return getattr(self.env, attr)
+
+    def reset(self):
+        self.summary_writer.write_scalar('scenario/reset_occurred_after', self.env_episode_steps)
+
+        observation = super(LogScenarioReset, self).reset()
+        return observation
