@@ -2,8 +2,10 @@ from .utils import PackedBitsObservation, DummyEnv, packbits, unpackbits
 from .network import GFootball
 from gfootball.env.observation_preprocessing import generate_smm
 from gfootball_zpp.wrappers.old_1_multihead_net import MultiHeadNet
+from gfootball_zpp.utils import gsutil
 import numpy as np
 import tensorflow as tf
+
 
 def expand_dims(obs):
     obs = packbits(obs)
@@ -18,14 +20,15 @@ def preprocess_obs(obs):
     return (), ((), (), obs)
 
 
-def create_net(controlled_players, checkpoint_path):
+def create_net(controlled_players, checkpoint_path, player_config):
+    sample = player_config.get('sample', False)
     multihead = MultiHeadNet(DummyEnv('default', 4, controlled_agents=controlled_players), ())
     env = PackedBitsObservation(multihead)
     print('*' * 20)
     print(env.action_space.nvec)
     print('*' * 20)
     net = GFootball(env.action_space.nvec)
-    net.change_config({'sample_actions': False})
+    net.change_config({'sample_actions': sample})
 
     # TODO: make it work with differen number of heads
     sample_input = tf.convert_to_tensor(np.zeros((1, 1, 72, 96, 32)))

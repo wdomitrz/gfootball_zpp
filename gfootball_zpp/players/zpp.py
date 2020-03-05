@@ -30,7 +30,7 @@ class Player(player_base.PlayerBase):
             checkpoint = gsutil.cp_ckpt(checkpoint)
 
         self._policy, self._convert_observation = build_policy(
-            policy, self.num_controlled_players(), checkpoint)
+            policy, self.num_controlled_players(), checkpoint, player_config)
 
     def take_action(self, observation):
         print(observation)
