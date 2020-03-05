@@ -16,6 +16,8 @@
     ],
     "rewards": "scoring,checkpoints",
     "dump_frequency": 10,
+    "reset_log_freq": 2,
+    "step_log_freq": 100,
     "decide_to_log_fn": "lambda x: x % 20 == 0",
-    "wrappers": "periodic_dump,log_all,checkpoint_score,obs_extract,single_agent,obs_stack"
+    "wrappers": "periodic_dump,log_low,low_med,checkpoint_score,log_high,obs_extract,single_agent,obs_stack"
 }
