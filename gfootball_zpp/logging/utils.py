@@ -110,9 +110,6 @@ class SummaryWriterBase():
     def set_stepping(self, step):
         return NotImplementedError
 
-    def is_log_time(self):
-        return NotImplementedError
-
     def write_scalar(self, name, scalar):
         return NotImplementedError
 
