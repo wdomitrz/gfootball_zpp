@@ -151,7 +151,7 @@ class EnvSummaryWriterBase(SummaryWriterBase):
     def is_log_time(self):
         result = self._logs_enabled
         if self._current_stepping != EnvLogSteppingModes.provided:
-            result = self._log_tracker.env_total_steps % self._reset_log_freq == 0
+            result = result and (self._log_tracker.env_resets % self._reset_log_freq == 0)
             if self._current_stepping == EnvLogSteppingModes.env_total_steps:
                 result = result and (self._log_tracker.env_episode_steps % self._step_log_freq == 0)
             return result
@@ -182,18 +182,30 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
         self._tf_summary_writer = config['tf_summary_writer']
 
     def write_scalar(self, name, scalar):
+        if not self.is_log_time():
+            return
+
         with self._tf_summary_writer.as_default():
             tf.summary.scalar(name, scalar, self.get_current_step())
 
     def write_text(self, name, text):
+        if not self.is_log_time():
+            return
+
         with self._tf_summary_writer.as_default():
             tf.summary.text(name, text, self.get_current_step())
 
     def write_histogram(self, name, raw_data, buckets=None):
+        if not self.is_log_time():
+            return
+
         with self._tf_summary_writer.as_default():
             tf.summary.histogram(name, raw_data, self.get_current_step(), buckets=buckets)
 
     def write_bars(self, name, data, span_scale_factor=1.0):
+        if not self.is_log_time():
+            return
+
         with self._tf_summary_writer.as_default():
             data = tf.Variable(data, dtype=tf.float32)
             assert len(data.shape) == 1

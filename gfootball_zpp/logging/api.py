@@ -51,7 +51,7 @@ class LogLowLevel(gym.Wrapper):
 class LogMedLevel(gym.Wrapper):
     def __init__(self, env, config):
         wrappers, med_level_start_id, high_level_start_id = get_default_loggers()
-        for _, w in get_default_loggers()[med_level_start_id:high_level_start_id]:
+        for _, w in wrappers[med_level_start_id:high_level_start_id]:
             env = w(env, config)
         gym.Wrapper.__init__(self, env)
 
@@ -59,7 +59,7 @@ class LogMedLevel(gym.Wrapper):
 class LogHighLevel(gym.Wrapper):
     def __init__(self, env, config):
         wrappers, _, high_level_start_id = get_default_loggers()
-        for _, w in get_default_loggers()[high_level_start_id:]:
+        for _, w in wrappers[high_level_start_id:]:
             env = w(env, config)
         gym.Wrapper.__init__(self, env)
 
