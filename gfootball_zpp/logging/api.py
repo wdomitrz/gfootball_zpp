@@ -47,6 +47,9 @@ class LogLowLevel(gym.Wrapper):
             env = w(env, config)
         gym.Wrapper.__init__(self, env)
 
+    def __getattr__(self, attr):
+        return getattr(self.env, attr)
+
 
 class LogMedLevel(gym.Wrapper):
     def __init__(self, env, config):
