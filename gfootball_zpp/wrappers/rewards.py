@@ -17,15 +17,14 @@ class DecayingCheckpointRewardWrapper(gym.RewardWrapper):
     return self.env.reset()
 
   def get_state(self, to_pickle):
-    to_pickle['CheckpointRewardWrapper'] = self._collected_checkpoints
+    to_pickle['DecayingCheckpointRewardWrapper'] = self._collected_checkpoints
     return self.env.get_state(to_pickle)
 
   def set_state(self, state):
     from_pickle = self.env.set_state(state)
-    self._collected_checkpoints = from_pickle['CheckpointRewardWrapper']
+    self._collected_checkpoints = from_pickle['DecayingCheckpointRewardWrapper']
     return from_pickle
 
-  @property
   def _checkpoint_reward(self):
     return self._checkpoint_base_reward * (self._number_of_rounds - self.iterations()) / self._number_of_rounds
 
@@ -39,7 +38,7 @@ class DecayingCheckpointRewardWrapper(gym.RewardWrapper):
     for rew_index in range(len(reward)):
       o = observation[rew_index]
       if reward[rew_index] == 1:
-        reward[rew_index] += self._checkpoint_reward * (
+        reward[rew_index] += self._checkpoint_reward() * (
             self._num_checkpoints -
             self._collected_checkpoints.get(rew_index, 0))
         self._collected_checkpoints[rew_index] = self._num_checkpoints
@@ -65,7 +64,7 @@ class DecayingCheckpointRewardWrapper(gym.RewardWrapper):
                        self._collected_checkpoints.get(rew_index, 0))
         if d > threshold:
           break
-        reward[rew_index] += self._checkpoint_reward
+        reward[rew_index] += self._checkpoint_reward()
         self._collected_checkpoints[rew_index] = (
             self._collected_checkpoints.get(rew_index, 0) + 1)
     return reward
