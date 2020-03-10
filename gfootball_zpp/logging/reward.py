@@ -37,7 +37,7 @@ class LogPerPlayerReward(LogBasicTracker):
 
     def reset(self):
 
-        if self._rewards != None:
+        if self._rewards is not None:
             self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
             for rid in range(self._num_rewards):
                 self.summary_writer.write_scalar('reward/game/reward_{}'.format(
