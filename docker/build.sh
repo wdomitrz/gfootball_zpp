@@ -5,6 +5,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR/..
 GRPC_IMAGE=gcr.io/seedimages/seed:grpc
 
-echo docker build --build-arg grpc_image=${GRPC_IMAGE} --build-arg seed_path=${SEED_PATH} -t seed_rl:${CONFIG} -f $DIR/Dockerfile.football
+LABEL="${CONFIG}_${JOB_NAME_PREFIX}"
 
-docker build --build-arg grpc_image=${GRPC_IMAGE} --build-arg seed_path=${SEED_PATH} -t seed_rl:${CONFIG} -f $DIR/Dockerfile.football ..
+echo docker build --build-arg grpc_image=${GRPC_IMAGE} --build-arg seed_path=${SEED_PATH} -t seed_rl:${LABEL} -f $DIR/Dockerfile.football
+
+docker build --build-arg grpc_image=${GRPC_IMAGE} --build-arg seed_path=${SEED_PATH} -t seed_rl:${LABEL}  -f $DIR/Dockerfile.football ..

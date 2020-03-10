@@ -7,7 +7,7 @@ if [ "$#" -ne "4" ] && [ "$#" -ne "5" ] ; then
     exit 1
 fi
 
-JOB_NAME_PREFIX="$1"
+export JOB_NAME_PREFIX="$1"
 BUCKET_NAME="$2"
 AI_PLATFORM_CONFIG_FILE="$3"
 ENV_CONFIG_FILE="$4"
