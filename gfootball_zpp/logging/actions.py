@@ -22,7 +22,7 @@ class LogActionStats(LogBasicTracker):
         self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
 
     def reset(self):
-        text_log = ''
+        text_log = '# Players action stats  \n'
         if self.env_episode_steps != 0:
             actions = self._action_counter
             for pid in range(self._num_players):
