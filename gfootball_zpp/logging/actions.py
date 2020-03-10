@@ -42,7 +42,7 @@ class LogActionStats(LogBasicTracker):
                 self.summary_writer.write_bars('actions/player_{}'.format(pid),
                                                actions[pid])
 
-                text_actions = [('action:{} aka:{}'.format(
+                text_actions = [('action:**{}** aka:**{}**'.format(
                     aid, self._get_action_name(aid)),
                                  actions[pid][aid])
                                 for aid in range(self._discrete_actions)]
