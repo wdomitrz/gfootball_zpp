@@ -1,5 +1,5 @@
 from .utils import LogBasicTracker, EnvLogSteppingModes
-from ..utils import scalar_to_list, pretty_list_of_pairs_to_string, get_with_prec
+from ..utils.misc import scalar_to_list, pretty_list_of_pairs_to_string, get_with_prec
 
 import tensorflow as tf
 import numpy as np

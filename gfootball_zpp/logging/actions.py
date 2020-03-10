@@ -1,5 +1,5 @@
 from .utils import LogBasicTracker, EnvLogSteppingModes
-from ..utils import scalar_to_list, get_max_discrete_action, pretty_list_of_pairs_to_string
+from ..utils.misc import scalar_to_list, get_max_discrete_action, pretty_list_of_pairs_to_string
 from gfootball.env.football_action_set import named_action_from_action_set, get_action_set
 
 import numpy as np

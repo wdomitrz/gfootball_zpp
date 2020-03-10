@@ -1,4 +1,4 @@
-from ..utils import extract_obj_attributes, extract_from_dict
+from ..utils.misc import extract_obj_attributes, extract_from_dict
 
 import gym
 import tensorflow as tf
