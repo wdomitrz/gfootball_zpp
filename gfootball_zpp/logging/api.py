@@ -19,10 +19,10 @@ def get_default_loggers():
     result.append(('log_scenario_difficulty', LogScenarioDifficulty))
     result.append(('log_scenario_data_on_change', LogScenarioDataOnChange))
     result.append(('log_average_per_player_reward_by_difficulty', LogAveragePerPlayerRewardByDifficulty))
+    result.append(('log_action_stats', LogActionStats))
 
     med_level_start_id = len(result)
     result.append(('log_scenario_reset', LogScenarioReset))
-    result.append(('log_action_stats', LogActionStats))
     result.append(('log_ball_owning_team', LogBallOwningTeam))
 
     high_level_start_id = len(result)
