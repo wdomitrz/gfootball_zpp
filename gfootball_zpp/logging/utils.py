@@ -204,12 +204,12 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
             return
 
         with self._tf_summary_writer.as_default():
-            data = tf.Variable(data, dtype=tf.float32)
+            data = tf.Variable(data, dtype=tf.float64)
             assert len(data.shape) == 1
             num_buckets = data.shape[0]
             # data = tf.expand_dims(tf.expand_dims(data, axis=-1), axis=-1)
             counts = data
-            left = (tf.range(num_buckets, dtype=tf.float32) + offset) * span_scale_factor
+            left = (tf.range(num_buckets, dtype=tf.float64) + offset) * span_scale_factor
             right = left  # + 1.0
             left -= 0.5 * span_scale_factor
             right += 0.5 * span_scale_factor
