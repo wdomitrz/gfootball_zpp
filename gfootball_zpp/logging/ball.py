@@ -4,6 +4,10 @@ import tensorflow as tf
 
 
 class LogBallOwningTeam(LogBasicTracker):
+    """ WARNING this wrapper returns approximate results
+    due to the fact that observation is generated after x
+    game engine steps """
+
     def _trace_vars_reset(self):
         self._first_team_time = 0  # in environment steps
         self._second_team_time = 0  # in environment steps
@@ -39,7 +43,7 @@ class LogBallOwningTeam(LogBasicTracker):
         observation = super(LogBallOwningTeam, self).reset()
 
         self._trace_vars_reset()
-        self._update_stats(observation)
+        # self._update_stats(observation) - we do not count initial observation
         return observation
 
     def step(self, action):
