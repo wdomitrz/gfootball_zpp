@@ -115,8 +115,10 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
             for rid in range(self._num_rewards):
                 scale_factor = 1.0 / self._num_difficulties
                 rewards = np.sum(self._rewards[tid, :, :, rid], axis=1)
-                rewards /= np.minimum(self._rewards_step[tid],
-                                      self._average_last)
+                counts = np.maximum(np.minimum(self._rewards_step[tid],
+                                                 self._average_last), 1)
+                rewards /= counts
+
                 self.summary_writer.write_bars(
                     'reward/game/{}_difficulty_reward*10+100_{}'.format(
                         team_names[tid], rid),
@@ -125,8 +127,7 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
                 text_reward = [('difficulty interval:{}_{} \
                 avg:{}'.format(get_with_prec(scale_factor * did),
                                get_with_prec(scale_factor * (did + 1)),
-                               min(self._rewards_step[tid][did],
-                                   self._average_last)),
+                               counts[did]),
                                 get_with_prec(rewards[did]))
                                for did in range(self._num_difficulties)]
                 text_log += '## Reward {}  \n'.format(rid) + \
