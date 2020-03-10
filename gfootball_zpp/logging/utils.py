@@ -193,13 +193,15 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
             tf.summary.text(name, text, self.get_current_step())
 
     def write_histogram(self, name, raw_data, buckets=None):
+        """ Warning strongly inaccurate https://github.com/tensorflow/tensorflow/issues/36128 """
         if not self.is_log_time():
             return
 
         with self._tf_summary_writer.as_default():
-            tf.summary.histogram(name, raw_data, self.get_current_step(), buckets=buckets)
+            tf.summary.histogram('warning_strongly_inaccurate_' + name, raw_data, self.get_current_step(), buckets=buckets)
 
     def write_bars(self, name, data, span_scale_factor=1.0, offset=0.0):
+        """ Warning strongly inaccurate https://github.com/tensorflow/tensorflow/issues/36128 """
         if not self.is_log_time():
             return
 
@@ -210,9 +212,9 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
             # data = tf.expand_dims(tf.expand_dims(data, axis=-1), axis=-1)
             counts = data
             left = (tf.range(num_buckets, dtype=tf.float64) + offset) * span_scale_factor
-            right = left  # + 1.0
             left -= 0.5 * span_scale_factor
-            right += 0.5 * span_scale_factor
+            right = tf.concat([left[1:], tf.Variable([left[-1] + (1.0 * span_scale_factor)], dtype=tf.float64)],
+                              axis=0)
             data = tf.stack([left, right, counts], axis=1)
             data = tf.reshape(data, shape=(num_buckets, 3))
 
@@ -220,7 +222,7 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
                 display_name=None, description=None)
             summary_scope = (getattr(tf.summary.experimental, 'summary_scope', None)
                              or tf.summary.summary_scope)
-            with summary_scope(name, 'histogram_summary', values=[data, num_buckets, self.get_current_step()]) as (
+            with summary_scope('warning_strongly_inaccurate_' + name, 'histogram_summary', values=[data, num_buckets, self.get_current_step()]) as (
                     tag, _):
                 tf.summary.write(tag=tag, tensor=data, step=self.get_current_step(), metadata=summary_metadata)
 

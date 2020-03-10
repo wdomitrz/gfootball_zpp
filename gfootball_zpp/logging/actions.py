@@ -3,6 +3,7 @@ from ..utils import scalar_to_list, get_max_discrete_action, pretty_list_of_pair
 from gfootball.env.football_action_set import named_action_from_action_set, get_action_set
 
 import numpy as np
+import tensorflow as tf
 
 
 class LogActionStats(LogBasicTracker):
@@ -39,7 +40,7 @@ class LogActionStats(LogBasicTracker):
         if self.env_episode_steps != 0:
             actions = self._action_counter
             for pid in range(self._num_players):
-                self.summary_writer.write_bars('actions/player_{}'.format(pid),
+                self.summary_writer.write_bars('actions/proportions_player_{}'.format(pid),
                                                actions[pid])
 
                 text_actions = [('action:**{}** aka:**{}**'.format(
