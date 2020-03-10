@@ -10,7 +10,7 @@ class LogPerPlayerReward(LogBasicTracker):
 
     def _trace_vars_reset(self):
         if self._num_rewards is not None:
-            self._rewards = tf.zeros(self._num_rewards, dtype=tf.float32)
+            self._rewards = np.zeros(self._num_rewards, dtype=np.float64)
         else:
             self._rewards = None
 
@@ -19,8 +19,8 @@ class LogPerPlayerReward(LogBasicTracker):
             self._num_rewards = len(scalar_to_list(reward))
             self._trace_vars_reset()
 
-        reward = tf.Variable(reward, dtype=tf.float32)
-        reward.shape.assert_has_rank(self._rewards.shape.ndims)
+        reward = np.array(reward, dtype=np.float64)
+        assert reward.ndim == self._rewards.ndim
         self._rewards = self._rewards + reward
 
         self.summary_writer.set_stepping(EnvLogSteppingModes.env_total_steps)
@@ -76,6 +76,7 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
                                           dtype=np.int64)
         else:
             self._rewards = None
+            self._rewards_step = None
 
     def _get_reward_bucket(self, difficulty):
         return min(math.floor(difficulty * self._num_difficulties),
@@ -89,7 +90,7 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
     def _update_reset(self):
         difficulties = self._get_difficulties()
 
-        reward = np.array(self._episode_rewards, dtype=np.float32)
+        reward = np.array(self._episode_rewards, dtype=np.float64)
         for tid, diff in enumerate(difficulties):
             rew_bucket = self._get_reward_bucket(diff)
             put_id = self._rewards_step[tid][rew_bucket] % self._average_last
@@ -101,8 +102,8 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
             self._num_rewards = len(scalar_to_list(reward))
             self._trace_vars_set()
 
-        reward = tf.Variable(reward, dtype=tf.float32)
-        reward.shape.assert_has_rank(len(self._episode_rewards.shape))
+        reward = np.array(reward, dtype=np.float64)
+        assert reward.ndim == self._episode_rewards.ndim
         self._episode_rewards = self._episode_rewards + reward
 
     def _log_rewards(self):
