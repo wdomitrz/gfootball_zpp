@@ -8,6 +8,7 @@ from .wrappers.old_2_multihead_nets import MultiHeadNets2
 from .wrappers.old_1_multihead_net import MultiHeadNet
 from .wrappers.ball_ownership import BallOwnershipRewardWrapper
 from .wrappers.recreatable_env import create_recreatable_football
+from .wrappers.rewards import DecayingCheckpointRewardWrapper
 from .logging import api
 
 import collections
@@ -94,6 +95,9 @@ def checkpoint_wrapper(env, config):
     else:
         return env
 
+def decaying_checkpoint_wrapper(env, config):
+    assert 'scoring' in config['rewards'].split(',')
+    return DecayingCheckpointRewardWrapper(env)
 
 def ball_ownership_reward_wrapper(env, config):
     return BallOwnershipRewardWrapper(env)
@@ -112,6 +116,7 @@ def single_agent_wrapper(env, config):
 KNOWN_WRAPPERS = {
     'periodic_dump': dump_wrapper,
     'checkpoint_score': checkpoint_wrapper,
+    'decaying_checkpoint_wrapper' : decaying_checkpoint_wrapper,
     'ball_ownership_reward': ball_ownership_reward_wrapper,
     'single_agent': single_agent_wrapper,
     'obs_extract': lambda env, config: wrappers.SMMWrapper(env, config['channel_dimensions']),
