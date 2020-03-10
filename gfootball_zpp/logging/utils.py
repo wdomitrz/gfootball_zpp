@@ -199,7 +199,7 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
         with self._tf_summary_writer.as_default():
             tf.summary.histogram(name, raw_data, self.get_current_step(), buckets=buckets)
 
-    def write_bars(self, name, data, span_scale_factor=1.0):
+    def write_bars(self, name, data, span_scale_factor=1.0, offset=0.0):
         if not self.is_log_time():
             return
 
@@ -209,7 +209,7 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
             num_buckets = data.shape[0]
             # data = tf.expand_dims(tf.expand_dims(data, axis=-1), axis=-1)
             counts = data
-            left = tf.range(num_buckets, dtype=tf.float32) * span_scale_factor
+            left = (tf.range(num_buckets, dtype=tf.float32) + offset) * span_scale_factor
             right = left  # + 1.0
             left -= 0.5 * span_scale_factor
             right += 0.5 * span_scale_factor

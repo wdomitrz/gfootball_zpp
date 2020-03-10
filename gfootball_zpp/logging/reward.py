@@ -121,9 +121,9 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
                 rewards /= norm_counts
 
                 self.summary_writer.write_bars(
-                    'reward/game/{}_difficulty_reward*10+100_{}'.format(
+                    'reward/game/{}_difficulty_diff_props_{}'.format(
                         team_names[tid], rid),
-                    rewards * 10 + 100.0, scale_factor)
+                    np.floor(rewards * 10 + 1000.0), scale_factor, 0.5)
 
                 text_reward = [('difficulty interval:{}_{} \
                 avg:{}'.format(get_with_prec(scale_factor * did),
