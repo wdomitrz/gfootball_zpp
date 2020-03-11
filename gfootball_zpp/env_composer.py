@@ -9,6 +9,8 @@ from .wrappers.old_1_multihead_net import MultiHeadNet
 from .wrappers.ball_ownership import BallOwnershipRewardWrapper
 from .wrappers.recreatable_env import create_recreatable_football
 from .wrappers.rewards import DecayingCheckpointRewardWrapper
+from .logging.api import enable_log_api_for_config, get_loggers_dict
+
 import collections
 import gym
 import numpy as np
@@ -49,15 +51,18 @@ class FrameStack(gym.Wrapper):
 class PeriodicDumpWriter(gym.Wrapper):
     """A wrapper that only dumps traces/videos periodically."""
 
-    def __init__(self, env, dump_frequency):
+    def __init__(self, env, config):
         gym.Wrapper.__init__(self, env)
-        self._dump_frequency = dump_frequency
+        self._dump_frequency = config['dump_frequency']
         self._original_dump_config = {
-            'write_video': env._config['write_video'],
-            'dump_full_episodes': env._config['dump_full_episodes'],
-            'dump_scores': env._config['dump_scores'],
+            'write_video': config['write_video'],
+            'dump_full_episodes': config['enable_full_episode_videos'],
+            'dump_scores': config['enable_goal_videos'],
         }
         self._current_episode_number = 0
+
+    def __getattr__(self, attr):
+        return getattr(self.env, attr)
 
     def step(self, action):
         return self.env.step(action)
@@ -78,7 +83,7 @@ class PeriodicDumpWriter(gym.Wrapper):
 
 def dump_wrapper(env, config):
     if config['dump_frequency'] > 1:
-        return PeriodicDumpWriter(env, config['dump_frequency'])
+        return PeriodicDumpWriter(env, config)
     else:
         return env
 
@@ -121,9 +126,12 @@ KNOWN_WRAPPERS = {
     'old_w': MultiHeadNets2,
     'old_single_map': MultiHeadNet
 }
+KNOWN_WRAPPERS.update(get_loggers_dict())
 
 
 def compose_environment(env_config, wrappers):
+    enable_log_api_for_config(env_config) # we enable log api
+
     def extract_from_dict(dictionary, keys):
         return {new_k: dictionary[k] for (new_k, k) in keys}
 
@@ -137,12 +145,12 @@ def compose_environment(env_config, wrappers):
                                         [('enable_sides_swap', 'enable_sides_swap'),
                                          ('dump_full_episodes',
                                           'enable_full_episode_videos'),
-                                            ('dump_scores', 'enable_goal_videos'),
-                                            ('level', 'env_name'),
-                                            ('players', 'players'),
-                                            ('render', 'render'),
-                                            ('tracesdir', 'logdir'),
-                                            ('write_video', 'write_video')])
+                                         ('dump_scores', 'enable_goal_videos'),
+                                         ('level', 'env_name'),
+                                         ('players', 'players'),
+                                         ('render', 'render'),
+                                         ('tracesdir', 'logdir'),
+                                         ('write_video', 'write_video')])
     if 'env_change_rate' not in env_config:
         env = football_env.FootballEnv(config.Config(football_config))
     else:
@@ -154,41 +162,7 @@ def compose_environment(env_config, wrappers):
     return env
 
 
-def upload_logs(local_logdir, remote_logdir):
-    tf.io.gfile.makedirs(remote_logdir)
-    while True:
-        local_files = tf.io.gfile.listdir(local_logdir)
-        remote_files = tf.io.gfile.listdir(remote_logdir)
-        diff = list(set(local_files) - set(remote_files))
-        for f in diff:
-            tf.io.gfile.copy(os.path.join(local_logdir, f),
-                             os.path.join(remote_logdir, f))
-        time.sleep(1)
-
-
-def remote_logs(config):
-    if config['logdir'] != '' and config['logdir'].startswith('gs://'):
-        pruned_logdir = config['logdir'].replace('/', '_').replace(':', '')
-        local_logdir = '/tmp/env_log/' + pruned_logdir
-        os.makedirs(local_logdir)
-        remote_logdir = config['logdir']
-        t = threading.Thread(target=upload_logs, args=(
-            local_logdir, remote_logdir))
-        t.start()
-        # subprocess.Popen(['gsutil', 'rsync', local_logdir, remote_logdir])
-        config['logdir'] = local_logdir
-
-
-def log_videos_when_logging(config):
-    if config['logdir'] != '':
-        config['enable_goal_videos'] = True
-        config['enable_full_episode_videos'] = True
-        config['write_video'] = True
-
-
 def config_compose_environment(config):
-    remote_logs(config)
-    log_videos_when_logging(config)
     wrappers = []
     for w in config['wrappers'].split(','):
         wrappers.append(KNOWN_WRAPPERS[w])
