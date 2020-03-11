@@ -47,54 +47,47 @@ def enable_video_logs(config):
     config['write_video'] = True
 
 
-class LogAPI(gym.Wrapper):
-    """Transparent wrapper that enables logging
 
+def log_api(config):
+    """
     Functionalities:
     * decides whenever to enable logs ('decide_to_log_fn')
     * adds specific logdirs to config (based of 'base_logdir')
-    etc
-    """
+    etc"""
+    actor_id = config['actor_id']
+    base_logdir = config['base_logdir']
 
-    def __init__(self, env, config):
-        gym.Wrapper.__init__(self, env)
-        self._actor_id = config['actor_id']
-        self._base_logdir = config['base_logdir']
+    if 'decide_to_log_fn' in config:
+        decide_if_log_fn = eval(config['decide_to_log_fn'])
+    else:
+        decide_if_log_fn = lambda actor_id: actor_id == 0
 
-        if 'decide_to_log_fn' in config:
-            self._decide_if_log_fn = eval(config['decide_to_log_fn'])
-        else:
-            self._decide_if_log_fn = lambda actor_id: actor_id == 0
+    if 'step_log_freq' not in config:
+        config['step_log_freq'] = 10 * config['dump_frequency']
 
-        if 'step_log_freq' not in config:
-            config['step_log_freq'] = 10 * config['dump_frequency']
+    if 'reset_log_freq' not in config:
+        config['reset_log_freq'] = 1
 
-        if 'reset_log_freq' not in config:
-            config['reset_log_freq'] = 1
+    if (actor_id is not None) and \
+       (base_logdir is not None) and \
+       (decide_if_log_fn(actor_id)):
+        dumps_logdir = os.path.join(base_logdir, 'env_dumps')
+        config['logdir'] = fix_remote_logdir(dumps_logdir)
 
-        if (self._actor_id is not None) and \
-                (self._base_logdir is not None) and \
-                (self._decide_if_log_fn(self._actor_id)):
-            dumps_logdir = os.path.join(self._base_logdir, 'env_dumps')
-            config['logdir'] = fix_remote_logdir(dumps_logdir)
+        config['tb_logdir'] = os.path.join(base_logdir, 'env_tb')
+        make_logdir_dirs(config['tb_logdir'])
 
-            config['tb_logdir'] = os.path.join(self._base_logdir, 'env_tb')
-            make_logdir_dirs(config['tb_logdir'])
+        enable_video_logs(config)
 
-            enable_video_logs(config)
-
-            config['tf_summary_writer'] = tf.summary.create_file_writer(
+        config['tf_summary_writer'] = tf.summary.create_file_writer(
                 config['tb_logdir'],
-                flush_millis=20000,
-                max_queue=1000)
-            config['logs_enabled'] = True
-        else:
-            config['tf_summary_writer'] = tf.summary.create_noop_writer()
-            config['logs_enabled'] = False
-            config['logdir'] = ''
-
-    def __getattr__(self, attr):
-        return getattr(self.env, attr)
+            flush_millis=20000,
+            max_queue=1000)
+        config['logs_enabled'] = True
+    else:
+        config['tf_summary_writer'] = tf.summary.create_noop_writer()
+        config['logs_enabled'] = False
+        config['logdir'] = ''
 
 
 import enum

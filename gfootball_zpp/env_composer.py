@@ -9,7 +9,7 @@ from .wrappers.old_1_multihead_net import MultiHeadNet
 from .wrappers.ball_ownership import BallOwnershipRewardWrapper
 from .wrappers.recreatable_env import create_recreatable_football
 from .wrappers.rewards import DecayingCheckpointRewardWrapper
-from .logging import api
+from .logging.api import enable_log_api_for_config, get_loggers_dict
 
 import collections
 import gym
@@ -126,10 +126,12 @@ KNOWN_WRAPPERS = {
     'old_w': MultiHeadNets2,
     'old_single_map': MultiHeadNet
 }
-KNOWN_WRAPPERS.update(api.get_loggers_dict())
+KNOWN_WRAPPERS.update(get_loggers_dict())
 
 
 def compose_environment(env_config, wrappers):
+    enable_log_api_for_config(env_config) # we enable log api
+
     def extract_from_dict(dictionary, keys):
         return {new_k: dictionary[k] for (new_k, k) in keys}
 
@@ -161,7 +163,7 @@ def compose_environment(env_config, wrappers):
 
 
 def config_compose_environment(config):
-    wrappers = [KNOWN_WRAPPERS['log_api']] # we enable log_api by default (to support legacy configs)
+    wrappers = []
     for w in config['wrappers'].split(','):
         wrappers.append(KNOWN_WRAPPERS[w])
 
