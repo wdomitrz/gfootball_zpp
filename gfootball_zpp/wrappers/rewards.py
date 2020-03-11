@@ -5,7 +5,7 @@ import numpy as np
 class DecayingCheckpointRewardWrapper(gym.RewardWrapper):
   """A wrapper that adds a dense checkpoint reward."""
 
-  def __init__(self, env, number_of_rounds=2 * 10 ** 9 - 1):
+  def __init__(self, env, number_of_rounds=5 * 10 ** 8 - 1):
     gym.RewardWrapper.__init__(self, env)
     self._collected_checkpoints = {}
     self._num_checkpoints = 10
