@@ -39,3 +39,8 @@ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit nvidia-c
 sudo systemctl restart docker
 
 sudo systemctl enable docker;
+
+sudo apt install python3-pip;
+sudo pip3 install absl-py;
+sudo pip3 install pyyaml;
+

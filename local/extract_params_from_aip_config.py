@@ -33,7 +33,7 @@ def param_list_to_string(param_list):
 def main(argv):
     filepath = FLAGS.filepath
     with open(filepath) as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
+        data = yaml.load(f, Loader=yaml.Loader)
     params = data['trainingInput']['hyperparameters']['params']
     result = []
     for p in params:
