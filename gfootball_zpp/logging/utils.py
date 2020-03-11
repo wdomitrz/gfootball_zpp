@@ -194,7 +194,7 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
             tf.summary.histogram('warning_strongly_inaccurate_' + name, raw_data, self.get_current_step(), buckets=buckets)
 
     def write_bars(self, name, data, span_scale_factor=1.0, offset=0.0):
-        """ Warning strongly inaccurate https://github.com/tensorflow/tensorflow/issues/36128 """
+        """ Warning strongly inaccurate https://github.com/tensorflow/tensorboard/issues/1803 """
         if not self.is_log_time():
             return
 
