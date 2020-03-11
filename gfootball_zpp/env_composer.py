@@ -51,13 +51,13 @@ class FrameStack(gym.Wrapper):
 class PeriodicDumpWriter(gym.Wrapper):
     """A wrapper that only dumps traces/videos periodically."""
 
-    def __init__(self, env, dump_frequency):
+    def __init__(self, env, config):
         gym.Wrapper.__init__(self, env)
-        self._dump_frequency = dump_frequency
+        self._dump_frequency = config['dump_frequency']
         self._original_dump_config = {
-            'write_video': env._config['write_video'],
-            'dump_full_episodes': env._config['dump_full_episodes'],
-            'dump_scores': env._config['dump_scores'],
+            'write_video': config['write_video'],
+            'dump_full_episodes': config['enable_full_episode_videos'],
+            'dump_scores': config['enable_goal_videos'],
         }
         self._current_episode_number = 0
 
@@ -83,7 +83,7 @@ class PeriodicDumpWriter(gym.Wrapper):
 
 def dump_wrapper(env, config):
     if config['dump_frequency'] > 1:
-        return PeriodicDumpWriter(env, config['dump_frequency'])
+        return PeriodicDumpWriter(env, config)
     else:
         return env
 
