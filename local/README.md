@@ -7,7 +7,7 @@
 		- w gfootball_zpp powinno się zrobić checkout na `run_local`
 		  (o ile nie zostało już włączone do mastera)
 	+ `/gcp_connect.sh enter skonrad-local-seed-2 skonrad us-west1-b`
-3. plik `remote_setup.sh` może się przydać jeżeli ktoś chce postawić u siebie
+3. Plik `remote_setup.sh` może się przydać jeżeli ktoś chce postawić u siebie
    na komputerze (wymaga pobrania nvidia nccl (patrz komentarze w pliku))
 ## Odpalanie lokalne
 * `run_local.sh AIP_CONFIG_FILE ENV_CONFIG_FILE NUM_ACTORS`
