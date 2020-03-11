@@ -5,28 +5,34 @@ import numpy as np
 class DecayingCheckpointRewardWrapper(gym.RewardWrapper):
   """A wrapper that adds a dense checkpoint reward."""
 
-  def __init__(self, env, number_of_rounds=5 * 10 ** 8 - 1):
+  def __init__(self, env, number_of_steps=5 * 10 ** 8):
     gym.RewardWrapper.__init__(self, env)
     self._collected_checkpoints = {}
     self._num_checkpoints = 10
     self._checkpoint_base_reward = 0.1
-    self._number_of_rounds = number_of_rounds
+    self._number_of_steps = number_of_steps
+    self._current_step = 0
 
   def reset(self):
     self._collected_checkpoints = {}
     return self.env.reset()
 
   def get_state(self, to_pickle):
-    to_pickle['DecayingCheckpointRewardWrapper'] = self._collected_checkpoints
+    to_pickle['DecayingCheckpointRewardWrapper'] = (
+        self._collected_checkpoints, self._current_step)
     return self.env.get_state(to_pickle)
 
   def set_state(self, state):
     from_pickle = self.env.set_state(state)
-    self._collected_checkpoints = from_pickle['DecayingCheckpointRewardWrapper']
+    self._collected_checkpoints, self._current_step = from_pickle[
+        'DecayingCheckpointRewardWrapper']
     return from_pickle
 
   def _checkpoint_reward(self):
-    return self._checkpoint_base_reward * (self._number_of_rounds - self.iterations()) / self._number_of_rounds
+    self._current_step += 1
+    if self._current_step > self._number_of_steps:
+      return 0
+    return self._checkpoint_base_reward * (self._number_of_steps - self._current_step) / self._number_of_steps
 
   def reward(self, reward):
     observation = self.env.unwrapped.observation()
