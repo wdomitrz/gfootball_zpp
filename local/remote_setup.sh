@@ -11,7 +11,7 @@ sudo apt-get install -y nvidia-cuda-dev;
 
 sudo apt-get install -y nvidia-utils-440;
 
-sudo dpkg -i nccl-repo-ubuntu1804-2.5.6-ga-cuda10.2_1-1_amd64.deb;
+sudo dpkg -i nccl-repo-ubuntu1804-2.5.6-ga-cuda10.2_1-1_amd64.deb; # you need to download this
 
 sudo apt-get update && sudo apt-get install -y git apt-transport-https ca-certificates curl gnupg2 software-properties-common;
 
