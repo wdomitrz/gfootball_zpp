@@ -18,7 +18,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR
 if test -z "$1"
 then
-  LABEL=$CONFIG
+  LABEL="${CONFIG}_${JOB_NAME_PREFIX}"
 else
   LABEL=$1
 fi

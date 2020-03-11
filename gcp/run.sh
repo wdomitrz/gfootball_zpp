@@ -7,7 +7,7 @@ if [ "$#" -ne "4" ] && [ "$#" -ne "5" ] ; then
     exit 1
 fi
 
-JOB_NAME_PREFIX="$1"
+export JOB_NAME_PREFIX="$1"
 BUCKET_NAME="$2"
 AI_PLATFORM_CONFIG_FILE="$3"
 ENV_CONFIG_FILE="$4"
@@ -49,9 +49,10 @@ start_training () {
 
 ENV_CONFIG=$(cat "$ENV_CONFIG_FILE" | tr '\n' ' ')
 
+
 sed "s|ENV_CONFIG_HERE|${ENV_CONFIG}|g" "$AI_PLATFORM_CONFIG_FILE" > "$CONFIG_OUT_FILE"
 sed -i="" "s|\${IMAGE_URI}|${IMAGE_URI}|g" "$CONFIG_OUT_FILE"
-sed -i="" "s|\${CONFIG}|${CONFIG}|g" "$CONFIG_OUT_FILE"
+sed -i="" "s|\${CONFIG}|${CONFIG}_${JOB_NAME_PREFIX}|g" "$CONFIG_OUT_FILE"
 sed -i="" "s|\${WORKERS}|${WORKERS}|g" "$CONFIG_OUT_FILE"
 
 start_training
