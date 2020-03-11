@@ -161,7 +161,7 @@ def compose_environment(env_config, wrappers):
 
 
 def config_compose_environment(config):
-    wrappers = []
+    wrappers = [KNOWN_WRAPPERS['log_api']] # we enable log_api by default (to support legacy configs)
     for w in config['wrappers'].split(','):
         wrappers.append(KNOWN_WRAPPERS[w])
 

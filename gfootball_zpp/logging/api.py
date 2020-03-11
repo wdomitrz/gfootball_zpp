@@ -11,10 +11,10 @@ def get_default_loggers():
     """ Returns the list of pairs (logger_name, logger_wrapper)
     Order of wrappers is relevant in particular
     low level wrappers should be used before other wrappers.
-    Please note that LogAll wrapper is not included here."""
+    Please note that LogAll wrapper is not included here.
+    Please note that LogAPI wrapper should go before these wrappers."""
 
     result = []
-    result.append(('log_api', LogAPI))
     # result.append(('log_low_level_scenario_data', LogLowLevelScenarioData))
     result.append(('log_scenario_difficulty', LogScenarioDifficulty))
     result.append(('log_scenario_data_on_change', LogScenarioDataOnChange))
@@ -69,9 +69,10 @@ class LogHighLevel(gym.Wrapper):
 
 def get_loggers_dict():
     """ Returns the dict of wrappers returned by
-    get_default_loggers() + log_all, log_low, log_med, log_high wrapper."""
+    get_default_loggers() + log_api + log_all, log_low, log_med, log_high wrapper."""
 
     result, _, _ = get_default_loggers()
+    result.append(('log_api', LogAPI))
     result.append(('log_all', LogAll))
     result.append(('log_low', LogLowLevel))
     result.append(('log_med', LogMedLevel))
