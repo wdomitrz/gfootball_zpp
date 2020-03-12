@@ -8,7 +8,6 @@ import tensorflow as tf
 
 class LogActionStats(LogBasicTracker):
     """ This is a low level wrapper """
-
     def _update_action_counts(self, action):
         for pid, a in enumerate(action):
             self._action_counter[pid][a] += 1
@@ -22,8 +21,7 @@ class LogActionStats(LogBasicTracker):
     def __init__(self, env, config):
         LogBasicTracker.__init__(self, env, config)
 
-        self._num_players = len(scalar_to_list(
-            self.env.action_space.sample()))
+        self._num_players = len(scalar_to_list(self.env.action_space.sample()))
 
         self._discrete_actions = get_max_discrete_action(self.env)
         self._action_counter = np.zeros(shape=(self._num_players,
@@ -40,12 +38,11 @@ class LogActionStats(LogBasicTracker):
         if self.env_episode_steps != 0:
             actions = self._action_counter
             for pid in range(self._num_players):
-                self.summary_writer.write_bars('actions/proportions_player_{}'.format(pid),
-                                               actions[pid])
+                self.summary_writer.write_bars(
+                    'actions/proportions_player_{}'.format(pid), actions[pid])
 
                 text_actions = [('action:**{}** aka:**{}**'.format(
-                    aid, self._get_action_name(aid)),
-                                 actions[pid][aid])
+                    aid, self._get_action_name(aid)), actions[pid][aid])
                                 for aid in range(self._discrete_actions)]
                 text_log += '## For player_{}  \n'.format(pid) + \
                             pretty_list_of_pairs_to_string(text_actions)

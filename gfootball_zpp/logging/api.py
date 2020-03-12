@@ -6,6 +6,7 @@ from .reward import LogPerPlayerReward, LogAveragePerPlayerRewardByDifficulty
 
 import gym
 
+
 def enable_log_api_for_config(config):
     log_api(config)
 
@@ -21,7 +22,8 @@ def get_default_loggers():
     # result.append(('log_low_level_scenario_data', LogLowLevelScenarioData))
     result.append(('log_scenario_difficulty', LogScenarioDifficulty))
     result.append(('log_scenario_data_on_change', LogScenarioDataOnChange))
-    result.append(('log_average_per_player_reward_by_difficulty', LogAveragePerPlayerRewardByDifficulty))
+    result.append(('log_average_per_player_reward_by_difficulty',
+                   LogAveragePerPlayerRewardByDifficulty))
     result.append(('log_action_stats', LogActionStats))
 
     med_level_start_id = len(result)
@@ -35,7 +37,6 @@ def get_default_loggers():
 
 class LogAll(gym.Wrapper):
     """ Applies all wrappers returned by get_default_loggers."""
-
     def __init__(self, env, config):
         wrappers, _, _ = get_default_loggers()
         for _, w in wrappers:
@@ -56,7 +57,8 @@ class LogLowLevel(gym.Wrapper):
 
 class LogMedLevel(gym.Wrapper):
     def __init__(self, env, config):
-        wrappers, med_level_start_id, high_level_start_id = get_default_loggers()
+        wrappers, med_level_start_id, high_level_start_id = get_default_loggers(
+        )
         for _, w in wrappers[med_level_start_id:high_level_start_id]:
             env = w(env, config)
         gym.Wrapper.__init__(self, env)

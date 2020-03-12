@@ -7,7 +7,6 @@ import math
 
 
 class LogPerPlayerReward(LogBasicTracker):
-
     def _trace_vars_reset(self):
         if self._num_rewards is not None:
             self._rewards = np.zeros(self._num_rewards, dtype=np.float64)
@@ -25,8 +24,8 @@ class LogPerPlayerReward(LogBasicTracker):
 
         self.summary_writer.set_stepping(EnvLogSteppingModes.env_total_steps)
         for rid in range(self._num_rewards):
-            self.summary_writer.write_scalar('reward/step/reward_{}'.format(
-                rid), self._rewards[rid])
+            self.summary_writer.write_scalar(
+                'reward/step/reward_{}'.format(rid), self._rewards[rid])
 
     def __init__(self, env, config):
         LogBasicTracker.__init__(self, env, config)
@@ -40,8 +39,8 @@ class LogPerPlayerReward(LogBasicTracker):
         if self._rewards is not None:
             self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
             for rid in range(self._num_rewards):
-                self.summary_writer.write_scalar('reward/game/reward_{}'.format(
-                    rid), self._rewards[rid])
+                self.summary_writer.write_scalar(
+                    'reward/game/reward_{}'.format(rid), self._rewards[rid])
 
         observation = super(LogPerPlayerReward, self).reset()
 
@@ -49,18 +48,17 @@ class LogPerPlayerReward(LogBasicTracker):
         return observation
 
     def step(self, action):
-        observation, reward, done, info = super(
-            LogPerPlayerReward, self).step(action)
+        observation, reward, done, info = super(LogPerPlayerReward,
+                                                self).step(action)
         self._update_step(scalar_to_list(reward))
         return observation, reward, done, info
 
 
 class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
     """ This is a low level wrapper. """
-
     def _trace_vars_reset(self):
         if self._num_rewards is not None:
-            self._episode_rewards = np.zeros(shape=(self._num_rewards,))
+            self._episode_rewards = np.zeros(shape=(self._num_rewards, ))
         else:
             self._episode_rewards = None
 
@@ -71,8 +69,7 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
                                             self._average_last,
                                             self._num_rewards),
                                      dtype=np.float64)
-            self._rewards_step = np.zeros(shape=(2,
-                                                 self._num_difficulties),
+            self._rewards_step = np.zeros(shape=(2, self._num_difficulties),
                                           dtype=np.int64)
         else:
             self._rewards = None
@@ -84,8 +81,10 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
 
     def _get_difficulties(self):
         scenario_config = self.env._config.ScenarioConfig()
-        return [scenario_config.left_team_difficulty,
-                scenario_config.right_team_difficulty]
+        return [
+            scenario_config.left_team_difficulty,
+            scenario_config.right_team_difficulty
+        ]
 
     def _update_reset(self):
         difficulties = self._get_difficulties()
@@ -95,7 +94,8 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
             rew_bucket = self._get_reward_bucket(diff)
             put_id = self._rewards_step[tid][rew_bucket] % self._average_last
             self._rewards[tid][rew_bucket][put_id] = reward
-            self._rewards_step[tid][rew_bucket] = self._rewards_step[tid][rew_bucket] + 1
+            self._rewards_step[tid][
+                rew_bucket] = self._rewards_step[tid][rew_bucket] + 1
 
     def _update_step(self, reward):
         if self._num_rewards is None:
@@ -122,14 +122,13 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
 
                 self.summary_writer.write_bars(
                     'reward/game/{}_difficulty_diff_props_{}'.format(
-                        team_names[tid], rid),
-                    np.floor(rewards * 10 + 1000.0), scale_factor, 0.5)
+                        team_names[tid], rid), np.floor(rewards * 10 + 1000.0),
+                    scale_factor, 0.5)
 
                 text_reward = [('difficulty interval:{}_{} \
                 avg:{}'.format(get_with_prec(scale_factor * did),
                                get_with_prec(scale_factor * (did + 1)),
-                               counts[did]),
-                                get_with_prec(rewards[did]))
+                               counts[did]), get_with_prec(rewards[did]))
                                for did in range(self._num_difficulties)]
                 text_log += '## Reward {}  \n'.format(rid) + \
                             pretty_list_of_pairs_to_string(text_reward)
@@ -158,7 +157,8 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
             self._log_rewards()
 
         self._trace_vars_reset()
-        observation = super(LogAveragePerPlayerRewardByDifficulty, self).reset()
+        observation = super(LogAveragePerPlayerRewardByDifficulty,
+                            self).reset()
 
         return observation
 

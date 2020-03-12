@@ -33,8 +33,8 @@ def fix_remote_logdir(logdir):
         remote_logdir = logdir
         make_logdir_dirs(local_logdir)
         make_logdir_dirs(remote_logdir)
-        t = threading.Thread(target=upload_logs, args=(
-            local_logdir, remote_logdir))
+        t = threading.Thread(target=upload_logs,
+                             args=(local_logdir, remote_logdir))
         t.start()
         return local_logdir
     else:
@@ -45,7 +45,6 @@ def enable_video_logs(config):
     config['enable_goal_videos'] = True
     config['enable_full_episode_videos'] = True
     config['write_video'] = True
-
 
 
 def log_api(config):
@@ -80,9 +79,7 @@ def log_api(config):
         enable_video_logs(config)
 
         config['tf_summary_writer'] = tf.summary.create_file_writer(
-                config['tb_logdir'],
-            flush_millis=20000,
-            max_queue=1000)
+            config['tb_logdir'], flush_millis=20000, max_queue=1000)
         config['logs_enabled'] = True
     else:
         config['tf_summary_writer'] = tf.summary.create_noop_writer()
@@ -133,17 +130,22 @@ class EnvSummaryWriterBase(SummaryWriterBase):
         self._current_stepping = EnvLogSteppingModes.env_resets
 
         self._stepping_modes = {
-            EnvLogSteppingModes.provided: None,
-            EnvLogSteppingModes.env_resets: lambda: self._log_tracker.env_resets,
-            EnvLogSteppingModes.env_total_steps: lambda: self._log_tracker.env_total_steps
+            EnvLogSteppingModes.provided:
+            None,
+            EnvLogSteppingModes.env_resets:
+            lambda: self._log_tracker.env_resets,
+            EnvLogSteppingModes.env_total_steps:
+            lambda: self._log_tracker.env_total_steps
         }
 
     def is_log_time(self):
         result = self._logs_enabled
         if self._current_stepping != EnvLogSteppingModes.provided:
-            result = result and (self._log_tracker.env_resets % self._reset_log_freq == 0)
+            result = result and (self._log_tracker.env_resets %
+                                 self._reset_log_freq == 0)
             if self._current_stepping == EnvLogSteppingModes.env_total_steps:
-                result = result and (self._log_tracker.env_episode_steps % self._step_log_freq == 0)
+                result = result and (self._log_tracker.env_episode_steps %
+                                     self._step_log_freq == 0)
             return result
         else:
             return result
@@ -191,7 +193,10 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
             return
 
         with self._tf_summary_writer.as_default():
-            tf.summary.histogram('warning_strongly_inaccurate_' + name, raw_data, self.get_current_step(), buckets=buckets)
+            tf.summary.histogram('warning_strongly_inaccurate_' + name,
+                                 raw_data,
+                                 self.get_current_step(),
+                                 buckets=buckets)
 
     def write_bars(self, name, data, span_scale_factor=1.0, offset=0.0):
         """ Warning strongly inaccurate https://github.com/tensorflow/tensorboard/issues/1803 """
@@ -204,27 +209,37 @@ class EnvTFSummaryWriter(EnvSummaryWriterBase):
             num_buckets = data.shape[0]
             # data = tf.expand_dims(tf.expand_dims(data, axis=-1), axis=-1)
             counts = data
-            left = (tf.range(num_buckets, dtype=tf.float64) + offset) * span_scale_factor
+            left = (tf.range(num_buckets, dtype=tf.float64) +
+                    offset) * span_scale_factor
             left -= 0.5 * span_scale_factor
-            right = tf.concat([left[1:], tf.Variable([left[-1] + (1.0 * span_scale_factor)], dtype=tf.float64)],
+            right = tf.concat([
+                left[1:],
+                tf.Variable([left[-1] + (1.0 * span_scale_factor)],
+                            dtype=tf.float64)
+            ],
                               axis=0)
             data = tf.stack([left, right, counts], axis=1)
             data = tf.reshape(data, shape=(num_buckets, 3))
 
             summary_metadata = tensorboard.plugins.histogram.metadata.create_summary_metadata(
                 display_name=None, description=None)
-            summary_scope = (getattr(tf.summary.experimental, 'summary_scope', None)
-                             or tf.summary.summary_scope)
-            with summary_scope('warning_strongly_inaccurate_' + name, 'histogram_summary', values=[data, num_buckets, self.get_current_step()]) as (
-                    tag, _):
-                tf.summary.write(tag=tag, tensor=data, step=self.get_current_step(), metadata=summary_metadata)
+            summary_scope = (getattr(tf.summary.experimental, 'summary_scope',
+                                     None) or tf.summary.summary_scope)
+            with summary_scope(
+                    'warning_strongly_inaccurate_' + name,
+                    'histogram_summary',
+                    values=[data, num_buckets,
+                            self.get_current_step()]) as (tag, _):
+                tf.summary.write(tag=tag,
+                                 tensor=data,
+                                 step=self.get_current_step(),
+                                 metadata=summary_metadata)
 
 
 class LogBasicTracker(gym.Wrapper):
     """Base class for log wrappers
     Keeps track of basic statistics used by most wrappers
     """
-
     def __init__(self, env, config):
         gym.Wrapper.__init__(self, env)
         self.env_resets = 0
@@ -245,25 +260,27 @@ class LogBasicTracker(gym.Wrapper):
 
 def extract_data_from_low_level_env_cfg(env_config):
     data = []
-    data.extend(extract_from_dict(env_config._values,
-                                  ['action_set',
-                                   'players',
-                                   'level']))
-    data.extend(extract_obj_attributes(env_config.ScenarioConfig(),
-                                       [  # 'ball_position',
-                                           'deterministic',
-                                           'end_episode_on_out_of_play',
-                                           'end_episode_on_possession_change',
-                                           'end_episode_on_score',
-                                           'game_duration',
-                                           # 'game_engine_random_seed',
-                                           # 'left_agents',
-                                           # 'left_team',
-                                           'left_team_difficulty',
-                                           'offsides',
-                                           # 'right_agents',
-                                           # 'right_team',
-                                           'right_team_difficulty']))
+    data.extend(
+        extract_from_dict(env_config._values,
+                          ['action_set', 'players', 'level']))
+    data.extend(
+        extract_obj_attributes(
+            env_config.ScenarioConfig(),
+            [  # 'ball_position',
+                'deterministic',
+                'end_episode_on_out_of_play',
+                'end_episode_on_possession_change',
+                'end_episode_on_score',
+                'game_duration',
+                # 'game_engine_random_seed',
+                # 'left_agents',
+                # 'left_team',
+                'left_team_difficulty',
+                'offsides',
+                # 'right_agents',
+                # 'right_team',
+                'right_team_difficulty'
+            ]))
 
     def second_to_string(p):
         f, s = p
