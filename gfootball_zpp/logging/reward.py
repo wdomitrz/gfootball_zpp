@@ -16,7 +16,7 @@ class LogPerPlayerReward(LogBasicTracker):
 
     def _update_step(self, reward):
         if self._num_rewards is None:
-            self._num_rewards = len(scalar_to_list(reward))
+            self._num_rewards = len(reward)
             self._trace_vars_reset()
 
         reward = np.array(reward, dtype=np.float64)
@@ -51,7 +51,7 @@ class LogPerPlayerReward(LogBasicTracker):
     def step(self, action):
         observation, reward, done, info = super(
             LogPerPlayerReward, self).step(action)
-        self._update_step(reward)
+        self._update_step(scalar_to_list(reward))
         return observation, reward, done, info
 
 
@@ -99,7 +99,7 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
 
     def _update_step(self, reward):
         if self._num_rewards is None:
-            self._num_rewards = len(scalar_to_list(reward))
+            self._num_rewards = len(reward)
             self._trace_vars_set()
 
         reward = np.array(reward, dtype=np.float64)
@@ -165,5 +165,5 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
     def step(self, action):
         observation, reward, done, info = super(
             LogAveragePerPlayerRewardByDifficulty, self).step(action)
-        self._update_step(reward)
+        self._update_step(scalar_to_list(reward))
         return observation, reward, done, info

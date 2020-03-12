@@ -59,5 +59,5 @@ class LogActionStats(LogBasicTracker):
 
     def step(self, action):
         result = super(LogActionStats, self).step(action)
-        self._update_action_counts(action)
+        self._update_action_counts(scalar_to_list(action))
         return result
