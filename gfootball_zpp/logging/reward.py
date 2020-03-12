@@ -70,7 +70,7 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
             self._rewards = np.zeros(shape=(2, self._num_difficulties,
                                             self._average_last,
                                             self._num_rewards),
-                                     dtype=np.float32)
+                                     dtype=np.float64)
             self._rewards_step = np.zeros(shape=(2,
                                                  self._num_difficulties),
                                           dtype=np.int64)
