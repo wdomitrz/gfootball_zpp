@@ -21,6 +21,8 @@ import time
 import tensorflow as tf
 
 
+# This wrapper was adopted from https://github.com/google-research/football
+# See link for license.
 class FrameStack(gym.Wrapper):
     """Stack k last observations."""
     def __init__(self, env, k):
@@ -46,7 +48,8 @@ class FrameStack(gym.Wrapper):
     def _get_observation(self):
         return np.concatenate(list(self.obs), axis=-1)
 
-
+# This wrapper was adopted from https://github.com/google-research/football
+# and modified. See link for license.
 class PeriodicDumpWriter(gym.Wrapper):
     """A wrapper that only dumps traces/videos periodically."""
     def __init__(self, env, config):
