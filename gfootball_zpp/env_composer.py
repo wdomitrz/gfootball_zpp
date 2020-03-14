@@ -9,6 +9,8 @@ from .wrappers.old_1_multihead_net import MultiHeadNet
 from .wrappers.ball_ownership import BallOwnershipRewardWrapper
 from .wrappers.recreatable_env import create_recreatable_football
 from .wrappers.rewards import DecayingCheckpointRewardWrapper
+from .logging.api import enable_log_api_for_config, get_loggers_dict
+
 import collections
 import gym
 import numpy as np
@@ -19,9 +21,10 @@ import time
 import tensorflow as tf
 
 
+# This wrapper was adopted from https://github.com/google-research/football
+# See link for license.
 class FrameStack(gym.Wrapper):
     """Stack k last observations."""
-
     def __init__(self, env, k):
         gym.Wrapper.__init__(self, env)
         self.obs = collections.deque([], maxlen=k)
@@ -45,32 +48,37 @@ class FrameStack(gym.Wrapper):
     def _get_observation(self):
         return np.concatenate(list(self.obs), axis=-1)
 
-
+# This wrapper was adopted from https://github.com/google-research/football
+# and modified. See link for license.
 class PeriodicDumpWriter(gym.Wrapper):
     """A wrapper that only dumps traces/videos periodically."""
-
-    def __init__(self, env, dump_frequency):
+    def __init__(self, env, config):
         gym.Wrapper.__init__(self, env)
-        self._dump_frequency = dump_frequency
+        self._dump_frequency = config['dump_frequency']
         self._original_dump_config = {
-            'write_video': env._config['write_video'],
-            'dump_full_episodes': env._config['dump_full_episodes'],
-            'dump_scores': env._config['dump_scores'],
+            'write_video': config['write_video'],
+            'dump_full_episodes': config['enable_full_episode_videos'],
+            'dump_scores': config['enable_goal_videos'],
         }
         self._current_episode_number = 0
+
+    def __getattr__(self, attr):
+        return getattr(self.env, attr)
 
     def step(self, action):
         return self.env.step(action)
 
     def reset(self):
         if (self._dump_frequency > 0 and
-                (self._current_episode_number % self._dump_frequency == 0)):
+            (self._current_episode_number % self._dump_frequency == 0)):
             self.env._config.update(self._original_dump_config)
             # self.env.render()
         else:
-            self.env._config.update({'write_video': False,
-                                     'dump_full_episodes': False,
-                                     'dump_scores': False})
+            self.env._config.update({
+                'write_video': False,
+                'dump_full_episodes': False,
+                'dump_scores': False
+            })
             self.env.disable_render()
         self._current_episode_number += 1
         return self.env.reset()
@@ -78,7 +86,7 @@ class PeriodicDumpWriter(gym.Wrapper):
 
 def dump_wrapper(env, config):
     if config['dump_frequency'] > 1:
-        return PeriodicDumpWriter(env, config['dump_frequency'])
+        return PeriodicDumpWriter(env, config)
     else:
         return env
 
@@ -90,9 +98,11 @@ def checkpoint_wrapper(env, config):
     else:
         return env
 
+
 def decaying_checkpoint_wrapper(env, config):
     assert 'scoring' in config['rewards'].split(',')
     return DecayingCheckpointRewardWrapper(env)
+
 
 def ball_ownership_reward_wrapper(env, config):
     return BallOwnershipRewardWrapper(env)
@@ -109,40 +119,51 @@ def single_agent_wrapper(env, config):
 
 
 KNOWN_WRAPPERS = {
-    'periodic_dump': dump_wrapper,
-    'checkpoint_score': checkpoint_wrapper,
-    'decaying_checkpoint_wrapper' : decaying_checkpoint_wrapper,
-    'ball_ownership_reward': ball_ownership_reward_wrapper,
-    'single_agent': single_agent_wrapper,
-    'obs_extract': lambda env, config: wrappers.SMMWrapper(env, config['channel_dimensions']),
-    'obs_stack': lambda env, config: FrameStack(env, config['stacked_frames']),
-    'action_order': ActionOrder,
-    'psw': PlayerStackWrapper,
-    'old_w': MultiHeadNets2,
-    'old_single_map': MultiHeadNet
+    'periodic_dump':
+    dump_wrapper,
+    'checkpoint_score':
+    checkpoint_wrapper,
+    'decaying_checkpoint_wrapper':
+    decaying_checkpoint_wrapper,
+    'ball_ownership_reward':
+    ball_ownership_reward_wrapper,
+    'single_agent':
+    single_agent_wrapper,
+    'obs_extract':
+    lambda env, config: wrappers.SMMWrapper(env, config['channel_dimensions']),
+    'obs_stack':
+    lambda env, config: FrameStack(env, config['stacked_frames']),
+    'action_order':
+    ActionOrder,
+    'psw':
+    PlayerStackWrapper,
+    'old_w':
+    MultiHeadNets2,
+    'old_single_map':
+    MultiHeadNet
 }
+KNOWN_WRAPPERS.update(get_loggers_dict())
 
 
 def compose_environment(env_config, wrappers):
+    enable_log_api_for_config(env_config)  # we enable log api
+
     def extract_from_dict(dictionary, keys):
         return {new_k: dictionary[k] for (new_k, k) in keys}
 
-    players = [('agent:left_players=%d,right_players=%d' % (
-        env_config['number_of_left_players_agent_controls'],
-        env_config['number_of_right_players_agent_controls']))]
+    players = [('agent:left_players=%d,right_players=%d' %
+                (env_config['number_of_left_players_agent_controls'],
+                 env_config['number_of_right_players_agent_controls']))]
     if env_config['extra_players'] is not None:
         players.extend(env_config['extra_players'])
     env_config['players'] = players
-    football_config = extract_from_dict(env_config,
-                                        [('enable_sides_swap', 'enable_sides_swap'),
-                                         ('dump_full_episodes',
-                                          'enable_full_episode_videos'),
-                                            ('dump_scores', 'enable_goal_videos'),
-                                            ('level', 'env_name'),
-                                            ('players', 'players'),
-                                            ('render', 'render'),
-                                            ('tracesdir', 'logdir'),
-                                            ('write_video', 'write_video')])
+    football_config = extract_from_dict(
+        env_config, [('enable_sides_swap', 'enable_sides_swap'),
+                     ('dump_full_episodes', 'enable_full_episode_videos'),
+                     ('dump_scores', 'enable_goal_videos'),
+                     ('level', 'env_name'), ('players', 'players'),
+                     ('render', 'render'), ('tracesdir', 'logdir'),
+                     ('write_video', 'write_video')])
     if 'env_change_rate' not in env_config:
         env = football_env.FootballEnv(config.Config(football_config))
     else:
@@ -154,41 +175,7 @@ def compose_environment(env_config, wrappers):
     return env
 
 
-def upload_logs(local_logdir, remote_logdir):
-    tf.io.gfile.makedirs(remote_logdir)
-    while True:
-        local_files = tf.io.gfile.listdir(local_logdir)
-        remote_files = tf.io.gfile.listdir(remote_logdir)
-        diff = list(set(local_files) - set(remote_files))
-        for f in diff:
-            tf.io.gfile.copy(os.path.join(local_logdir, f),
-                             os.path.join(remote_logdir, f))
-        time.sleep(1)
-
-
-def remote_logs(config):
-    if config['logdir'] != '' and config['logdir'].startswith('gs://'):
-        pruned_logdir = config['logdir'].replace('/', '_').replace(':', '')
-        local_logdir = '/tmp/env_log/' + pruned_logdir
-        os.makedirs(local_logdir)
-        remote_logdir = config['logdir']
-        t = threading.Thread(target=upload_logs, args=(
-            local_logdir, remote_logdir))
-        t.start()
-        # subprocess.Popen(['gsutil', 'rsync', local_logdir, remote_logdir])
-        config['logdir'] = local_logdir
-
-
-def log_videos_when_logging(config):
-    if config['logdir'] != '':
-        config['enable_goal_videos'] = True
-        config['enable_full_episode_videos'] = True
-        config['write_video'] = True
-
-
 def config_compose_environment(config):
-    remote_logs(config)
-    log_videos_when_logging(config)
     wrappers = []
     for w in config['wrappers'].split(','):
         wrappers.append(KNOWN_WRAPPERS[w])
@@ -198,6 +185,7 @@ def config_compose_environment(config):
 
 def kwargs_compose_environment(**config):
     return config_compose_environment(config)
+
 
 # def sample_composed_environment():
 #   return compose_environment(DEFAULT_EXTENDED_CONFIG, [
