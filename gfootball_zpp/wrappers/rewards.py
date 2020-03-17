@@ -1,11 +1,13 @@
 import gym
 import numpy as np
+import collections
 
 
 class DecayingCheckpointRewardWrapper(gym.RewardWrapper):
   """A wrapper that adds a dense checkpoint reward."""
 
-  def __init__(self, env, decreasing_start_reward=0, decreasing_end_reward=2, checkpoint_base_reward=0.1):
+  def __init__(self, env, decreasing_start_reward=0.5, decreasing_end_reward=2, checkpoint_base_reward=0.1, prev_episodes_number=1000):
+    print("DecayingCheckpointRewardWrapper")
     gym.RewardWrapper.__init__(self, env)
     self._collected_checkpoints = {}
     self._num_checkpoints = 10
@@ -16,13 +18,13 @@ class DecayingCheckpointRewardWrapper(gym.RewardWrapper):
     self._decreasing_start_reward = decreasing_start_reward
     self._decreasing_end_reward = decreasing_end_reward
     self._episode_rewards = []
-    self._episodes_rewards = []
+    self._episodes_rewards = collections.deque(maxlen=prev_episodes_number)
 
   def reset(self):
     self._collected_checkpoints = {}
 
-    past_episodes_mean_reward = 0 if not self._episodes_rewards else np.mean(
-        self._episodes_rewards)
+    past_episodes_mean_reward = 0 if len(
+        self._episodes_rewards) == 0 else np.mean(self._episodes_rewards)
 
     if past_episodes_mean_reward >= self._decreasing_start_reward:
       if past_episodes_mean_reward >= self._decreasing_end_reward:
@@ -31,18 +33,20 @@ class DecayingCheckpointRewardWrapper(gym.RewardWrapper):
         self._checkpoint_reward = self._checkpoint_base_reward * \
             (self._decreasing_end_reward - past_episodes_mean_reward) / \
             (self._decreasing_end_reward - self._decreasing_start_reward)
+    else:
+      self._checkpoint_reward = self._checkpoint_base_reward
 
+    print("DecayingCheckpointRewardWrapper._checkpoint_reward",
+          self._checkpoint_reward)
     return self.env.reset()
 
   def get_state(self, to_pickle):
-    to_pickle['DecayingCheckpointRewardWrapper'] = (
-        self._collected_checkpoints, self._checkpoint_reward)
+    to_pickle['DecayingCheckpointRewardWrapper'] = self._collected_checkpoints
     return self.env.get_state(to_pickle)
 
   def set_state(self, state):
     from_pickle = self.env.set_state(state)
-    self._collected_checkpoints, self._checkpoint_reward = from_pickle[
-        'DecayingCheckpointRewardWrapper']
+    self._collected_checkpoints = from_pickle['DecayingCheckpointRewardWrapper']
     return from_pickle
 
   def reward(self, reward):
@@ -95,6 +99,8 @@ class DecayingCheckpointRewardWrapper(gym.RewardWrapper):
 
     if done:
       self._episodes_rewards.append(np.sum(self._episode_rewards))
+      print("DecayingCheckpointRewardWrapper: episode reward: ",
+            self._episodes_rewards[-1])
       self._episode_rewards = []
 
     return observation, reward, done, info
