@@ -7,16 +7,18 @@ from absl import logging
 class DecayingCheckpointRewardWrapper(gym.RewardWrapper):
   """A wrapper that adds a dense checkpoint reward."""
 
-  def __init__(self, env):
+  def __init__(self, env, checkpoint_base_reward=0.1, decreasing_reward_treshold=0.5, steps_to_get_from_checkpoints_to_scoring=100, number_of_prev_episodes=100):
     gym.RewardWrapper.__init__(self, env)
     self._collected_checkpoints = {}
     self._num_checkpoints = 10
-    self._checkpoint_reward = 0.1
+    self._checkpoint_reward = checkpoint_base_reward
 
-    self._checkpoint_reward_change = self._checkpoint_reward * 0.01
-    self._decreasing_reward_treshold = 0.5
+    self._checkpoint_reward_change = self._checkpoint_reward / \
+        steps_to_get_from_checkpoints_to_scoring
+    self._decreasing_reward_treshold = decreasing_reward_treshold
     self._episode_rewards = []
-    self._prev_episodes_rewards = collections.deque(maxlen=100)
+    self._prev_episodes_rewards = collections.deque(
+        maxlen=number_of_prev_episodes)
 
   def reset(self):
     self._collected_checkpoints = {}

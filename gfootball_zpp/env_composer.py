@@ -104,9 +104,13 @@ def checkpoint_wrapper(env, config):
 
 
 def decaying_checkpoint_wrapper(env, config):
-  print("decaying_checkpoint_wrapper")
   assert 'scoring' in config['rewards'].split(',')
-  return DecayingCheckpointRewardWrapper(env)
+  DECAYING_CHECKPOINT_WRAPPER_PARAMS = ["checkpoint_base_reward", "decreasing_reward_treshold", "steps_to_get_from_checkpoints_to_scoring", "number_of_prev_episodes"]
+  params = {}
+  for param_name in DECAYING_CHECKPOINT_WRAPPER_PARAMS:
+    if param_name in config:
+      params[param_name] = config[param_name]
+  return DecayingCheckpointRewardWrapper(env, **params)
 
 
 def ball_ownership_reward_wrapper(env, config):
