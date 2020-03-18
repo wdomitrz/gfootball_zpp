@@ -26,7 +26,7 @@ class StatePreserver(gym.Wrapper):
         assert config['base_logdir'] is not None, "No place to save state"
         self._state_file_path = os.path.join(config['base_logdir'],
                                              'env_state_file.json')
-        make_dirs(self._state_file_path)
+        make_dirs(config['base_logdir'])
         self._state_dump_freq = int(config['dump_frequency'])
         self._resets_after_last_dump = -1
 
