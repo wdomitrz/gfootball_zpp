@@ -242,20 +242,20 @@ class LogBasicTracker(gym.Wrapper):
     """
     def __init__(self, env, config):
         gym.Wrapper.__init__(self, env)
-        self.env_resets = 0
-        self.env_episode_steps = 0
-        self.env_total_steps = 0
+        self._tracker = config['env_usage_stats']
         self.summary_writer = EnvTFSummaryWriter(self, config)
 
-    def reset(self):
-        self.env_resets += 1
-        self.env_episode_steps = 0
-        return self.env.reset()
+    @property
+    def env_resets(self):
+        return self._tracker.env_resets
 
-    def step(self, action):
-        self.env_episode_steps += 1
-        self.env_total_steps += 1
-        return self.env.step(action)
+    @property
+    def env_episode_steps(self):
+        return self._tracker.env_episode_steps
+
+    @property
+    def env_total_steps(self):
+        return self._tracker.env_total_steps
 
 
 def extract_data_from_low_level_env_cfg(env_config):

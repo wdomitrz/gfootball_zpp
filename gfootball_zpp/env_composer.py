@@ -11,6 +11,7 @@ from .wrappers.recreatable_env import create_recreatable_football
 from .wrappers.rewards import DecayingCheckpointRewardWrapper
 from .logging.api import enable_log_api_for_config, get_loggers_dict
 from .utils.state_preserver import StatePreserver
+from .utils.env_usage_stats import EnvUsageStatsTracker
 
 import collections
 import gym
@@ -157,6 +158,7 @@ KNOWN_WRAPPERS.update(get_loggers_dict())
 
 def compose_environment(env_config, wrappers):
   enable_log_api_for_config(env_config)  # we enable log api
+  wrappers.insert(0, EnvUsageStatsTracker) # we enable usage tracker by default
   wrappers.insert(0, StatePreserver) # we enable state preserving by default
 
   def extract_from_dict(dictionary, keys):
