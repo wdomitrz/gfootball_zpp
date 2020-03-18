@@ -10,6 +10,7 @@ from .wrappers.ball_ownership import BallOwnershipRewardWrapper
 from .wrappers.recreatable_env import create_recreatable_football
 from .wrappers.rewards import DecayingCheckpointRewardWrapper
 from .logging.api import enable_log_api_for_config, get_loggers_dict
+from .utils.state_preserver import StatePreserver
 
 import collections
 import gym
@@ -156,6 +157,7 @@ KNOWN_WRAPPERS.update(get_loggers_dict())
 
 def compose_environment(env_config, wrappers):
   enable_log_api_for_config(env_config)  # we enable log api
+  wrappers.insert(0, StatePreserver) # we enable state preserving by default
 
   def extract_from_dict(dictionary, keys):
     return {new_k: dictionary[k] for (new_k, k) in keys}
