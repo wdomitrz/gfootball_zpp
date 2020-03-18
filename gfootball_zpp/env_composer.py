@@ -156,10 +156,19 @@ KNOWN_WRAPPERS = {
 KNOWN_WRAPPERS.update(get_loggers_dict())
 
 
-def compose_environment(env_config, wrappers):
+def compose_environment(env_config):
   enable_log_api_for_config(env_config)  # we enable log api
-  wrappers.insert(0, EnvUsageStatsTracker) # we enable usage tracker by default
-  wrappers.insert(0, StatePreserver) # we enable state preserving by default
+
+  # we enable state preserving and env usage tracker by default
+  wrappers = [StatePreserver, EnvUsageStatsTracker]
+  for w in env_config['wrappers'].split(','):
+    assert(w in KNOWN_WRAPPERS)
+    # do not apply log wrappers when logs not enabled
+    # (only for speed improvements)
+    if (not env_config['logs_enabled']) and w.startswith('log_'):
+      continue
+
+    wrappers.append(KNOWN_WRAPPERS[w])
 
   def extract_from_dict(dictionary, keys):
     return {new_k: dictionary[k] for (new_k, k) in keys}
@@ -189,17 +198,8 @@ def compose_environment(env_config, wrappers):
   return env
 
 
-def config_compose_environment(config):
-  wrappers = []
-  for w in config['wrappers'].split(','):
-    assert(w in KNOWN_WRAPPERS)
-    wrappers.append(KNOWN_WRAPPERS[w])
-
-  return compose_environment(config, wrappers)
-
-
 def kwargs_compose_environment(**config):
-  return config_compose_environment(config)
+  return compose_environment(config)
 
 
 # def sample_composed_environment():
