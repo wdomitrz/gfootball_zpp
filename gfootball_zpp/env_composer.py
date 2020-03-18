@@ -157,7 +157,7 @@ KNOWN_WRAPPERS.update(get_loggers_dict())
 
 
 def should_preserve_state(env_config):
-  return env_config['base_logdir'] is not None # and env_config['logs_enabled'] == True
+  return env_config['base_logdir'] is not None and env_config['logs_enabled'] == True
 
 def compose_environment(env_config):
   enable_log_api_for_config(env_config)  # we enable log api
