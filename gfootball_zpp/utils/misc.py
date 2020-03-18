@@ -1,7 +1,10 @@
 import gym
 import math
 import numpy as np
+import tensorflow as tf
 
+def make_dirs(logdir):
+    tf.io.gfile.makedirs(logdir)
 
 def scalar_to_list(scalar):
     if isinstance(scalar, np.ndarray):

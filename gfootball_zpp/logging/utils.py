@@ -1,15 +1,10 @@
-from ..utils.misc import extract_obj_attributes, extract_from_dict
+from ..utils.misc import extract_obj_attributes, extract_from_dict, make_dirs
 
 import gym
 import tensorflow as tf
 import os
 import threading
 import time
-
-
-def make_logdir_dirs(logdir):
-    tf.io.gfile.makedirs(logdir)
-
 
 def upload_logs(local_logdir, remote_logdir):
     while True:
@@ -31,8 +26,8 @@ def fix_remote_logdir(logdir):
         pruned_logdir = logdir.replace('/', '_').replace(':', '')
         local_logdir = '/tmp/env_log/' + pruned_logdir
         remote_logdir = logdir
-        make_logdir_dirs(local_logdir)
-        make_logdir_dirs(remote_logdir)
+        make_dirs(local_logdir)
+        make_dirs(remote_logdir)
         t = threading.Thread(target=upload_logs,
                              args=(local_logdir, remote_logdir))
         t.start()
@@ -74,7 +69,7 @@ def log_api(config):
         config['logdir'] = fix_remote_logdir(dumps_logdir)
 
         config['tb_logdir'] = os.path.join(base_logdir, 'env_tb')
-        make_logdir_dirs(config['tb_logdir'])
+        make_dirs(config['tb_logdir'])
 
         enable_video_logs(config)
 
