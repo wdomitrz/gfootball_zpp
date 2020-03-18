@@ -156,11 +156,18 @@ KNOWN_WRAPPERS = {
 KNOWN_WRAPPERS.update(get_loggers_dict())
 
 
+def should_preserve_state(env_config):
+  return env_config['base_logdir'] is not None # and env_config['logs_enabled'] == True
+
 def compose_environment(env_config):
   enable_log_api_for_config(env_config)  # we enable log api
 
   # we enable state preserving and env usage tracker by default
-  wrappers = [StatePreserver, EnvUsageStatsTracker]
+  wrappers = []
+  if should_preserve_state(env_config):
+    wrappers.append(StatePreserver)
+    wrappers.append(EnvUsageStatsTracker)
+
   for w in env_config['wrappers'].split(','):
     assert(w in KNOWN_WRAPPERS)
     # do not apply log wrappers when logs not enabled
