@@ -3,6 +3,7 @@ import os
 import json
 import tensorflow as tf
 
+
 class StatePreserver(gym.Wrapper):
     class StatePreserverAPI():
         def __init__(self, preserved_state):

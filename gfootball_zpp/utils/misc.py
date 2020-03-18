@@ -2,6 +2,7 @@ import gym
 import math
 import numpy as np
 
+
 def scalar_to_list(scalar):
     if isinstance(scalar, np.ndarray):
         return scalar.tolist()
@@ -43,4 +44,4 @@ def get_max_discrete_action(env):
 
 
 def get_with_prec(x, prec=2):
-    return math.floor(x * 10**prec)  / 10**prec
+    return math.floor(x * 10**prec) / 10**prec

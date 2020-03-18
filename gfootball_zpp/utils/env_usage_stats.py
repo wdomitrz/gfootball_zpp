@@ -1,5 +1,6 @@
 import gym
 
+
 class EnvUsageStatsTracker(gym.Wrapper):
     class EnvUsageStatsAPI():
         def __init__(self, tracker):
@@ -16,7 +17,6 @@ class EnvUsageStatsTracker(gym.Wrapper):
         @property
         def env_total_steps(self):
             return self._tracker._env_total_steps
-
 
     def _get_store_name(self, name):
         return 'env_usage_stats_' + name
