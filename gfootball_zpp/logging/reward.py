@@ -167,3 +167,46 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
             LogAveragePerPlayerRewardByDifficulty, self).step(action)
         self._update_step(scalar_to_list(reward))
         return observation, reward, done, info
+
+
+class LogMeanPerOpponentReward(LogBasicTracker):
+    """ This is a low level wrapper. """
+    def _trace_vars_reset(self):
+        self._mean_reward = None
+
+    def _update_step(self, reward):
+        if self._mean_reward is None:
+            self._mean_reward = np.mean(reward)
+        else:
+            self.mean_reward += np.mean(reward)
+
+    def _get_opponent_name(self):
+        return NotImplementedError
+
+    def __init__(self, env, config):
+        LogBasicTracker.__init__(self, env, config)
+
+        self._trace_vars_reset()
+
+        self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
+
+    def __getattr__(self, attr):
+        return getattr(self.env, attr)
+
+    def reset(self):
+        # prevents from logging empty episodes
+        if self._mean_reward is not None:
+            current_opponent_name = self._get_opponent_name()
+            self.summary_writer.write_scalar(
+                'reward_per_opponent/{}'.format(current_opponent_name),
+                self._mean_reward,
+                self.env_resets)
+
+        self._trace_vars_reset()
+        return super(LogMeanPerOpponentReward, self).reset()
+
+    def step(self, action):
+        observation, reward, done, info = super(LogMeanPerOpponentReward,
+                                                self).step(action)
+        self._update_step(reward)
+        return observation, reward, done, info
