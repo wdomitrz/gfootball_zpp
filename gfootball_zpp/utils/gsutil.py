@@ -16,4 +16,3 @@ def cp_ckpt(path, out_dir='/tmp/', overwrite=True):
     for ext in ['.index', '.data-00000-of-00002', '.data-00001-of-00002']:
         filename = cp(path + ext, out_dir, overwrite)
     return '.'.join(filename.split('.')[:-1])
-
