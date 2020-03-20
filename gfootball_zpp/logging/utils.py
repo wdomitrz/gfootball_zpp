@@ -1,4 +1,4 @@
-from ..utils.misc import extract_obj_attributes, extract_from_dict, make_dirs
+from gfootball_zpp.utils.misc import extract_obj_attributes, extract_from_dict, make_dirs
 
 import gym
 import tensorflow as tf

@@ -10,8 +10,8 @@ from .wrappers.ball_ownership import BallOwnershipRewardWrapper
 from .wrappers.recreatable_env import create_recreatable_football
 from .wrappers.rewards import DecayingCheckpointRewardWrapper
 from .logging.api import enable_log_api_for_config, get_loggers_dict
-from .utils.state_preserver import StatePreserver
-from .utils.env_usage_stats import EnvUsageStatsTracker
+from .wrappers.state_preserver import StatePreserver
+from .wrappers.env_usage_stats import EnvUsageStatsTracker
 
 import collections
 import gym

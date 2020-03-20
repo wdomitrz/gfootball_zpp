@@ -3,7 +3,7 @@ import os
 import json
 import tensorflow as tf
 
-from .misc import make_dirs
+from gfootball_zpp.utils.misc import make_dirs
 
 
 class StatePreserver(gym.Wrapper):
