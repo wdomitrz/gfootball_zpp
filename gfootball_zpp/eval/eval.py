@@ -53,17 +53,17 @@ class BotEvalPlayerData(EvalPlayerData):
         return summary
 
 
-def stage_to_logdir(base_logdir, stage):
+def stage_to_logdir(base_logdir, stage, player):
     if base_logdir == '':
         return ''
-    return base_logdir + '/' + stage.scenario + '/' + stage.opponent.name
+    return base_logdir + '/' + stage.scenario + '/' + player.name + '/' + stage.opponent.name
 
 
 def evaluate(player, stage, env_args, base_logdir):
     args = env_args.copy()
     args['extra_players'] = stage.opponent.extra_player_args
     args['env_name'] = stage.scenario
-    args['logdir'] = stage_to_logdir(base_logdir, stage)
+    args['logdir'] = stage_to_logdir(base_logdir, stage, player)
     env = create_environment(**args)
 
     scores = []
