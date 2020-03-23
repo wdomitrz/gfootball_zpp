@@ -31,7 +31,7 @@ ENV_ARGS = {
     'write_goal_dumps': False,
     'write_full_episode_dumps': True,
     'write_video': True,
-    'render': True,
+    'render': False,
     'dump_frequency': 1,
     'number_of_left_players_agent_controls': 4,
     # the representation should stay as raw since this is how
@@ -87,7 +87,7 @@ def main(args):
     logging.info("Prepared summary.")
     logging.debug(summary)
 
-    save_path = FLAGS.logdir + '/eval_results_' + player.name + '_' + time() + '.json'
+    save_path = FLAGS.logdir + '/eval_results_' + player.name + '_' + str(time()) + '.json'
     logging.info("Saving summary to `%s`", save_path)
     try:
         with open(save_path, 'w') as f:

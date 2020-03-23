@@ -79,7 +79,7 @@ def evaluate(player, stage, env_args, base_logdir):
             else:
                 score['left'] += info['score_reward']
         scores.append(score)
-        logging.info('Finished game (%d/%d) %s: %s - %d : %d - %s', i, stage.games,
+        logging.info('Finished game (%d/%d) %s: %s - %d : %d - %s', i + 1, stage.games,
                      stage.scenario, player, score['left'], score['right'], stage.opponent)
 
     return EvaluationResult(scores=scores, stage=stage, logdir=args['logdir'])
