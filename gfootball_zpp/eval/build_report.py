@@ -3,7 +3,6 @@ from os import listdir, path
 import json
 
 flags.DEFINE_string('jsons_dir', None, 'Path to local dir containing all evaluation results')
-flags.DEFINE_string('input_json', None, 'Path to json file with results.')
 flags.DEFINE_string('output', None, 'output file')
 FLAGS = flags.FLAGS
 
