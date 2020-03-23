@@ -23,7 +23,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Build html
-      run: $GITHUB_WORKSPACE/gfootball_zpp/eval/build_report.py --jsons_dir $GITHUB_WORKSPACE/eval_results/ --output leaderboard.html
+      run: python3 $GITHUB_WORKSPACE/gfootball_zpp/eval/build_report.py --jsons_dir $GITHUB_WORKSPACE/eval_results/ --output leaderboard.html
 
     # Runs a set of commands using the runners shell
     - name: Chcekout gh-pages
