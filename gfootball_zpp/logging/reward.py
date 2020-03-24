@@ -184,7 +184,7 @@ class LogMeanPerOpponentReward(LogBasicTracker):
         if len(players_data) == 0:
             return "Build_in_default"
         else:
-            relevant_info = [p['name'] + p['description'] for p in players_data]
+            relevant_info = [p['name'] + ':' + p['description'] for p in players_data]
             return '|'.join(relevant_info).replace('/', '_')
 
     def __init__(self, env, config):
