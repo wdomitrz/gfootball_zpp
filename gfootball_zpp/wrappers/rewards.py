@@ -7,7 +7,7 @@ from absl import logging
 class DecayingCheckpointRewardWrapper(gym.RewardWrapper):
   """A wrapper that adds a dense checkpoint reward."""
 
-  def __init__(self, env, checkpoint_base_reward=0.1, decreasing_reward_treshold=0.5, steps_to_get_from_checkpoints_to_scoring=100, number_of_prev_episodes=100):
+  def __init__(self, env, checkpoint_base_reward=0.1, decreasing_reward_treshold=0.5, steps_to_get_from_checkpoints_to_scoring=300, number_of_prev_episodes=None):
     gym.RewardWrapper.__init__(self, env)
     self._collected_checkpoints = {}
     self._num_checkpoints = 10

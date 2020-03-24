@@ -10,3 +10,10 @@ Opisy eksperymentów:
 
 * chin_e1_p1 - zmniejszanie checkpointów zaczyna się od 0.5 średniej nagrody ze 100 ostatnich gier, zmiejszane jest po 0.001 jednostkę na grę ponad tym progiem
 * chin_e2_p1 - jak wyżej, ale po 0.0001 jednostkę
+
+* chin_e7_p1 - 1000
+* chin_e8_p1 - 300
+* chin_e9_p1 - 300, inicjalizacja v3.0
+
+* scon_e1_p1 - 0 to 1 to 2 to 5 - dotrenowanie
+* scon_e3_p1 - 0 to 1 to 2 to 5 - dotrenowanie
