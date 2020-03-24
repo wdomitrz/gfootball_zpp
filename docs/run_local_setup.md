@@ -1,9 +1,9 @@
 # Running seed locally (tutorial for ubuntu):
-1. This tutorial assumes having:
+1. This tutorial assumes that you have:
    + Ubuntu 18.04
    + NVIDIA graphic card with compute capability
 	 matching  current tensorflow requirements
-		- you can check compute capability here:
+		- you can check your graphic card compute capability here:
 		 https://developer.nvidia.com/cuda-gpus
 		- you can check tensorflow requirements here:
 		https://www.tensorflow.org/install/gpu
@@ -21,8 +21,8 @@ sudo apt-get update
 
 sudo apt-get install nvidia-driver-440
 ```
-3. Install nvidia-docker:
+4. Install nvidia-docker:
    https://github.com/NVIDIA/nvidia-docker#quickstart
    and reboot
-4. Now you can continue with: 
+5. Now you can continue with: 
    https://github.com/google-research/seed_rl#local-machine-training-on-a-single-level
