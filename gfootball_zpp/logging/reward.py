@@ -87,6 +87,9 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
             scenario_config.right_team_difficulty
         ]
 
+    def _get_team_names(self):
+        return ['left_team', 'right_team']
+
     def _update_reset(self):
         difficulties = self._get_difficulties()
 
@@ -98,6 +101,13 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
             self._rewards_step[tid][
                 rew_bucket] = self._rewards_step[tid][rew_bucket] + 1
 
+            scale_factor = 1.0 / self._num_difficulties
+            self.summary_writer.write_scalar('per_difficulty_range_reward/{}/{}_{}'.format(
+                self._get_team_names()[tid],
+                get_with_prec(scale_factor * rew_bucket),
+                get_with_prec(scale_factor * (rew_bucket + 1))),
+                                             get_with_prec(np.mean(reward)))
+
     def _update_step(self, reward):
         if self._num_rewards is None:
             self._num_rewards = len(reward)
@@ -108,7 +118,7 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
         self._episode_rewards = self._episode_rewards + reward
 
     def _log_rewards(self):
-        team_names = ['left_team', 'right_team']
+        team_names = self._get_team_names()
         text_log = ''
         for tid, _ in enumerate(self._get_difficulties()):
             text_log += '# Per difficulty reward for {}  \n'.format(
@@ -199,7 +209,7 @@ class LogMeanPerOpponentReward(LogBasicTracker):
         if self._mean_reward is not None:
             current_opponent_name = self._get_opponent_name()
             self.summary_writer.write_scalar(
-                'reward_per_opponent/{}'.format(current_opponent_name),
+                'per_opponent_reward/{}'.format(current_opponent_name),
                 self._mean_reward)
 
         self._trace_vars_reset()
