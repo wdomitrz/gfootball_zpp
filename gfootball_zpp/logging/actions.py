@@ -13,7 +13,7 @@ class LogActionStats(LogBasicTracker):
             self._action_counter[pid][a] += 1
 
     def _get_action_set(self):
-        return get_action_set(self.env._config._values)
+        return get_action_set(self.env.unwrapped._config._values)
 
     def _get_action_name(self, action):
         return named_action_from_action_set(self._get_action_set(), action)
@@ -29,9 +29,6 @@ class LogActionStats(LogBasicTracker):
                                         dtype=np.int64)
 
         self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
-
-    def __getattr__(self, attr):
-        return getattr(self.env, attr)
 
     def reset(self):
         text_log = '# Players action stats  \n'

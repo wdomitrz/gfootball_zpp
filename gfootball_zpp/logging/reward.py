@@ -80,7 +80,7 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
                    self._num_difficulties - 1)
 
     def _get_difficulties(self):
-        scenario_config = self.env._config.ScenarioConfig()
+        scenario_config = self.env.unwrapped._config.ScenarioConfig()
         return [
             scenario_config.left_team_difficulty,
             scenario_config.right_team_difficulty
@@ -146,9 +146,6 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
         self._trace_vars_set()
 
         self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
-
-    def __getattr__(self, attr):
-        return getattr(self.env, attr)
 
     def reset(self):
 
