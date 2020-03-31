@@ -8,13 +8,10 @@ class LogLowLevelScenarioData(LogBasicTracker):
     def __init__(self, env, config):
         LogBasicTracker.__init__(self, env, config)
 
-    def __getattr__(self, attr):
-        return getattr(self.env, attr)
-
     def reset(self):
         observation = super(LogLowLevelScenarioData, self).reset()
-        print(dir(self.env._config.ScenarioConfig()))
-        print(dir(self.env._config))
+        print(dir(self.env.unwrapped._config.ScenarioConfig()))
+        print(dir(self.env.unwrapped._config))
         return observation
 
 
@@ -25,11 +22,8 @@ class LogScenarioDifficulty(LogBasicTracker):
         LogBasicTracker.__init__(self, env, config)
         self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
 
-    def __getattr__(self, attr):
-        return getattr(self.env, attr)
-
     def reset(self):
-        scenario_config = self.env._config.ScenarioConfig()
+        scenario_config = self.env.unwrapped._config.ScenarioConfig()
         left_team_difficulty = scenario_config.left_team_difficulty
         right_team_difficulty = scenario_config.right_team_difficulty
         self.summary_writer.write_scalar('scenario/left_team_difficulty',
@@ -51,11 +45,8 @@ class LogScenarioDataOnChange(LogBasicTracker):
         self._current_data = None
         self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
 
-    def __getattr__(self, attr):
-        return getattr(self.env, attr)
-
     def reset(self):
-        low_level_cfg = self.env._config
+        low_level_cfg = self.env.unwrapped._config
         new_data = extract_data_from_low_level_env_cfg(low_level_cfg)
         if new_data != self._current_data:  # todo czy if is_log_time
             self._current_data = new_data
@@ -72,9 +63,6 @@ class LogScenarioReset(LogBasicTracker):
         LogBasicTracker.__init__(self, env, config)
         self._current_data = None
         self.summary_writer.set_stepping(EnvLogSteppingModes.env_total_steps)
-
-    def __getattr__(self, attr):
-        return getattr(self.env, attr)
 
     def reset(self):
         self.summary_writer.write_scalar('scenario/reset_occurred_after',

@@ -89,3 +89,24 @@ def unpackbits(frame):
     # if tf.test.is_gpu_available():
     # return tf.xla.experimental.compile(_, [frame])[0]
     return _(frame)
+
+
+def add_external_player_data(env_config, player_data):
+    """ Adds player data as an entry in global 
+    environment config
+    Supports multiple players.
+    player_data should at least contain:
+    + 'name' - generic name of the player
+    + 'description' - for example passed arguments 
+       in printable format
+    """
+    if 'external_players_data' not in env_config:
+        env_config['external_players_data'] = []
+    env_config['external_players_data'].append(player_data)
+
+
+def retrieve_external_players_data(env_config):
+    if 'external_players_data' not in env_config:
+        return []
+    else:
+        return env_config['external_players_data']

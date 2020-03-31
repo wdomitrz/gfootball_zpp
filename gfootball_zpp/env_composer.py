@@ -68,24 +68,21 @@ class PeriodicDumpWriter(gym.Wrapper):
     }
     self._current_episode_number = 0
 
-  def __getattr__(self, attr):
-    return getattr(self.env, attr)
-
   def step(self, action):
     return self.env.step(action)
 
   def reset(self):
     if (self._dump_frequency > 0 and
             (self._current_episode_number % self._dump_frequency == 0)):
-      self.env._config.update(self._original_dump_config)
+      self.env.unwrapped._config.update(self._original_dump_config)
       # self.env.render()
     else:
-      self.env._config.update({
+      self.env.unwrapped._config.update({
           'write_video': False,
           'dump_full_episodes': False,
           'dump_scores': False
       })
-      self.env.disable_render()
+      self.env.unwrapped.disable_render()
     self._current_episode_number += 1
     return self.env.reset()
 

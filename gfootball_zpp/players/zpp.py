@@ -1,6 +1,8 @@
+import os
+
 from gfootball.env import player_base
 from gfootball_zpp.players.players import build_policy
-from gfootball_zpp.players.utils import ObservationStacker
+from gfootball_zpp.players.utils import ObservationStacker, add_external_player_data
 from gfootball_zpp.utils import gsutil
 from gfootball_zpp.players import checkpoints
 
@@ -34,6 +36,15 @@ class Player(player_base.PlayerBase):
             'checkpoint': checkpoint,
             'config': player_config
         }
+
+        checkpoint_filename = os.path.split(checkpoint)[1]
+
+        player_data = {
+            'name': policy,
+            'description': checkpoint_filename
+        }
+
+        add_external_player_data(env_config, player_data)
 
         self._policy, self._convert_observation = build_policy(
             policy, self.num_controlled_players(), checkpoint, player_config)
