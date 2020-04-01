@@ -1,5 +1,5 @@
 {
-    "env_name": "5_vs_5_partially_randomized",
+    "env_name": "5_vs_5_hard_partially_randomized",
     "enable_goal_videos": false,
     "enable_full_episode_videos": false,
     "logdir": "",

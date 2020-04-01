@@ -17,3 +17,12 @@ Opisy eksperymentów:
 
 * scon_e1_p1 - 0 to 1 to 2 to 5 - dotrenowanie
 * scon_e3_p1 - 0 to 1 to 2 to 5 - dotrenowanie
+* scon_e3_p2* - from scon_e3_p1
+    * hard - difficuly from 0.6 to 1.0
+    * nhm - do not handle the iterations manually
+* scon_e3_p3_hard - from scon_e3_p2 (after it was stopped)
+
+* m5v0_e1_p1 - initialization 1 net 4 times against 0 enemies
+* m5v1_e1_p2* - transfer to 1 enemy
+    * ovf - after ~1.2B steps, overfitted (running right)
+    * part - after ~400M steps, not overfitted, but mostly scoring
