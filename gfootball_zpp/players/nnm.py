@@ -27,7 +27,7 @@ def pack_nnm_input(num_actions, num_rewards, observation, core_state):
                                    done=done,
                                    observation=observation),
             core_state)
-    
+
 
 class Player(player_base.PlayerBase):
     """An agent handled by NNManager
@@ -74,7 +74,7 @@ class Player(player_base.PlayerBase):
         self._converter.unwrapped.set_reward([0] * self._right_players)
 
         self._num_rewards = None
-        
+
 
         self._last_action = None
         self._core_state = self._nn_manager.initial_state(1)
