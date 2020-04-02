@@ -125,8 +125,8 @@ def single_agent_wrapper(env, config):
   else:
     return env
 
-
-KNOWN_WRAPPERS = {
+def get_known_wrappers():
+  result = {
     'periodic_dump':
     dump_wrapper,
     'checkpoint_score':
@@ -149,8 +149,12 @@ KNOWN_WRAPPERS = {
     MultiHeadNets2,
     'old_single_map':
     MultiHeadNet
-}
-KNOWN_WRAPPERS.update(get_loggers_dict())
+  }
+  result.update(get_loggers_dict())
+  return result
+  
+
+KNOWN_WRAPPERS = get_known_wrappers()
 
 
 def should_preserve_state(env_config):
