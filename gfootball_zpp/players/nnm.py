@@ -17,7 +17,7 @@ def expand_input(input_):
 def get_latest_model_path(path):
     while not tf.io.gfile.exists(path):
         pass
-    model_list = tf.io.gfile.listdir(path)
+    model_list = list(map(lambda x: x[:-1], tf.io.gfile.listdir(path)))
     latest_model = str(max(map(int, model_list)))
     return os.path.join(path, latest_model)
 
@@ -25,7 +25,7 @@ def get_latest_model_path(path):
 class Player(player_base.PlayerBase):
     """An agent handled by NNManager
     example:
-    nnm:models_dir={models_dir},model={model},right_players={n},wrappers={wrappers}"""
+    nnm:models_dir={models_dir},model={model},right_players={n},wrappers={obs_stack|old_wrapper}"""
 
     def __init__(self, player_config, env_config):
         player_base.PlayerBase.__init__(self, player_config)
@@ -41,7 +41,8 @@ class Player(player_base.PlayerBase):
             model_path = os.path.join(models_dir, model)
 
         logging.info('NNM player loading: %s', model_path)
-        self._nn_manager = tf.saved_model.load(model_path)
+        self._nn_manager = download_model(model_path)
+
 
         player_data = {
             'name': 'nnm',

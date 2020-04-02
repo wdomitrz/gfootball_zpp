@@ -3,6 +3,9 @@ from gfootball.env import football_action_set
 import gym
 import tensorflow as tf
 import numpy as np
+import tempfile
+
+from gfootball_zpp.utils.gsutil import cp_dir
 
 AgentOutput = collections.namedtuple('AgentOutput',
                                      'action policy_logits baseline')
@@ -140,8 +143,16 @@ class ManualEnv(gym.Env):
         self._action = action
         return self._observation, self._reward, self._done, self._info
 
+
 def create_converter(wrappers):
     converter = ManualEnv()
     for w in wrappers:
         converter = w(converter)
     return converter
+
+
+def download_model(remote_path):
+    with tempfile.TemporaryDirectory(prefix='model_') as temp_dir:
+        cp_dir(remote_path, temp_dir)
+        result = tf.saved_model.load(temp_dir)
+    return result
