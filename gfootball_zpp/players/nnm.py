@@ -5,13 +5,7 @@ from absl import logging
 from gfootball_zpp.env_composer import get_known_wrappers
 from gfootball_zpp.utils.config_encoder import decode_config
 from gfootball.env import player_base
-from gfootball_zpp.players.utils import add_external_player_data, create_converter, download_model
-
-def expand_input(input_):
-    # batch dim
-    input_ = tf.nest.map_structure(lambda b: tf.expand_dims(b, 0), input_)
-    # time dim
-    return tf.nest.map_structure(lambda t: tf.expand_dims(t, 0), input_)
+from gfootball_zpp.players.utils import add_external_player_data, create_converter, download_model, SimulatedConfig, EnvOutput
 
 
 def get_latest_model_path(path):
@@ -21,6 +15,19 @@ def get_latest_model_path(path):
     latest_model = str(max(map(int, model_list)))
     return os.path.join(path, latest_model)
 
+
+def pack_nnm_input(num_actions, num_rewards, observation, core_state):
+    prev_actions = tf.zeros(shape=(1, num_actions), dtype=tf.int64)
+    reward = tf.zeros(shape=(1, num_rewards), dtype= tf.float32)
+    done = tf.constant([False], dtype=tf.bool)
+    observation = tf.constant(observation)
+    observation = tf.expand_dims(observation, 0)
+
+    return (prev_actions, EnvOutput(reward=reward,
+                                   done=done,
+                                   observation=observation),
+            core_state)
+    
 
 class Player(player_base.PlayerBase):
     """An agent handled by NNManager
@@ -56,37 +63,44 @@ class Player(player_base.PlayerBase):
 
         config = decode_config(player_config['encoded_env_config'])
 
-        print(config)
+        self._right_players = int(player_config['right_players'])
+
         wrapper_names = config['wrappers'].split(',')
         known_wrappers = get_known_wrappers()
-        self._wrappers = [lambda env: known_wrappers[name](env, config) for name in wrapper_names]
-        self._converter = create_converter(self._wrappers)
+        self._wrappers = [known_wrappers[name] for name in wrapper_names]
+        self._wrappers = list(map(lambda w: lambda env: w(env, config), self._wrappers))
+        self._converter = create_converter(self._wrappers, SimulatedConfig(
+            number_of_players_agent_controls=self._right_players))
+        self._converter.unwrapped.set_reward([0] * self._right_players)
+
+        self._num_rewards = None
+        
 
         self._last_action = None
-        self._prev_actions = []
-        self._right_players = player_config['right_players']
         self._core_state = self._nn_manager.initial_state(1)
 
 
     def take_action(self, observation):
         self._converter.unwrapped.set_observation(observation)
+        if self._num_rewards is None:
+            observation = self._converter.reset()
+            _, rewards, _, _ = self._converter.step([0] * self._right_players)
+            self._num_rewards = len(rewards)
+
         if self._last_action is None: # we are after reset
             observation = self._converter.reset()
         else:
             observation, _, _, _ = self._converter.step(self._last_action)
 
-        prev_actions, observation = expand_input((self._prev_actions,
-                                                  observation))
+        prev_actions, env_output, core_state = pack_nnm_input(self._right_players, self._num_rewards, observation, self._core_state)
 
-        action, _, self._core_state = self._nn_manager.get_action(prev_actions,
-                                                                  ((), (), observation),
-                                                                  self._core_state)
+        (action, _, _), self._core_state = self._nn_manager.get_action(prev_actions,
+                                                                  env_output,
+                                                                  core_state)
         self._last_action = action.numpy().flatten()
-        self.prev_actions.append(self._last_action)
         assert self._last_action.shape[0] == self._right_players
         return self._last_action
 
     def reset(self):
         self._last_action = None
-        self._prev_actions = []
         self._core_state = self._nn_manager.initial_state(1)

@@ -114,15 +114,29 @@ def retrieve_external_players_data(env_config):
     else:
         return env_config['external_players_data']
 
+class SimulatedConfig():
+    def __init__(self, number_of_players_agent_controls):
+        self._number_of_players_agent_controls = int(number_of_players_agent_controls)
+
+    def number_of_players_agent_controls(self):
+        return self._number_of_players_agent_controls
+
 
 class ManualEnv(gym.Env):
-    def __init__(self):
+    def __init__(self, simulated_config):
         gym.Env.__init__(self)
         self._observation = None
         self._action = None
         self._reward = None
         self._done = False
         self._info = None
+        self._config = simulated_config
+
+    def set_observation_space(self, obs_space):
+        self.observation_space = obs_space
+
+    def set_action_space(self, act_space):
+        self.action_space = act_space
 
     def set_observation(self, observation):
         self._observation = observation
@@ -144,10 +158,8 @@ class ManualEnv(gym.Env):
         return self._observation, self._reward, self._done, self._info
 
 
-def create_converter(wrappers):
-    converter = ManualEnv()
-    converter.observation_space = gym.spaces.Box(
-        0, 255, shape=[72, 96, 28], dtype=np.uint8) # TODO remove
+def create_converter(wrappers, simulated_config):
+    converter = ManualEnv(simulated_config)
     for w in wrappers:
         converter = w(converter)
     return converter
@@ -158,3 +170,5 @@ def download_model(remote_path):
         cp_dir(remote_path, temp_dir)
         result = tf.saved_model.load(temp_dir)
     return result
+
+EnvOutput = collections.namedtuple('EnvOutput', 'reward done observation')

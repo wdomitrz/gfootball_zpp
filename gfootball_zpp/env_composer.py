@@ -13,6 +13,8 @@ from .logging.api import enable_log_api_for_config, get_loggers_dict
 from .wrappers.state_preserver import StatePreserver
 from .wrappers.env_usage_stats import EnvUsageStatsTracker
 
+from .players.utils import PackedBitsObservation
+
 import collections
 import gym
 import numpy as np
@@ -148,7 +150,9 @@ def get_known_wrappers():
     'old_w':
     MultiHeadNets2,
     'old_single_map':
-    MultiHeadNet
+    MultiHeadNet,
+    'pack_bits':
+    lambda env, config: PackedBitsObservation(env)
   }
   result.update(get_loggers_dict())
   return result
