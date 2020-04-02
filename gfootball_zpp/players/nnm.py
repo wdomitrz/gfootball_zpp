@@ -2,10 +2,10 @@ import os
 import tensorflow as tf
 
 from absl import logging
-
 from gfootball_zpp.env_composer import get_known_wrappers
+from gfootball_zpp.utils.config_encoder import decode_config
 from gfootball.env import player_base
-from gfootball_zpp.players.utils import add_external_player_data, create_converter
+from gfootball_zpp.players.utils import add_external_player_data, create_converter, download_model
 
 def expand_input(input_):
     # batch dim
@@ -25,7 +25,7 @@ def get_latest_model_path(path):
 class Player(player_base.PlayerBase):
     """An agent handled by NNManager
     example:
-    nnm:models_dir={models_dir},model={model},right_players={n},wrappers={obs_stack|old_wrapper}"""
+    nnm:models_dir={models_dir},model={model},right_players={n},encoded_env_config={see_config_encoder_in_utils}"""
 
     def __init__(self, player_config, env_config):
         player_base.PlayerBase.__init__(self, player_config)
@@ -34,6 +34,9 @@ class Player(player_base.PlayerBase):
 
         model = player_config['model']
         models_dir = player_config['models_dir']
+
+        if models_dir[0:2] == "GS":
+            models_dir = "gs:" + models_dir[2:]
 
         if model == '!latest':
             model_path = get_latest_model_path(models_dir)
@@ -51,9 +54,12 @@ class Player(player_base.PlayerBase):
 
         add_external_player_data(env_config, player_data)
 
-        wrapper_names = player_config.get('wrappers', '').split('|')
+        config = decode_config(player_config['encoded_env_config'])
+
+        print(config)
+        wrapper_names = config['wrappers'].split(',')
         known_wrappers = get_known_wrappers()
-        self._wrappers = [known_wrappers[name] for name in wrapper_names]
+        self._wrappers = [lambda env: known_wrappers[name](env, config) for name in wrapper_names]
         self._converter = create_converter(self._wrappers)
 
         self._last_action = None

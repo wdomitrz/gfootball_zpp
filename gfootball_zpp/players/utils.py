@@ -146,6 +146,8 @@ class ManualEnv(gym.Env):
 
 def create_converter(wrappers):
     converter = ManualEnv()
+    converter.observation_space = gym.spaces.Box(
+        0, 255, shape=[72, 96, 28], dtype=np.uint8) # TODO remove
     for w in wrappers:
         converter = w(converter)
     return converter

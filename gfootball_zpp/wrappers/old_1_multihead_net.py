@@ -70,3 +70,7 @@ class MultiHeadNet(gym.Env):
 
     def seed(self, seed=None):
         return self.env.seed(seed)
+
+    @property
+    def unwrapped(self):
+        return self.env.unwrapped
