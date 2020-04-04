@@ -4,6 +4,7 @@ import tensorflow as tf
 from absl import logging
 from gfootball_zpp.env_composer import get_known_wrappers
 from gfootball_zpp.utils.config_encoder import decode_config
+from gfootball_zpp.utils.misc import extract_number_from_txt
 from gfootball.env import player_base
 from gfootball_zpp.players.utils import add_external_player_data, create_converter, download_model, SimulatedConfig, EnvOutput
 
@@ -11,7 +12,7 @@ from gfootball_zpp.players.utils import add_external_player_data, create_convert
 def get_latest_model_path(path):
     while not tf.io.gfile.exists(path):
         pass
-    model_list = list(map(lambda x: x[:-1], tf.io.gfile.listdir(path)))
+    model_list = list(map(extract_number_from_txt, tf.io.gfile.listdir(path)))
     latest_model = str(max(map(int, model_list)))
     return os.path.join(path, latest_model)
 
