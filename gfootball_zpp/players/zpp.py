@@ -74,12 +74,6 @@ class Player(player_base.PlayerBase):
             self.checkpoints_info.append(checkpoint_info)
             self.current_checkpoint = checkpoint_info
 
-        self.args = {
-            'policy': policy,
-            'checkpoint': checkpoint,
-            'config': player_config
-        }
-
     def __getattr__(self, item):
         return getattr(self._policy, item)
 
