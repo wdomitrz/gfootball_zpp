@@ -31,6 +31,8 @@ class RecreatableFootballEnv(BaseRecreatableEnv):
         raise NotImplementedError
 
     def create_new_env(self):
+        if self.env:
+            self.env.close()
         return football_env.FootballEnv(config.Config(self.get_new_config()))
 
 

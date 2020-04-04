@@ -1,18 +1,14 @@
 from numpy import random
+from .zpp_player import BaseZppPlayer
 
 
-class RandomPolicy:
+class RandomPolicy(BaseZppPlayer):
     """Outputs random actions."""
-    def __init__(self, output_actions=1):
-        self.actions = output_actions
+    def __init__(self, controlled_players=1, player_config=None):
+        self.actions = controlled_players
 
-    def __call__(self, *args, **kwargs):
+    def pre_stacking_convert_obs(self, obs):
+        return obs
+
+    def take_action(self, obs):
         return random.randint(0, 19, self.actions)
-
-
-def create_net(controlled_players, checkpoint, player_config):
-    return RandomPolicy(controlled_players)
-
-
-def convert_observation(o):
-    return o

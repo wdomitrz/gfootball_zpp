@@ -1,10 +1,10 @@
-import gfootball_zpp.players.random as random_policy
-import gfootball_zpp.players.heads as multiheads_policy
+from gfootball_zpp.players.random import RandomPolicy
+from gfootball_zpp.players.heads import HeadsPlayer
 
-policies = {'random': random_policy, 'multihead': multiheads_policy}
+policies = {'random': RandomPolicy, 'multihead': HeadsPlayer}
 
 
-def build_policy(name, controlled_players, checkpoint=None, player_config=None):
+def build_policy(name, controlled_players, player_config=None):
     """Returns network and function converting observation to expected format."""
     policy = policies[name]
-    return policy.create_net(controlled_players, checkpoint, player_config), policy.convert_observation
+    return policy(controlled_players, player_config)
