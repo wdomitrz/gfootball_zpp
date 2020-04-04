@@ -26,10 +26,8 @@ class LogGoalStats(LogBasicTracker):
         if team_scored is not None:
             if team_scored == self._last_team_with_ball:
                 self._goals[team_scored] += 1
-                print("GOL", team_scored)
             else:
                 self._own_goals[self._last_team_with_ball] += 1
-                print("Samoboj", self._last_team_with_ball)
 
         current_ball_owned_team = observation[0]['ball_owned_team']
         if current_ball_owned_team != -1:
