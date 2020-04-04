@@ -52,6 +52,7 @@ class Player(player_base.PlayerBase):
 
         logging.info('NNM player loading: %s', model_path)
         self._nn_manager = download_model(model_path)
+        logging.info('NNM player loading done: %s', model_path)
 
 
         player_data = {

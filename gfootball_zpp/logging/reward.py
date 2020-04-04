@@ -1,6 +1,5 @@
-from .utils import LogBasicTracker, EnvLogSteppingModes
+from .utils import LogBasicTracker, EnvLogSteppingModes, get_opponent_name
 from ..utils.misc import scalar_to_list, pretty_list_of_pairs_to_string, get_with_prec
-from gfootball_zpp.players.utils import retrieve_external_players_data
 
 import tensorflow as tf
 import numpy as np
@@ -188,15 +187,6 @@ class LogMeanPerOpponentReward(LogBasicTracker):
         else:
             self._mean_reward += np.mean(reward)
 
-    def _get_opponent_name(self):
-        env_config = self.env.unwrapped._config
-        players_data = retrieve_external_players_data(env_config)
-        if len(players_data) == 0:
-            return "Build_in_default"
-        else:
-            relevant_info = [p['name'] + ':' + p['description'] for p in players_data]
-            return '|'.join(relevant_info).replace('/', '_')
-
     def __init__(self, env, config):
         LogBasicTracker.__init__(self, env, config)
 
@@ -207,7 +197,7 @@ class LogMeanPerOpponentReward(LogBasicTracker):
     def reset(self):
         # prevents from logging empty episodes
         if self._mean_reward is not None:
-            current_opponent_name = self._get_opponent_name()
+            current_opponent_name = get_opponent_name(self.env)
             self.summary_writer.write_scalar(
                 'per_opponent_reward/{}'.format(current_opponent_name),
                 self._mean_reward)
