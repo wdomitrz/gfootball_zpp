@@ -22,37 +22,64 @@ class Player(player_base.PlayerBase):
         stacking = 4 #if player_config.get('stacked', True) else 1
         self._stacker = ObservationStacker(stacking)
         policy = player_config.get('policy', '')
-        checkpoint = player_config.get('checkpoint', None)
-        if checkpoint and checkpoint[:10] == '!latest-GS':
-            checkpoint = checkpoints.get_latest_checkpoint('gs:' + checkpoint[10:])
-            if checkpoint:
-                checkpoint = gsutil.cp_ckpt(checkpoint)
-        elif checkpoint and checkpoint[:2] == 'GS':
-            checkpoint = 'gs:' + checkpoint[2:]
-            checkpoint = gsutil.cp_ckpt(checkpoint)
+        self.checkpoints_info = []
+        self.current_checkpoint = None
+
+        self._policy = build_policy(policy, self.num_controlled_players(), player_config)
+        self.update_checkpoint(player_config.get('checkpoint', None))
+
+        self.resets = 0
+        self.checkpoint_reload_rate = int(player_config.get('checkpoint_reload_rate', 0))
 
         self.args = {
             'policy': policy,
-            'checkpoint': checkpoint,
+            'checkpoint': player_config.get('checkpoint', None),
             'config': player_config
         }
 
-        checkpoint_filename = os.path.split(checkpoint)[1]
-
         player_data = {
             'name': policy,
-            'description': checkpoint_filename
+            'description': self.current_checkpoint['path']
+                           if self.current_checkpoint else None
         }
 
         add_external_player_data(env_config, player_data)
 
-        self._policy, self._convert_observation = build_policy(
-            policy, self.num_controlled_players(), checkpoint, player_config)
-
     def take_action(self, observation):
-        observation = self._convert_observation(observation)
+        observation = self._policy.pre_stacking_convert_obs(observation)
         observation = self._stacker.get(observation)
-        return self._policy(observation)
+        return self._policy.take_action(observation)
+
+    def update_checkpoint(self, checkpoint):
+        if checkpoint is None:
+            return
+        checkpoint_info = {
+            'raw': checkpoint,
+            'type': 'local',
+            'path': checkpoint
+        }
+        if checkpoint[:10] == '!latest-GS':
+            checkpoint_info['type'] = 'latest-GS'
+            checkpoint = checkpoints.get_latest_checkpoint('gs:' + checkpoint[10:])
+            if checkpoint:
+                checkpoint_info['path'] = checkpoint
+                checkpoint = gsutil.cp_ckpt(checkpoint)
+        elif checkpoint[:2] == 'GS':
+            checkpoint_info['type'] = 'gs'
+            checkpoint = 'gs:' + checkpoint[2:]
+            checkpoint_info['path'] = checkpoint
+            checkpoint = gsutil.cp_ckpt(checkpoint)
+        if checkpoint:
+            self._policy.load_checkpoint(checkpoint)
+            self.checkpoints_info.append(checkpoint_info)
+            self.current_checkpoint = checkpoint_info
+
+    def __getattr__(self, item):
+        return getattr(self._policy, item)
 
     def reset(self):
         self._stacker.reset()
+        self.resets += 1
+        if self.checkpoint_reload_rate and self.resets % self.checkpoint_reload_rate == 0:
+            self.update_checkpoint(self.args['checkpoint'])
+        self._policy.reset()
