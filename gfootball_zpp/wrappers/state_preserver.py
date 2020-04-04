@@ -39,9 +39,6 @@ class StatePreserver(gym.Wrapper):
         config['state_preserver'] = StatePreserver.StatePreserverAPI(
             self._preserved_state)
 
-    def __getattr__(self, attr):
-        return getattr(self.env, attr)
-
     def reset(self):
         observation = super(StatePreserver, self).reset()
         self._resets_after_last_dump += 1

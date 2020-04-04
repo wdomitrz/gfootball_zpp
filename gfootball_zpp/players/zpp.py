@@ -1,6 +1,8 @@
+import os
+
 from gfootball.env import player_base
 from gfootball_zpp.players.players import build_policy
-from gfootball_zpp.players.utils import ObservationStacker
+from gfootball_zpp.players.utils import ObservationStacker, add_external_player_data
 from gfootball_zpp.utils import gsutil
 from gfootball_zpp.players import checkpoints
 
@@ -35,6 +37,14 @@ class Player(player_base.PlayerBase):
             'config': player_config
         }
 
+        player_data = {
+            'name': policy,
+            'description': self.current_checkpoint['path']
+                           if self.current_checkpoint else None
+        }
+
+        add_external_player_data(env_config, player_data)
+
     def take_action(self, observation):
         observation = self._policy.pre_stacking_convert_obs(observation)
         observation = self._stacker.get(observation)
@@ -64,6 +74,11 @@ class Player(player_base.PlayerBase):
             self.checkpoints_info.append(checkpoint_info)
             self.current_checkpoint = checkpoint_info
 
+        self.args = {
+            'policy': policy,
+            'checkpoint': checkpoint,
+            'config': player_config
+        }
 
     def __getattr__(self, item):
         return getattr(self._policy, item)

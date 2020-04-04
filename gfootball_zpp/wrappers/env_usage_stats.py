@@ -41,9 +41,6 @@ class EnvUsageStatsTracker(gym.Wrapper):
 
         config['env_usage_stats'] = EnvUsageStatsTracker.EnvUsageStatsAPI(self)
 
-    def __getattr__(self, attr):
-        return getattr(self.env, attr)
-
     def reset(self):
         self._env_resets += 1
         self._env_episode_steps = 0

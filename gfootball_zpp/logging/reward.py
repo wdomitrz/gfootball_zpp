@@ -1,5 +1,6 @@
 from .utils import LogBasicTracker, EnvLogSteppingModes
 from ..utils.misc import scalar_to_list, pretty_list_of_pairs_to_string, get_with_prec
+from gfootball_zpp.players.utils import retrieve_external_players_data
 
 import tensorflow as tf
 import numpy as np
@@ -80,11 +81,14 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
                    self._num_difficulties - 1)
 
     def _get_difficulties(self):
-        scenario_config = self.env._config.ScenarioConfig()
+        scenario_config = self.env.unwrapped._config.ScenarioConfig()
         return [
             scenario_config.left_team_difficulty,
             scenario_config.right_team_difficulty
         ]
+
+    def _get_team_names(self):
+        return ['left_team', 'right_team']
 
     def _update_reset(self):
         difficulties = self._get_difficulties()
@@ -97,6 +101,13 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
             self._rewards_step[tid][
                 rew_bucket] = self._rewards_step[tid][rew_bucket] + 1
 
+            scale_factor = 1.0 / self._num_difficulties
+            self.summary_writer.write_scalar('per_difficulty_range_reward/{}/{}_{}'.format(
+                self._get_team_names()[tid],
+                get_with_prec(scale_factor * rew_bucket),
+                get_with_prec(scale_factor * (rew_bucket + 1))),
+                                             get_with_prec(np.mean(reward)))
+
     def _update_step(self, reward):
         if self._num_rewards is None:
             self._num_rewards = len(reward)
@@ -107,7 +118,7 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
         self._episode_rewards = self._episode_rewards + reward
 
     def _log_rewards(self):
-        team_names = ['left_team', 'right_team']
+        team_names = self._get_team_names()
         text_log = ''
         for tid, _ in enumerate(self._get_difficulties()):
             text_log += '# Per difficulty reward for {}  \n'.format(
@@ -147,9 +158,6 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
 
         self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
 
-    def __getattr__(self, attr):
-        return getattr(self.env, attr)
-
     def reset(self):
 
         if self._rewards is not None:
@@ -166,4 +174,49 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
         observation, reward, done, info = super(
             LogAveragePerPlayerRewardByDifficulty, self).step(action)
         self._update_step(scalar_to_list(reward))
+        return observation, reward, done, info
+
+
+class LogMeanPerOpponentReward(LogBasicTracker):
+    """ This is a low level wrapper. """
+    def _trace_vars_reset(self):
+        self._mean_reward = None
+
+    def _update_step(self, reward):
+        if self._mean_reward is None:
+            self._mean_reward = np.mean(reward)
+        else:
+            self._mean_reward += np.mean(reward)
+
+    def _get_opponent_name(self):
+        env_config = self.env.unwrapped._config
+        players_data = retrieve_external_players_data(env_config)
+        if len(players_data) == 0:
+            return "Build_in_default"
+        else:
+            relevant_info = [p['name'] + ':' + p['description'] for p in players_data]
+            return '|'.join(relevant_info).replace('/', '_')
+
+    def __init__(self, env, config):
+        LogBasicTracker.__init__(self, env, config)
+
+        self._trace_vars_reset()
+
+        self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
+
+    def reset(self):
+        # prevents from logging empty episodes
+        if self._mean_reward is not None:
+            current_opponent_name = self._get_opponent_name()
+            self.summary_writer.write_scalar(
+                'per_opponent_reward/{}'.format(current_opponent_name),
+                self._mean_reward)
+
+        self._trace_vars_reset()
+        return super(LogMeanPerOpponentReward, self).reset()
+
+    def step(self, action):
+        observation, reward, done, info = super(LogMeanPerOpponentReward,
+                                                self).step(action)
+        self._update_step(reward)
         return observation, reward, done, info
