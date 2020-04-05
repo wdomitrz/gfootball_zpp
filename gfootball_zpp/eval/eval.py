@@ -24,8 +24,9 @@ class EvalPlayerData:
 class ZppEvalPlayerData(EvalPlayerData):
     def __init__(self, name, controlled_players=4, **kwargs):
         EvalPlayerData.__init__(self, 'zpp', name,
-            extra_player_args="zpp:right_players=" + str(controlled_players) +
+            extra_player_args="zpp:left_players=0,right_players=" + str(controlled_players) +
                               ',' + ','.join([k + '=' + kwargs[k] for k in kwargs]))
+        print(self.extra_player_args)
         self.args = kwargs
         self._player = None
 
@@ -62,6 +63,8 @@ def stage_to_logdir(base_logdir, stage, player):
 def evaluate(player, stage, env_args, base_logdir):
     args = env_args.copy()
     args['extra_players'] = stage.opponent.extra_player_args
+    if args['extra_players']:
+        args['extra_players'] = [args['extra_players']]
     args['env_name'] = stage.scenario
     args['logdir'] = stage_to_logdir(base_logdir, stage, player)
     env = create_environment(**args)

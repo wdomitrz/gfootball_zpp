@@ -52,7 +52,7 @@ def build_stages(filter=None):
         if opponent in filter:
             continue
         for scenario in ZPP_SCENARIOS:
-            stages.append(EvaluationStage(scenario, opponent, GAMES))
+            stages.append(EvaluationStage(scenario, ZPP_OPPONENTS[opponent], GAMES))
     return stages
 
 
