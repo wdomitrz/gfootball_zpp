@@ -1,6 +1,6 @@
 # How to add new opponent to evaluation
 
-1. Make sure that it can be created as zpp player.
+1. Make sure that it can be created as zpp player (ordinary multi head teams can).
 
 2. In gfootball_zpp/eval/main.py add your player definition to `ZPP_OPPONENTS`
 as: `'<name>': ZppEvalPlayerData('<name>', <arg1>=<val1>, <arg2>=<val2>)` where
