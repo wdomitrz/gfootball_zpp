@@ -177,6 +177,10 @@ def write_dump(name, trace, config):
         writer = TextWriter(frame, 0)
         writer.write('FRAME: %d' % frame_cnt)
         writer.write('TIME: %f' % (o._time - time))
+        if 'left_team_name' in config:
+            writer.write("Left team: %s" % config['left_team_name'])
+        if 'right_team_name' in config:
+            writer.write("Right team: %s" % config['right_team_name'])
         writer.write('TEAM | PLAYER | SPRINT | DRIBBLE | DIRECTION | ACTION')
         sticky_actions = football_action_set.get_sticky_actions(config)
 

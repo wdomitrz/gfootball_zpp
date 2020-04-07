@@ -15,7 +15,11 @@ FLAGS = flags.FLAGS
 GAMES = 10
 
 ZPP_OPPONENTS = {
-    'random': ZppEvalPlayerData('random', policy='random')
+    'random': ZppEvalPlayerData('random', policy='random'),
+    'transfered0S': ZppEvalPlayerData('transfered0S', policy='multihead',
+                                      smaple='True', checkpoint='GS//scon/scon_e3_p1/1/ckpt/0/ckpt-505'),
+    'transfered0': ZppEvalPlayerData('transfered0', policy='multihead',
+                                     checkpoint='GS//scon/scon_e3_p1/1/ckpt/0/ckpt-505'),
 }
 
 ZPP_SCENARIOS = [
@@ -48,7 +52,7 @@ def build_stages(filter=None):
         if opponent in filter:
             continue
         for scenario in ZPP_SCENARIOS:
-            stages.append(EvaluationStage(scenario, opponent, GAMES))
+            stages.append(EvaluationStage(scenario, ZPP_OPPONENTS[opponent], GAMES))
     return stages
 
 
@@ -69,7 +73,8 @@ def main(args):
 
     player = ZPP_OPPONENTS[FLAGS.name]
     opponents_to_filer = FLAGS.filter_opponents
-    opponents_to_filer.append(FLAGS.name)
+    # I guess we want also selfplay results
+    # opponents_to_filer.append(FLAGS.name)
     stages = build_stages(opponents_to_filer)
 
     logging.info("Prepared %d stages.", len(stages))

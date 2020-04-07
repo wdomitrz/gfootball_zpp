@@ -175,7 +175,7 @@ def compose_environment(env_config):
     wrappers.append(KNOWN_WRAPPERS[w])
 
   def extract_from_dict(dictionary, keys):
-    return {new_k: dictionary[k] for (new_k, k) in keys}
+    return {new_k: dictionary[k] for (new_k, k) in keys if k in dictionary}
 
   players = [('agent:left_players=%d,right_players=%d' %
               (env_config['number_of_left_players_agent_controls'],
@@ -189,7 +189,9 @@ def compose_environment(env_config):
                    ('dump_scores', 'enable_goal_videos'),
                    ('level', 'env_name'), ('players', 'players'),
                    ('render', 'render'), ('tracesdir', 'logdir'),
-                   ('write_video', 'write_video')])
+                   ('write_video', 'write_video'),
+                   ('left_team_name', 'left_team_name'),
+                   ('right_team_name', 'right_team_name')])
   if 'env_change_rate' not in env_config:
     env = football_env.FootballEnv(config.Config(football_config))
   else:
