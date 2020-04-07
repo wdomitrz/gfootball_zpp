@@ -18,7 +18,7 @@ ZPP_OPPONENTS = {
     'random': ZppEvalPlayerData('random', policy='random'),
     'transfered0_sp': ZppEvalPlayerData('transfered0_sp', policy='multihead', sample='True', checkpoint='GS//scon/scon_e3_p1/1/ckpt/0/ckpt-505'),
     'transfered0': ZppEvalPlayerData('transfered0', policy='multihead', checkpoint='GS//scon/scon_e3_p1/1/ckpt/0/ckpt-505'),
-    'from0to1to5': ZppEvalPlayerData('from0to1to5', policy='multihead', sample='True', checkpoint='GS//f5v01/f5v0to1to5_e2/1/ckpt/0/ckpt-252')
+    'from0to1to5': ZppEvalPlayerData('from0to1to5', policy='multihead', sample='True', checkpoint='GS//f5v01/f5v0to1to5_e2/1/ckpt/0/ckpt-252'),
     'scon_e3_p2_hard_ns': ZppEvalPlayerData('scon_e3_p2_hard_ns', sample=False, policy='multihead', checkpoint='GS//scon/scon_e3_p2_hard/1/ckpt/0/ckpt-817'),
     'scon_e3_p2_hard_sp': ZppEvalPlayerData('scon_e3_p2_hard_sp', sample=True, policy='multihead', checkpoint='GS//scon/scon_e3_p2_hard/1/ckpt/0/ckpt-817'),
     'scon_e3_p2_nhm_hard_ns': ZppEvalPlayerData('scon_e3_p2_nhm_hard_ns', sample=False, policy='multihead', checkpoint='GS//scon/scon_e3_p2_nhm_hard/1/ckpt/0/ckpt-814'),
