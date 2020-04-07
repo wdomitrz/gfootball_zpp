@@ -7,10 +7,11 @@ as: `'<name>': ZppEvalPlayerData('<name>', <arg1>=<val1>, <arg2>=<val2>)` where
 additional named args are arguments passed as player config to zpp player.
 
 3. Run `python3 gfootball_zpp/eval/main.py --name <name> --logdir <logdir>`.
-    You can do this on machine `instance-2` on user `opala_zuzanna`.
+    You can do this on machine `eval-marl-zpp` on user `opala_zuzanna`.
 
+After evaluation:
 4. Copy data from local logdir to `gs://marl-leaderboard` bucket using gsutil:
-`gsutil cp -r <logdir>/* gs://marl-leaderboard` (does not work from the gcp machine :/).
+`gsutil cp -r <logdir>/* gs://marl-leaderboard`.
 
 5. Copy json file from the main directory in logdir to `eval_results` in our
 repository and push it to master (this will trigger building the docs).

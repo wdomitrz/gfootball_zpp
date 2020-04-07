@@ -16,10 +16,14 @@ GAMES = 10
 
 ZPP_OPPONENTS = {
     'random': ZppEvalPlayerData('random', policy='random'),
-    'transfered0S': ZppEvalPlayerData('transfered0S', policy='multihead',
-                                      smaple='True', checkpoint='GS//scon/scon_e3_p1/1/ckpt/0/ckpt-505'),
-    'transfered0': ZppEvalPlayerData('transfered0', policy='multihead',
-                                     checkpoint='GS//scon/scon_e3_p1/1/ckpt/0/ckpt-505'),
+    'transfered0_sp': ZppEvalPlayerData('transfered0_sp', policy='multihead', sample='True', checkpoint='GS//scon/scon_e3_p1/1/ckpt/0/ckpt-505'),
+    'transfered0': ZppEvalPlayerData('transfered0', policy='multihead', checkpoint='GS//scon/scon_e3_p1/1/ckpt/0/ckpt-505'),
+    'scon_e3_p2_hard_ns': ZppEvalPlayerData('scon_e3_p2_hard_ns', sample=False, policy='multihead', checkpoint='GS//scon/scon_e3_p2_hard/1/ckpt/0/ckpt-817'),
+    'scon_e3_p2_hard_sp': ZppEvalPlayerData('scon_e3_p2_hard_sp', sample=True, policy='multihead', checkpoint='GS//scon/scon_e3_p2_hard/1/ckpt/0/ckpt-817'),
+    'scon_e3_p2_nhm_hard_ns': ZppEvalPlayerData('scon_e3_p2_nhm_hard_ns', sample=False, policy='multihead', checkpoint='GS//scon/scon_e3_p2_nhm_hard/1/ckpt/0/ckpt-814'),
+    'scon_e3_p2_nhm_hard_sp': ZppEvalPlayerData('scon_e3_p2_nhm_hard_sp', sample=True, policy='multihead', checkpoint='GS//scon/scon_e3_p2_nhm_hard/1/ckpt/0/ckpt-814'),
+    'scon_e3_p3_hard_ns': ZppEvalPlayerData('scon_e3_p3_hard_ns', sample=False, policy='multihead', checkpoint='GS//scon/scon_e3_p3_hard/1/ckpt/0/ckpt-812'),
+    'scon_e3_p3_hard_sp': ZppEvalPlayerData('scon_e3_p3_hard_sp', sample=True, policy='multihead', checkpoint='GS//scon/scon_e3_p3_hard/1/ckpt/0/ckpt-812')
 }
 
 ZPP_SCENARIOS = [
@@ -27,7 +31,10 @@ ZPP_SCENARIOS = [
 ]
 
 BOTS_STAGES = [
-    EvaluationStage('5_vs_5', BotEvalPlayerData('easy_bots', 0.05), GAMES)
+    EvaluationStage('5_vs_5', BotEvalPlayerData('easy_bots', 0.05), GAMES),
+    EvaluationStage('5_vs_5_medium', BotEvalPlayerData(
+        'medium_bots', 0.6), GAMES),
+    EvaluationStage('5_vs_5_hard', BotEvalPlayerData('hard_bots', 0.95), GAMES)
 ]
 
 
@@ -52,7 +59,8 @@ def build_stages(filter=None):
         if opponent in filter:
             continue
         for scenario in ZPP_SCENARIOS:
-            stages.append(EvaluationStage(scenario, ZPP_OPPONENTS[opponent], GAMES))
+            stages.append(EvaluationStage(
+                scenario, ZPP_OPPONENTS[opponent], GAMES))
     return stages
 
 
@@ -92,7 +100,8 @@ def main(args):
     logging.info("Prepared summary.")
     logging.debug(summary)
 
-    save_path = FLAGS.logdir + '/eval_results_' + player.name + '_' + str(time()) + '.json'
+    save_path = FLAGS.logdir + '/eval_results_' + \
+        player.name + '_' + str(time()) + '.json'
     logging.info("Saving summary to `%s`", save_path)
     try:
         with open(save_path, 'w') as f:
