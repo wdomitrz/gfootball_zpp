@@ -51,6 +51,7 @@ RUN cp gfootball_zpp/scenarios/* /usr/local/lib/python3.6/dist-packages/gfootbal
 RUN rm -rf /usr/local/lib/python3.6/dist-packages/gfootball/scenarios/__pycache__
 
 RUN cp gfootball_zpp/players/zpp.py /usr/local/lib/python3.6/dist-packages/gfootball/env/players/
+RUN cp gfootball_zpp/players/nnm.py /usr/local/lib/python3.6/dist-packages/gfootball/env/players/
 RUN rm -rf /usr/local/lib/python3.6/dist-packages/gfootball/env/players/__pycache__
 
 RUN cp gfootball_zpp/env/observation_processor.py /usr/local/lib/python3.6/dist-packages/gfootball/env/

@@ -3,6 +3,9 @@ from gfootball.env import football_action_set
 import gym
 import tensorflow as tf
 import numpy as np
+import tempfile
+
+from gfootball_zpp.utils.gsutil import cp_dir
 
 AgentOutput = collections.namedtuple('AgentOutput',
                                      'action policy_logits baseline')
@@ -92,12 +95,12 @@ def unpackbits(frame):
 
 
 def add_external_player_data(env_config, player_data):
-    """ Adds player data as an entry in global 
+    """ Adds player data as an entry in global
     environment config
     Supports multiple players.
     player_data should at least contain:
     + 'name' - generic name of the player
-    + 'description' - for example passed arguments 
+    + 'description' - for example passed arguments
        in printable format
     """
     if 'external_players_data' not in env_config:
@@ -110,3 +113,62 @@ def retrieve_external_players_data(env_config):
         return []
     else:
         return env_config['external_players_data']
+
+class SimulatedConfig():
+    def __init__(self, number_of_players_agent_controls):
+        self._number_of_players_agent_controls = int(number_of_players_agent_controls)
+
+    def number_of_players_agent_controls(self):
+        return self._number_of_players_agent_controls
+
+
+class ManualEnv(gym.Env):
+    def __init__(self, simulated_config):
+        gym.Env.__init__(self)
+        self._observation = None
+        self._action = None
+        self._reward = None
+        self._done = False
+        self._info = None
+        self._config = simulated_config
+
+    def set_observation_space(self, obs_space):
+        self.observation_space = obs_space
+
+    def set_action_space(self, act_space):
+        self.action_space = act_space
+
+    def set_observation(self, observation):
+        self._observation = observation
+
+    def set_reward(self, reward):
+        self._reward = reward
+
+    def set_done(self, done):
+        self._done = done
+
+    def set_info(self, info):
+        self._info = info
+
+    def reset(self):
+        return self._observation
+
+    def step(self, action):
+        self._action = action
+        return self._observation, self._reward, self._done, self._info
+
+
+def create_converter(wrappers, simulated_config):
+    converter = ManualEnv(simulated_config)
+    for w in wrappers:
+        converter = w(converter)
+    return converter
+
+
+def download_model(remote_path):
+    with tempfile.TemporaryDirectory(prefix='model_') as temp_dir:
+        cp_dir(remote_path, temp_dir)
+        result = tf.saved_model.load(temp_dir)
+    return result
+
+EnvOutput = collections.namedtuple('EnvOutput', 'reward done observation')

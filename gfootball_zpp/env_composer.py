@@ -13,6 +13,10 @@ from .logging.api import enable_log_api_for_config, get_loggers_dict
 from .wrappers.state_preserver import StatePreserver
 from .wrappers.env_usage_stats import EnvUsageStatsTracker
 
+from .players.utils import PackedBitsObservation
+
+from absl import logging
+
 import collections
 import gym
 import numpy as np
@@ -125,8 +129,8 @@ def single_agent_wrapper(env, config):
   else:
     return env
 
-
-KNOWN_WRAPPERS = {
+def get_known_wrappers():
+  result = {
     'periodic_dump':
     dump_wrapper,
     'checkpoint_score':
@@ -148,13 +152,25 @@ KNOWN_WRAPPERS = {
     'old_w':
     MultiHeadNets2,
     'old_single_map':
-    MultiHeadNet
-}
-KNOWN_WRAPPERS.update(get_loggers_dict())
+    MultiHeadNet,
+    'pack_bits':
+    lambda env, config: PackedBitsObservation(env)
+  }
+  result.update(get_loggers_dict())
+  return result
+  
+
+KNOWN_WRAPPERS = get_known_wrappers()
 
 
 def should_preserve_state(env_config):
   return env_config['base_logdir'] is not None and env_config['logs_enabled'] == True
+
+def are_any_loggers(wrapper_names):
+  for w in wrapper_names:
+    if w.startswith('log_'):
+      return True
+  return False
 
 def compose_environment(env_config):
   enable_log_api_for_config(env_config)  # we enable log api
@@ -165,7 +181,13 @@ def compose_environment(env_config):
     wrappers.append(StatePreserver)
     wrappers.append(EnvUsageStatsTracker)
 
-  for w in env_config['wrappers'].split(','):
+  wrapper_names = env_config['wrappers'].split(',')
+  if not are_any_loggers(wrapper_names):
+    wrapper_names = ['log_all'] + wrapper_names
+    logging.info('!!!!No loggers detected so added log_all: %s!!!!',
+                 str(wrapper_names))
+
+  for w in wrapper_names:
     assert(w in KNOWN_WRAPPERS)
     # do not apply log wrappers when logs not enabled
     # (only for speed improvements)
