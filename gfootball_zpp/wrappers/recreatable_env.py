@@ -11,6 +11,7 @@ class BaseRecreatableEnv(gym.Wrapper):
         self.change_rate = change_rate
         self.episodes_completed = 0
         self.episodes_since_change = 0
+        self.env = None
         env = self.create_new_env()
         super().__init__(env)
 
@@ -52,12 +53,6 @@ class RandomParametersEnv(RecreatableFootballEnv):
         print(self.parameters)
         self.probabilities = probabilities
         super().__init__(change_rate)
-
-    def __getattr__(self, item):
-        if item == '_config':
-            return self.env._config
-        else:
-            return super().__getattr__(item)
 
     def get_new_config(self):
         new_config = random.choice(self.parameters, p=self.probabilities)
