@@ -1,5 +1,6 @@
 from .utils import LogBasicTracker, EnvLogSteppingModes, get_opponent_name
-import tensorflow as tf
+import numpy as np
+
 
 
 class LogCardsStatsTeam(LogBasicTracker):
