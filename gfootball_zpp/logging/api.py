@@ -4,7 +4,8 @@ from .scenario import LogLowLevelScenarioData, LogScenarioDifficulty, LogScenari
 from .ball import LogBallOwningTeam
 from .reward import LogPerPlayerReward, LogAveragePerPlayerRewardByDifficulty, LogMeanPerOpponentReward
 from .goals import LogGoalStats
-
+from .cards import LogCardsStatsTeam
+from .game_mode import LogGameModeStats
 import gym
 
 
@@ -32,6 +33,8 @@ def get_default_loggers():
     result.append(('log_scenario_reset', LogScenarioReset))
     result.append(('log_ball_owning_team', LogBallOwningTeam))
     result.append(('log_goal_stats', LogGoalStats))
+    result.append(('log_cards_stats', LogCardsStatsTeam))
+    result.append(('log_game_mode_stats', LogGameModeStats))
 
     high_level_start_id = len(result)
     result.append(('log_per_player_reward', LogPerPlayerReward))
