@@ -17,8 +17,6 @@ class LogGameModeStats(LogBasicTracker):
         if self._prev_game_mode != current_game_mode:
             self._game_mode_counter[current_game_mode] += 1
             self._prev_game_mode = current_game_mode
-            print("gamemode changed to:", current_game_mode, " aka ",
-                  GAME_MODE_DICT[current_game_mode])
 
     def _write_logs(self, category):
         for gmid in range(NUM_GAME_MODES):

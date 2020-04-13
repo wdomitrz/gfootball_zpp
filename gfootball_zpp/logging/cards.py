@@ -21,11 +21,6 @@ class LogCardsStatsTeam(LogBasicTracker):
         self._second_team_red_cards = convert_red_cards(
             observation[0]['right_team_active'])
 
-        print("yellow ", self._first_team_yellow_cards, " right:",
-              self._second_team_yellow_cards)
-        print("yellow ", self._first_team_red_cards, " right:",
-              self._second_team_red_cards)
-
     def _write_logs(self, category):
         first_team_yellow = np.sum(self._first_team_yellow_cards)
         first_team_red = np.sum(self._first_team_red_cards)
