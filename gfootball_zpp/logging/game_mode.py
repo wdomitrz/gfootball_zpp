@@ -1,5 +1,4 @@
 from .utils import LogBasicTracker, EnvLogSteppingModes, get_opponent_name
-import tensorflow as tf
 
 NUM_GAME_MODES = 7
 GAME_MODE_DICT = dict([(0, 'Normal'), (1, 'KickOff'), (2, 'GoalKick'),
