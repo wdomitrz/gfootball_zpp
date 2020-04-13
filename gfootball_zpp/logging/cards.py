@@ -12,7 +12,7 @@ class LogCardsStatsTeam(LogBasicTracker):
 
     def _update_stats(self, observation):
         def convert_red_cards(team_active):
-            return map(lambda x: int(not x), team_active)
+            return list(map(lambda x: int(not x), team_active))
 
         self._first_team_yellow_cards = observation[0]['left_team_yellow_card']
         self._first_team_red_cards = convert_red_cards(
