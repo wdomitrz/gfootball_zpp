@@ -24,7 +24,9 @@ ZPP_OPPONENTS = {
     'scon_e3_p2_nhm_hard_ns': ZppEvalPlayerData('scon_e3_p2_nhm_hard_ns', sample=False, policy='multihead', checkpoint='GS//scon/scon_e3_p2_nhm_hard/1/ckpt/0/ckpt-814'),
     'scon_e3_p2_nhm_hard_sp': ZppEvalPlayerData('scon_e3_p2_nhm_hard_sp', sample=True, policy='multihead', checkpoint='GS//scon/scon_e3_p2_nhm_hard/1/ckpt/0/ckpt-814'),
     'scon_e3_p3_hard_ns': ZppEvalPlayerData('scon_e3_p3_hard_ns', sample=False, policy='multihead', checkpoint='GS//scon/scon_e3_p3_hard/1/ckpt/0/ckpt-812'),
-    'scon_e3_p3_hard_sp': ZppEvalPlayerData('scon_e3_p3_hard_sp', sample=True, policy='multihead', checkpoint='GS//scon/scon_e3_p3_hard/1/ckpt/0/ckpt-812')
+    'scon_e3_p3_hard_sp': ZppEvalPlayerData('scon_e3_p3_hard_sp', sample=True, policy='multihead', checkpoint='GS//scon/scon_e3_p3_hard/1/ckpt/0/ckpt-812'),
+    'checkpoints_selfplay_e9_ns': ZppEvalPlayerData('checkpoints_selfplay_e9_ns', sample=False, policy='multihead', checkpoint='GS//zuzanna-seed/checkpoints_sp/checkpoints_selfplay_e9/1/ckpt/0/ckpt-274'),
+    'checkpoints_selfplay_e9_sp': ZppEvalPlayerData('checkpoints_selfplay_e9_sp', sample=True, policy='multihead', checkpoint='GS//zuzanna-seed/checkpoints_sp/checkpoints_selfplay_e9/1/ckpt/0/ckpt-274'),
 }
 
 ZPP_SCENARIOS = [
