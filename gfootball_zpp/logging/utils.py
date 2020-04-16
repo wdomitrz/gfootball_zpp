@@ -1,5 +1,7 @@
 from gfootball_zpp.utils.misc import extract_obj_attributes, extract_from_dict, make_dirs
 
+from gfootball_zpp.players.utils import retrieve_external_players_data
+
 import gym
 import tensorflow as tf
 import os
@@ -282,3 +284,13 @@ def extract_data_from_low_level_env_cfg(env_config):
         return f, str(s)
 
     return list(map(second_to_string, data))
+
+
+def get_opponent_name(env):
+    env_config = env.unwrapped._config
+    players_data = retrieve_external_players_data(env_config)
+    if len(players_data) == 0:
+        return "Build_in_default"
+    else:
+        relevant_info = [p['name'] + ':' + p['description'] for p in players_data]
+        return '|'.join(relevant_info).replace('/', '_')

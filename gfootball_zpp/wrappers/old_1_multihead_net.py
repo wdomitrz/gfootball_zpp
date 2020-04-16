@@ -2,15 +2,11 @@ import gym
 import numpy as np
 
 
-class MultiHeadNet(gym.Env):
+class MultiHeadNet(gym.Wrapper):
     """Supports only extracted observations (stacked)"""
 
     def __init__(self, env, env_config):
-        self.env = env
-
-        self.metadata = env.metadata
-        self.reward_range = env.reward_range
-        self.spec = env.spec
+        gym.Wrapper.__init__(self, env)
 
         # observation shape will be (_, _, 4*frame_size)
         self.players = env.observation_space.shape[0]
@@ -67,6 +63,3 @@ class MultiHeadNet(gym.Env):
 
     def close(self):
         return self.env.close()
-
-    def seed(self, seed=None):
-        return self.env.seed(seed)

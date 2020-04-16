@@ -1,3 +1,4 @@
+import re
 import gym
 import math
 import numpy as np
@@ -48,3 +49,8 @@ def get_max_discrete_action(env):
 
 def get_with_prec(x, prec=2):
     return math.floor(x * 10**prec) / 10**prec
+
+
+def extract_number_from_txt(txt):
+    m = re.search("[0-9]+", txt)
+    return int(txt[m.start():m.end()])
