@@ -99,6 +99,7 @@ def add_external_player_data(env_config, player_data):
     + 'name' - generic name of the player
     + 'description' - for example passed arguments 
        in printable format
+    + 'checkpoints' - array of loaded checkpoints
     """
     if 'external_players_data' not in env_config:
         env_config['external_players_data'] = []

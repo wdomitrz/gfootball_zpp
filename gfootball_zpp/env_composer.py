@@ -12,6 +12,7 @@ from .wrappers.rewards import DecayingCheckpointRewardWrapper
 from .logging.api import enable_log_api_for_config, get_loggers_dict
 from .wrappers.state_preserver import StatePreserver
 from .wrappers.env_usage_stats import EnvUsageStatsTracker
+from .wrappers.players_name import UpdateTeamNamesWrapper
 
 import collections
 import gym
@@ -164,6 +165,8 @@ def compose_environment(env_config):
   if should_preserve_state(env_config):
     wrappers.append(StatePreserver)
     wrappers.append(EnvUsageStatsTracker)
+
+  wrappers.append(UpdateTeamNamesWrapper)
 
   for w in env_config['wrappers'].split(','):
     assert(w in KNOWN_WRAPPERS)
