@@ -1,4 +1,4 @@
-from .utils import LogBasicTracker, EnvLogSteppingModes, get_opponent_name
+from .utils import LogBasicTracker, EnvLogSteppingModes, get_opponent_name, player_with_ball_action
 import tensorflow as tf
 import numpy as np
 import math
@@ -60,21 +60,6 @@ class LogBallOwningTeam(LogBasicTracker):
         return observation, reward, done, info
 
 FRAME_THRESHOLD = 5
-
-
-def player_with_ball_action(observation, action):
-    def player_with_ball_action_id(observation):
-        for i, obs in enumerate(observation):
-            if obs['active'] == obs['ball_owned_player']:
-                return i
-        return None
-
-    pId = player_with_ball_action_id(observation)
-    if pId is not None:
-        return action[pId]
-    else:
-        return None
-
 
 PASS_ACTIONS = [9, 10, 11]
 SHOT_ACTIONS = [12]

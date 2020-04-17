@@ -294,3 +294,16 @@ def get_opponent_name(env):
     else:
         relevant_info = [p['name'] + ':' + p['description'] for p in players_data]
         return '|'.join(relevant_info).replace('/', '_')
+
+def player_with_ball_action(observation, action):
+    def player_with_ball_action_id(observation):
+        for i, obs in enumerate(observation):
+            if obs['active'] == obs['ball_owned_player']:
+                return i
+        return None
+
+    pId = player_with_ball_action_id(observation)
+    if pId is not None:
+        return action[pId]
+    else:
+        return None
