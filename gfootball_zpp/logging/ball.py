@@ -253,6 +253,8 @@ class LogShotStatsTeam(LogBasicTracker):
 
     def _write_logs(self, category):
         for tId, teamName in enumerate(['first_team', 'second_team']):
+            if tId != 0: # currently only our team is supported
+                continue
             all_shots = self._all_shots[tId]
             if all_shots == 0:
                 all_shots_avg_dist = 0.0
