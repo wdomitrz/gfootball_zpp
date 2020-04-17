@@ -101,11 +101,12 @@ class LogAveragePerPlayerRewardByDifficulty(LogBasicTracker):
                 rew_bucket] = self._rewards_step[tid][rew_bucket] + 1
 
             scale_factor = 1.0 / self._num_difficulties
-            self.summary_writer.write_scalar('per_difficulty_range_reward/{}/{}_{}'.format(
-                self._get_team_names()[tid],
-                get_with_prec(scale_factor * rew_bucket),
-                get_with_prec(scale_factor * (rew_bucket + 1))),
-                                             get_with_prec(np.mean(reward)))
+            self.summary_writer.write_scalar(
+                'per_difficulty_range_reward/{}/{}_{}'.format(
+                    self._get_team_names()[tid],
+                    get_with_prec(scale_factor * rew_bucket),
+                    get_with_prec(scale_factor * (rew_bucket + 1))),
+                get_with_prec(np.mean(reward)))
 
     def _update_step(self, reward):
         if self._num_rewards is None:

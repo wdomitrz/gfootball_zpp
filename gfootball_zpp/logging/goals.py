@@ -36,10 +36,10 @@ class LogGoalStats(LogBasicTracker):
 
     def _write_goal_log(self, category, team_id):
         team_name = self._team_names[team_id]
-        self.summary_writer.write_scalar('{}/{}/shot'.format(category, team_name),
-                                         self._goals[team_id])
-        self.summary_writer.write_scalar('{}/{}/own'.format(category, team_name),
-                                         self._own_goals[team_id])
+        self.summary_writer.write_scalar(
+            '{}/{}/shot'.format(category, team_name), self._goals[team_id])
+        self.summary_writer.write_scalar(
+            '{}/{}/own'.format(category, team_name), self._own_goals[team_id])
 
     def __init__(self, env, config):
         LogBasicTracker.__init__(self, env, config)
@@ -54,7 +54,8 @@ class LogGoalStats(LogBasicTracker):
         if env_episode_steps != 0:
             for (tid, _) in enumerate(self._team_names):
                 self._write_goal_log('goals', tid)
-                self._write_goal_log('per_opponent_goals/' + get_opponent_name(self.env), tid)
+                self._write_goal_log(
+                    'per_opponent_goals/' + get_opponent_name(self.env), tid)
 
         observation = super(LogGoalStats, self).reset()
 

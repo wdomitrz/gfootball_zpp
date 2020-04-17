@@ -32,15 +32,18 @@ class LogActionStats(LogBasicTracker):
                                                self._discrete_actions),
                                         dtype=np.int64)
 
-        self._ball_action_counter = np.zeros(shape=(self._discrete_actions,), dtype=np.int64)
+        self._ball_action_counter = np.zeros(shape=(self._discrete_actions, ),
+                                             dtype=np.int64)
 
         self.summary_writer.set_stepping(EnvLogSteppingModes.env_resets)
 
     def _write_logs(self, category):
         def make_text_log_data(actions, name):
-            text_actions = [('action:**{}** aka:**{}**'.format(
-                aid, self._get_action_name(aid)), actions[aid])
-                                for aid in range(self._discrete_actions)]
+            text_actions = [
+                ('action:**{}** aka:**{}**'.format(aid,
+                                                   self._get_action_name(aid)),
+                 actions[aid]) for aid in range(self._discrete_actions)
+            ]
             return '## {}  \n'.format(name) + \
                 pretty_list_of_pairs_to_string(text_actions)
 
@@ -49,19 +52,23 @@ class LogActionStats(LogBasicTracker):
         for pid in range(self._num_players):
             self.summary_writer.write_bars(
                 '{}/proportions_player_{}'.format(category, pid), actions[pid])
-            text_log += make_text_log_data(actions[pid], 'player_{}'.format(pid))
-
+            text_log += make_text_log_data(actions[pid],
+                                           'player_{}'.format(pid))
 
         self.summary_writer.write_text('{}/players'.format(category), text_log)
 
         ball_actions = self._ball_action_counter
-        self.summary_writer.write_bars('{}/proportions_ball_owned_controlled_player'.format(category), ball_actions)
+        self.summary_writer.write_bars(
+            '{}/proportions_ball_owned_controlled_player'.format(category),
+            ball_actions)
         ball_text = text_log = '# Ball owning player action stats  \n'
-        ball_text += make_text_log_data(ball_actions, 'ball_owned_controlled_player')
-        self.summary_writer.write_text('{}/ball_text'.format(category), ball_text)
+        ball_text += make_text_log_data(ball_actions,
+                                        'ball_owned_controlled_player')
+        self.summary_writer.write_text('{}/ball_text'.format(category),
+                                       ball_text)
 
     def reset(self):
-        
+
         if self.env_episode_steps != 0:
             self._write_logs('actions')
             self._write_logs('per_opponent_actions/' +
@@ -74,6 +81,7 @@ class LogActionStats(LogBasicTracker):
         return observation
 
     def step(self, action):
-        observation, reward, done, info = super(LogActionStats, self).step(action)
+        observation, reward, done, info = super(LogActionStats,
+                                                self).step(action)
         self._update_action_counts(observation, scalar_to_list(action))
         return observation, reward, done, info

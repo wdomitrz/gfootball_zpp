@@ -3,9 +3,10 @@ from gfootball_zpp.utils.misc import get_with_prec
 import numpy as np
 import math
 
+
 def calculate_team_distances_from_ball(observation):
     ball_pos = observation[0]['ball'][0:2]
-    player_pos = [[],[]]
+    player_pos = [[], []]
     player_pos[0] = observation[0]['left_team']
     player_pos[1] = observation[0]['right_team']
     ball_distances = []
@@ -19,9 +20,11 @@ def calculate_team_distances_from_ball(observation):
         ball_distances.append(ball_team_dists)
     return np.asarray(ball_distances, dtype=np.float64)
 
+
 class LogLocalAdvantageStats(LogBasicTracker):
     def _trace_vars_reset(self):
-        self._first_team_advantages_sum = np.zeros(self._num_circles, dtype=np.float64)
+        self._first_team_advantages_sum = np.zeros(self._num_circles,
+                                                   dtype=np.float64)
 
     def _update_stats(self, observation):
         ball_distances = calculate_team_distances_from_ball(observation)
@@ -41,8 +44,8 @@ class LogLocalAdvantageStats(LogBasicTracker):
         for (rId, r) in enumerate(self._circles):
             precR = get_with_prec(r)
             self.summary_writer.write_scalar(
-                '{}/first_team/avg_advantage_r_{}'.format(category, precR), avg_first_team_adv[rId])
-        
+                '{}/first_team/avg_advantage_r_{}'.format(category, precR),
+                avg_first_team_adv[rId])
 
     def __init__(self, env, config):
         LogBasicTracker.__init__(self, env, config)
@@ -72,10 +75,11 @@ class LogLocalAdvantageStats(LogBasicTracker):
         self._update_stats(observation)
         return observation, reward, done, info
 
+
 class LogPlayersEntropy(LogBasicTracker):
     def _trace_vars_reset(self):
         self._team_ball_dist_sum = np.zeros(2, dtype=np.float64)
-        self._team_conv_entropy = None # TODO
+        self._team_conv_entropy = None  # TODO
 
     def _update_stats(self, observation):
         ball_distances = calculate_team_distances_from_ball(observation)
@@ -87,7 +91,8 @@ class LogPlayersEntropy(LogBasicTracker):
         for tId, team_name in enumerate(['first_team', 'second_team']):
             ball_dist_avg = team_ball_dist_avg[tId]
             self.summary_writer.write_scalar(
-                '{}/{}/ball_avg_dist_avg'.format(category, team_name), ball_dist_avg)
+                '{}/{}/ball_avg_dist_avg'.format(category, team_name),
+                ball_dist_avg)
 
     def __init__(self, env, config):
         LogBasicTracker.__init__(self, env, config)

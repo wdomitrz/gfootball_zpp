@@ -2,7 +2,6 @@ from .utils import LogBasicTracker, EnvLogSteppingModes, get_opponent_name
 import numpy as np
 
 
-
 class LogCardsStatsTeam(LogBasicTracker):
     def _trace_vars_reset(self):
         self._first_team_yellow_cards = None
