@@ -6,6 +6,7 @@ from .reward import LogPerPlayerReward, LogAveragePerPlayerRewardByDifficulty, L
 from .goals import LogGoalStats
 from .cards import LogCardsStatsTeam
 from .game_mode import LogGameModeStats
+from .players import LogLocalAdvantageStats
 import gym
 
 
@@ -37,6 +38,7 @@ def get_default_loggers():
     result.append(('log_game_mode_stats', LogGameModeStats))
     result.append(('log_passes_stats', LogPassStatsTeam))
     result.append(('log_shots_stats', LogShotStatsTeam))
+    result.append(('log_local_advantage_stats', LogLocalAdvantageStats))
 
     high_level_start_id = len(result)
     result.append(('log_per_player_reward', LogPerPlayerReward))
