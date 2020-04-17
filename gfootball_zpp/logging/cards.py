@@ -28,13 +28,13 @@ class LogCardsStatsTeam(LogBasicTracker):
         second_team_yellow = np.sum(self._second_team_yellow_cards)
         second_team_red = np.sum(self._second_team_red_cards)
         self.summary_writer.write_scalar(
-            '{}/yellow_cards_first_team'.format(category), first_team_yellow)
+            '{}/first_team/yellow_cards'.format(category), first_team_yellow)
         self.summary_writer.write_scalar(
-            '{}/red_cards_first_team'.format(category), first_team_red)
+            '{}/first_team/red_cards'.format(category), first_team_red)
         self.summary_writer.write_scalar(
-            '{}/yellow_cards_second_team'.format(category), second_team_yellow)
+            '{}/second_team/yellow_cards'.format(category), second_team_yellow)
         self.summary_writer.write_scalar(
-            '{}/red_cards_second_team'.format(category), second_team_red)
+            '{}/second_team/red_cards'.format(category), second_team_red)
 
     def __init__(self, env, config):
         LogBasicTracker.__init__(self, env, config)
