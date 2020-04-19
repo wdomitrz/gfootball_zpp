@@ -104,6 +104,11 @@ def add_external_player_data(env_config, player_data):
        in printable format
     + 'checkpoints' - array of loaded checkpoints
     """
+
+    # Fix for the evaluation
+    if env_config is None:
+        return
+
     if 'external_players_data' not in env_config:
         env_config['external_players_data'] = []
     env_config['external_players_data'].append(player_data)
