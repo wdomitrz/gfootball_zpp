@@ -28,7 +28,8 @@ class Player(player_base.PlayerBase):
         self.current_checkpoint = None
 
         self._policy = build_policy(policy, self.num_controlled_players(), player_config)
-
+        self._checkpoints_p = None
+        
         if 'checkpoints' in player_config:
             checkpoints = list(map(lambda x: x.split(';'), player_config['checkpoints'].split('*')))
             self._checkpoints = [x[0] for x in checkpoints]
