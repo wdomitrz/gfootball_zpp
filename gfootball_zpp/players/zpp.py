@@ -29,7 +29,7 @@ class Player(player_base.PlayerBase):
 
         self._policy = build_policy(policy, self.num_controlled_players(), player_config)
         self._checkpoints_p = None
-        
+
         if 'checkpoints' in player_config:
             checkpoints = list(map(lambda x: x.split(';'), player_config['checkpoints'].split('*')))
             self._checkpoints = [x[0] for x in checkpoints]
@@ -108,5 +108,5 @@ class Player(player_base.PlayerBase):
         self.resets += 1
         if self.checkpoint_reload_rate and self.resets % self.checkpoint_reload_rate == 0:
             self.resets = 0
-            self.update_checkpoint(self.args['checkpoint'])
+            self.update_checkpoint()
         self._policy.reset()
