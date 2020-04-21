@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-current_date=$(date | tr ' ' '_' | tr ':' '_')
+current_date=$(date | tr ',' '_' | tr ' ' '_' | tr ':' '_' | tr 'ś' '_')
 
 
 if [ "$1" = 'c4' ] ; then
