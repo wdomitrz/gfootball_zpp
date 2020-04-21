@@ -248,7 +248,7 @@ class LogPassStatsTeam(LogBasicTracker):
                 self._ball_own_info.last_team] += self._ball_own_info.dist(
                     current_ball_own_info)
             #print("$$$$$$$$$$PASS DETECTED", self._all_passes,
-                  self._all_passes_dist_sum)
+                  #self._all_passes_dist_sum)
             if self._ball_own_info.ball_passed_intentionally(
                     current_ball_own_info):
                 self._intentional_passes[self._ball_own_info.last_team] += 1
@@ -256,8 +256,8 @@ class LogPassStatsTeam(LogBasicTracker):
                     self._ball_own_info.last_team] += self._ball_own_info.dist(
                         current_ball_own_info)
                 #print("$$$$$$$$$$###INT PASS DETECTED",
-                      self._intentional_passes,
-                      self._intentional_passes_dist_sum)
+                      #self._intentional_passes,
+                      #self._intentional_passes_dist_sum)
 
         self._ball_own_info = current_ball_own_info
 
