@@ -137,9 +137,11 @@ class BallOwnInfo():
                 self.intentionall_shot = True
                 self.delay_counter = FRAME_THRESHOLD
 
-        if (current_player == -1) or (self.delay_counter > 0): #and (current_player == self.last_player)):
+        if (current_player == -1) or (self.delay_counter > 0 and (current_player == self.last_player)):
             self.delay_counter -= 1
             self.delay_counter = max(0, self.delay_counter)
+            if current_player == -1:
+                self.delay_counter = 0
             return self
         else:
             return BallOwnInfo(current_team,
