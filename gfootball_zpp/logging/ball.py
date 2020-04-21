@@ -126,8 +126,8 @@ class BallOwnInfo():
             current_obs = None
 
         self.time_since_update += 1
-        if self.last_team is not None \
-           and self.time_since_update <= FRAME_THRESHOLD:  # todo
+        if self.last_team == 0 \
+           and self.time_since_update <= 1:  # todo
             ball_owner_action = get_player_action(self.last_player, self.last_observation, action)
             if ball_owner_action in PASS_ACTIONS:
                 self.intentionall_pass = True
