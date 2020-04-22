@@ -19,6 +19,7 @@ class Player(player_base.PlayerBase):
     def __init__(self, player_config, env_config):
         player_base.PlayerBase.__init__(self, player_config)
 
+        self._hidden = False
         self._action_set = 'default'
         self._player_prefix = 'player_{}'.format(player_config['index'])
         stacking = 4 #if player_config.get('stacked', True) else 1
@@ -58,7 +59,25 @@ class Player(player_base.PlayerBase):
 
         add_external_player_data(env_config, player_data)
 
+        self._right_players = int(player_config.get('right_players', 0))
+        self._left_players = int(player_config.get('left_players', 0))
+
+        if bool(player_config.get('hidden', False)):
+            self.hide()
+
+    def hide(self):
+        self._hidden = True
+        self._num_left_controlled_players = 0
+        self._num_right_controlled_players = 0
+
+    def show(self):
+        self.hidden = False
+        self._num_left_controlled_players = self._left_players
+        self._num_right_controlled_players = self._right_players
+
     def take_action(self, observation):
+        if self.hidden:
+            return []
         observation = self._policy.pre_stacking_convert_obs(observation)
         observation = self._stacker.get(observation)
         return self._policy.take_action(observation)
