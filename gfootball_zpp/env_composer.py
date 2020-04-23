@@ -12,6 +12,7 @@ from .wrappers.rewards import DecayingCheckpointRewardWrapper
 from .logging.api import enable_log_api_for_config, get_loggers_dict
 from .wrappers.state_preserver import StatePreserver
 from .wrappers.env_usage_stats import EnvUsageStatsTracker
+from .wrappers.players_name import UpdateTeamNamesWrapper
 
 from .players.utils import PackedBitsObservation
 
@@ -158,7 +159,7 @@ def get_known_wrappers():
   }
   result.update(get_loggers_dict())
   return result
-  
+
 
 KNOWN_WRAPPERS = get_known_wrappers()
 
@@ -186,6 +187,8 @@ def compose_environment(env_config):
     wrapper_names = ['log_all'] + wrapper_names
     logging.info('!!!!No loggers detected so added log_all: %s!!!!',
                  str(wrapper_names))
+
+  wrappers.append(UpdateTeamNamesWrapper)
 
   for w in wrapper_names:
     assert(w in KNOWN_WRAPPERS)

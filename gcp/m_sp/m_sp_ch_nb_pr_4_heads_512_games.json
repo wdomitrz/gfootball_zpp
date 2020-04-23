@@ -1,0 +1,22 @@
+{
+    "env_name": "5_vs_5_partially_randomized",
+    "enable_goal_videos": false,
+    "enable_full_episode_videos": false,
+    "logdir": "",
+    "enable_sides_swap": false,
+    "number_of_left_players_agent_controls": 4,
+    "number_of_right_players_agent_controls": 0,
+    "extra_players": [
+        "zpp:right_players=4,policy=multihead,sampe=True,checkpoint_reload_rate=512,checkpoints=!mostly_latest-GS//m_sp/m_sp_nb_512_e2_p1/1/ckpt/0/;0.7*!latest-GS//f5v01/f5v0to1to5_e2/1/ckpt/0/;0.075*!latest-GS//f5v01/f5v0to1to2t05_e2/1/ckpt/0/;0.075*!latest-GS//scon/scon_e3_p2_nhm_hard/1/ckpt/0/;0.075*!latest-GS//scon/scon_e3_p2_hard/1/ckpt/0/;0.075"
+    ],
+    "render": false,
+    "write_video": false,
+    "stacked_frames": 4,
+    "channel_dimensions": [
+        96,
+        72
+    ],
+    "rewards": "scoring,checkpoints",
+    "dump_frequency": 10,
+    "wrappers": "periodic_dump,checkpoint_score,obs_extract,single_agent,obs_stack,old_single_map"
+}
