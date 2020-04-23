@@ -54,8 +54,3 @@ RUN \
   rm -rf /usr/local/lib/python3.6/dist-packages/gfootball/env/__pycache__ &&\
   cp gfootball_zpp/players/{zpp,nnm}.py /usr/local/lib/python3.6/dist-packages/gfootball/env/players/ &&\
   rm -rf /usr/local/lib/python3.6/dist-packages/gfootball/env/players/__pycache__
-
-# Copy SEED codebase and SEED GRPC library.
-ADD  ./seed_rl /seed_rl/
-WORKDIR /seed_rl
-ENTRYPOINT ["python", "gcp/run.py"]

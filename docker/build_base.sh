@@ -8,7 +8,4 @@ GRPC_IMAGE=gcr.io/seedimages/seed:grpc
 LABEL="${CONFIG}_${JOB_NAME_PREFIX}"
 
 set -x
-
-"$DIR/build_base.sh"
-
-docker build --build-arg grpc_image=${GRPC_IMAGE} --build-arg seed_path=${SEED_PATH} -t seed_rl:${LABEL}  -f $DIR/Dockerfile.football_seed ..
+docker build -t football_base -f $DIR/Dockerfile.football_base ..
