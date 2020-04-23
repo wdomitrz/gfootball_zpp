@@ -156,6 +156,9 @@ class ManualEnv(gym.Env):
     def set_info(self, info):
         self._info = info
 
+    def observation(self):
+        return self._observation
+
     def reset(self):
         return self._observation
 

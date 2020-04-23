@@ -96,14 +96,17 @@ class Player(player_base.PlayerBase):
         self._models_dirs_p = [mds[1] for mds in models_dirs_spec]
         self._models_configs = [mds[2] for mds in models_dirs_spec]
 
-        self._current_model_name = 'none'
+        self._current_model_name = None
         self._nn_manager = None
         player_data = {
             'name': 'nnm',
-            'description': self._current_model_name
+            'description': str(self._current_model_name),
+            'desc_fun': lambda: str(self._current_model_name)
         }
 
         add_external_player_data(env_config, player_data)
+
+        logging.info('model configs %s', str(self._models_configs))
 
         self._update_model()
 
@@ -135,12 +138,13 @@ class Player(player_base.PlayerBase):
         self._core_state = None
         
         if model_path is not None:
+            logging.info('MODEL DIR ID %s', str(model_dir_id))
+            config = decode_config(self._models_configs[model_dir_id])
+            
             logging.info('NNM player loading: %s', model_path)
             self._nn_manager = download_model(model_path)
             logging.info('NNM player loading done: %s', model_path)
             self._current_model_name = model_path
-
-            config = decode_config(self._models_configs[model_dir_id])
 
             wrapper_names = config['wrappers'].split(',')
             known_wrappers = get_known_wrappers()
@@ -184,14 +188,14 @@ class Player(player_base.PlayerBase):
         (action, _, _), self._core_state = self._nn_manager.get_action(prev_actions,
                                                                   env_output,
                                                                   core_state)
-        logging.info('$$$$taking action %s:', str(action))
+        #logging.info('$$$$taking action %s:', str(action))
         self._last_action = action.numpy().flatten()
         assert self._last_action.shape[0] == self._left_players + self._right_players
         return self._last_action
 
     def reset(self):
         self._resets += 1
-        if self._model_reload_rate != 0 and self._resets % self._model_reload_rate == 0:
+        if self._model_reload_rate != 0 and self._resets % self._model_reload_rate == 0 or self._nn_manager is None:
             self._resets = 0
             self._update_model()
 

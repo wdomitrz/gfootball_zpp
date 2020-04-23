@@ -1,5 +1,6 @@
 from absl import app
 from absl import flags
+from absl import logging
 import json
 
 flags.DEFINE_string('f', None, 'File to encode')
@@ -26,6 +27,7 @@ def encode_config(cfg):
 def decode_config(str_config):
     for (t, f) in REPLACE_TABLE:
         str_config = str_config.replace(f, t)
+    logging.info('JSON: %s', str_config)
     cfg = json.loads(str_config)
     return cfg
 
