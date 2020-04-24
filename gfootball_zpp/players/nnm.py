@@ -21,7 +21,7 @@ def get_models_path(path):
     if len(model_list) == 0:
         return None
 
-    models_paths = [os.path.join(path, m) for m in model_list]
+    models_paths = [os.path.join(path, str(m)) for m in model_list]
     return models_paths
 
 def get_latest_model_path(path):
@@ -122,10 +122,10 @@ class Player(player_base.PlayerBase):
             model_path = get_latest_model_path(dir_path)
         elif model_dir[:8] == '!random-':
             dir_path = handle_gs( model_dir[8:])
-            model_path = get_random_model_path('gs:' + dir_path)
+            model_path = get_random_model_path(dir_path)
         elif model_dir[:15] == '!mostly_latest-':
             dir_path = handle_gs( model_dir[15:])
-            model_path = get_mostly_latest_model_path('gs:' + dir_path)
+            model_path = get_mostly_latest_model_path(dir_path)
         else:
             model_path = dir_path = handle_gs(model_dir)
 
