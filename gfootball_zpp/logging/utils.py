@@ -288,18 +288,13 @@ def extract_data_from_low_level_env_cfg(env_config):
 
 
 def get_opponent_name(env):
-    def get_fun_desc(player_desc):
-        if 'desc_fun' in player_desc:
-            return player_desc['desc_fun']()
-        else:
-            return ''
     env_config = env.unwrapped._config
     players_data = retrieve_external_players_data(env_config)
     if len(players_data) == 0:
         return "Build_in_default"
     else:
         relevant_info = [
-            p['name'] + ':' + p['description'] + ':' + get_fun_desc(p) for p in players_data
+            p['name'] + ':' + p['description'] for p in players_data
         ]
         return '|'.join(relevant_info).replace('/', '_')
 

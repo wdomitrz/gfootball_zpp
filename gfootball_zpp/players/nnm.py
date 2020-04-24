@@ -9,7 +9,7 @@ from gfootball_zpp.env_composer import get_known_wrappers
 from gfootball_zpp.utils.config_encoder import decode_config
 from gfootball_zpp.utils.misc import extract_number_from_txt
 from gfootball.env import player_base
-from gfootball_zpp.players.utils import add_external_player_data, create_converter, download_model, SimulatedConfig, EnvOutput
+from gfootball_zpp.players.utils import add_external_player_data, create_converter, download_model, SimulatedConfig, EnvOutput, change_external_player_data
 
 
 def get_models_path(path):
@@ -76,6 +76,7 @@ class Player(player_base.PlayerBase):
     def __init__(self, player_config, env_config):
         player_base.PlayerBase.__init__(self, player_config)
 
+        self._env_config = env_config
         self._resets = 0
         self._hidden = False
         self._action_set = 'default'
@@ -101,10 +102,9 @@ class Player(player_base.PlayerBase):
         player_data = {
             'name': 'nnm',
             'description': str(self._current_model_name),
-            'desc_fun': lambda: str(self._current_model_name)
         }
 
-        add_external_player_data(env_config, player_data)
+        self._id_in_p_data = add_external_player_data(self._env_config, player_data)
 
         logging.info('model configs %s', str(self._models_configs))
 
@@ -145,6 +145,13 @@ class Player(player_base.PlayerBase):
             self._nn_manager = download_model(model_path)
             logging.info('NNM player loading done: %s', model_path)
             self._current_model_name = model_path
+
+            player_data = {
+                'name': 'nnm',
+                'description': str(self._current_model_name),
+            }
+
+            change_external_player_data(self._env_config, self._id_in_p_data, player_data)
 
             wrapper_names = config['wrappers'].split(',')
             known_wrappers = get_known_wrappers()

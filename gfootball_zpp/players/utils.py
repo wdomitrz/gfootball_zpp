@@ -113,6 +113,10 @@ def add_external_player_data(env_config, player_data):
         env_config['external_players_data'] = []
     env_config['external_players_data'].append(player_data)
 
+    return len(env_config['external_players_data']) - 1 # id in list
+
+def change_external_player_data(env_config, id_in_list, player_data):
+    env_config['external_players_data'][id_in_list] = player_data
 
 def retrieve_external_players_data(env_config):
     if 'external_players_data' not in env_config:
