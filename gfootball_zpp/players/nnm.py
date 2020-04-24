@@ -151,8 +151,6 @@ class Player(player_base.PlayerBase):
                 'description': str(self._current_model_name),
             }
 
-            change_external_player_data(self._env_config, self._id_in_p_data, player_data)
-
             wrapper_names = config['wrappers'].split(',')
             known_wrappers = get_known_wrappers()
             self._wrappers = [known_wrappers[name] for name in wrapper_names]
@@ -161,6 +159,13 @@ class Player(player_base.PlayerBase):
                 number_of_players_agent_controls=self._right_players + self._left_players))
             self._converter.unwrapped.set_reward([0] * (self._left_players + self._right_players))
             self._core_state = self._nn_manager.initial_state(1)
+        else:
+            player_data = {
+                'name': 'nnm',
+                'description': str(self._current_model_name),
+            }
+
+        change_external_player_data(self._env_config, self._id_in_p_data, player_data)
             
 
     def hide(self):
