@@ -32,4 +32,4 @@ class EvalWrapper(gym.Wrapper):
     def reset(self):
         self._prepare_scenario()
         self._current_scenario = (self._current_scenario + 1) % len(self._scenarios)
-        super().reset()
+        return super().reset()

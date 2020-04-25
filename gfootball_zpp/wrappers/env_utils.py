@@ -11,7 +11,7 @@ class EnvUtilsWrapper(gym.Wrapper):
     """
     def __init__(self, env, config):
         super().__init__(env)
-        self._extra_players = config.extra_players
+        self._extra_players = config['extra_players']
         self._hidden_players = list(
             map(lambda p: re.sub(r_pl_re, 'right_playes=0', re.sub(l_pl_re, 'left_players=0', p)),
                 self._extra_players))
@@ -35,7 +35,7 @@ class EnvUtilsWrapper(gym.Wrapper):
             self.unwrapped._players[id].hide()
         self._ids_to_hide.clear()
         self._ids_to_show.clear()
-        super().reset(**kwargs)
+        return super().reset(**kwargs)
 
     def set_right_player_name(self, name):
         self.unwrapped._config.values['right_team_name'] = name
