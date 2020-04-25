@@ -1,10 +1,12 @@
 from .utils import log_api
 from .actions import LogActionStats
 from .scenario import LogLowLevelScenarioData, LogScenarioDifficulty, LogScenarioDataOnChange, LogScenarioReset
-from .ball import LogBallOwningTeam
+from .ball import LogBallOwningTeam, LogPassStatsTeam, LogShotStatsTeam, LogOffsidesTeam
 from .reward import LogPerPlayerReward, LogAveragePerPlayerRewardByDifficulty, LogMeanPerOpponentReward
 from .goals import LogGoalStats
-
+from .cards import LogCardsStatsTeam
+from .game_mode import LogGameModeStats
+from .players import LogLocalAdvantageStats, LogPlayersEntropy
 import gym
 
 
@@ -32,6 +34,13 @@ def get_default_loggers():
     result.append(('log_scenario_reset', LogScenarioReset))
     result.append(('log_ball_owning_team', LogBallOwningTeam))
     result.append(('log_goal_stats', LogGoalStats))
+    result.append(('log_cards_stats', LogCardsStatsTeam))
+    result.append(('log_game_mode_stats', LogGameModeStats))
+    result.append(('log_passes_stats', LogPassStatsTeam))
+    result.append(('log_shots_stats', LogShotStatsTeam))
+    result.append(('log_local_advantage_stats', LogLocalAdvantageStats))
+    result.append(('log_players_entropy', LogPlayersEntropy))
+    #result.append(('log_offsides', LogOffsidesTeam))
 
     high_level_start_id = len(result)
     result.append(('log_per_player_reward', LogPerPlayerReward))

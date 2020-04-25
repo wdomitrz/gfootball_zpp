@@ -8,6 +8,7 @@ import os
 import threading
 import time
 
+
 def upload_logs(local_logdir, remote_logdir):
     while True:
         local_files = tf.io.gfile.listdir(local_logdir)
@@ -292,5 +293,21 @@ def get_opponent_name(env):
     if len(players_data) == 0:
         return "Build_in_default"
     else:
-        relevant_info = [p['name'] + ':' + p['description'] for p in players_data]
+        relevant_info = [
+            p['name'] + ':' + p['description'] for p in players_data
+        ]
         return '|'.join(relevant_info).replace('/', '_')
+
+
+def player_with_ball_action(observation, action):
+    def player_with_ball_action_id(observation):
+        for i, obs in enumerate(observation):
+            if obs['active'] == obs['ball_owned_player']:
+                return i
+        return None
+
+    pId = player_with_ball_action_id(observation)
+    if pId is not None:
+        return action[pId]
+    else:
+        return None
