@@ -71,19 +71,22 @@ class Player(player_base.PlayerBase):
         self._num_right_controlled_players = 0
 
     def show(self):
-        self.hidden = False
+        self._hidden = False
         self._num_left_controlled_players = self._left_players
         self._num_right_controlled_players = self._right_players
 
     def take_action(self, observation):
-        if self.hidden:
+        if self._hidden:
             return []
         observation = self._policy.pre_stacking_convert_obs(observation)
         observation = self._stacker.get(observation)
         return self._policy.take_action(observation)
 
     def update_checkpoint(self):
-        checkpoint = random.choice(self._checkpoints, p=self._checkpoints_p)
+        self.load_checkpoint(
+            random.choice(self._checkpoints, p=self._checkpoints_p))
+
+    def load_checkpoint(self, checkpoint):
         if checkpoint is None:
             return
         checkpoint_info = {

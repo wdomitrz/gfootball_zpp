@@ -13,6 +13,8 @@ from .logging.api import enable_log_api_for_config, get_loggers_dict
 from .wrappers.state_preserver import StatePreserver
 from .wrappers.env_usage_stats import EnvUsageStatsTracker
 from .wrappers.players_name import UpdateTeamNamesWrapper
+from .wrappers.env_utils import EnvUtilsWrapper
+from .wrappers import evaluation_env
 
 from .players.utils import PackedBitsObservation
 
@@ -155,7 +157,8 @@ def get_known_wrappers():
     'old_single_map':
     MultiHeadNet,
     'pack_bits':
-    lambda env, config: PackedBitsObservation(env)
+    lambda env, config: PackedBitsObservation(env),
+    'eval': evaluation_env.EvalWrapper
   }
   result.update(get_loggers_dict())
   return result
@@ -180,6 +183,7 @@ def compose_environment(env_config):
   wrappers = []
   if should_preserve_state(env_config):
     wrappers.append(StatePreserver)
+    wrappers.append(EnvUtilsWrapper)
     wrappers.append(EnvUsageStatsTracker)
 
   wrapper_names = env_config['wrappers'].split(',')
@@ -188,7 +192,15 @@ def compose_environment(env_config):
     logging.info('!!!!No loggers detected so added log_all: %s!!!!',
                  str(wrapper_names))
 
-  wrappers.append(UpdateTeamNamesWrapper)
+  #wrappers.append(UpdateTeamNamesWrapper)
+  if env_config['actor_id'] == env_config.get('evaluation_actor', -1):
+    logging.info('Creating evaluation actor!')
+    env_config = evaluation_env.preprocess_config(env_config)
+    wrappers.append(evaluation_env.EvalWrapper)
+    #wrappCreatinger_names = evaluation_env.prepare_wrappers(wrapper_names)
+  else:
+    logging.warning('Not creating evaluation since current agent id %d is not %d.',
+                    env_config['actor_id'], env_config.get('evaluation_actor', -1))
 
   for w in wrapper_names:
     assert(w in KNOWN_WRAPPERS)

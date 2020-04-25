@@ -13,6 +13,8 @@ def get_num(filename):
 
 
 def get_checkpoint(checkpoint_directory, selection_fn):
+    if checkpoint_directory[-1] != '/':
+        checkpoint_directory += '/'
     try:
         checkpoints = gsutil.ls(checkpoint_directory)
     except tf.errors.NotFoundError:

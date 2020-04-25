@@ -7,9 +7,7 @@ l_pl_re = re.compile(r'left_players=/d+')
 
 
 class EnvUtilsWrapper(gym.Wrapper):
-    """Exposes function to disable or enable zpp players.
-
-    Should be used directly before reset!
+    """Exposes useful functions that change low level parameters of football env.
     """
     def __init__(self, env, config):
         super().__init__(env)
@@ -47,4 +45,7 @@ class EnvUtilsWrapper(gym.Wrapper):
 
     def change_scenario(self, level):
         change_scenario(self, level)
+
+    def load_player_checkpoint(self, checkpoint, id=0):
+        self.unwrapped._config.values['players'][id + 1].load_checkpoint(checkpoint)
 
