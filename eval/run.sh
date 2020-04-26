@@ -14,3 +14,5 @@ docker run \
     -ti football_eval "$@"
 
 sudo chown -R $USER eval_logs
+
+gsutil -m cp -r ./eval_logs/* gs://marl-leaderboard/
