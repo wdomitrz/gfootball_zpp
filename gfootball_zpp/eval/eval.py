@@ -90,8 +90,8 @@ def evaluate(player, stage, env_args, base_logdir):
     env = LogAll(env, json_config)
 
     env.set_right_player_name(stage.opponent.name)
-    env.set_right_player_name(player.name)
-    env.unwrapped._config.external_players_data = [{
+    env.set_left_player_name(player.name)
+    env.unwrapped._config['external_players_data'] = [{
         'name': stage.opponent.type,
         'description': stage.opponent.name
     }]
@@ -111,6 +111,7 @@ def evaluate(player, stage, env_args, base_logdir):
         scores.append(score)
         logging.info('Finished game (%d/%d) %s: %s - %d : %d - %s', i + 1, stage.games,
                      stage.scenario, player, score['left'], score['right'], stage.opponent)
+    env.reset()
     env.close()
     return EvaluationResult(scores=scores, stage=stage, logdir=args['logdir'])
 
