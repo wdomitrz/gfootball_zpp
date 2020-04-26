@@ -12,7 +12,7 @@ flags.DEFINE_string('logdir', '', 'Place to save results')
 
 FLAGS = flags.FLAGS
 
-GAMES = 5
+GAMES = 1
 
 ABSTRACT_OPPONENTS = {
     'random': ZppEvalPlayerData('random', policy='random'),
