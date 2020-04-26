@@ -12,24 +12,7 @@ flags.DEFINE_string('logdir', '', 'Place to save results')
 
 FLAGS = flags.FLAGS
 
-GAMES = 5
-
-ZPP_OPPONENTS = {
-    'random': ZppEvalPlayerData('random', policy='random'),
-    'transfered0_sp': ZppEvalPlayerData('transfered0_sp', policy='multihead', sample='True', checkpoint='GS//scon/scon_e3_p1/1/ckpt/0/ckpt-505'),
-    'transfered0': ZppEvalPlayerData('transfered0', policy='multihead', checkpoint='GS//scon/scon_e3_p1/1/ckpt/0/ckpt-505'),
-    'from0to1to5': ZppEvalPlayerData('from0to1to5', policy='multihead', sample='True', checkpoint='GS//f5v01/f5v0to1to5_e2/1/ckpt/0/ckpt-252'),
-    'scon_e3_p2_hard_ns': ZppEvalPlayerData('scon_e3_p2_hard_ns', sample=False, policy='multihead', checkpoint='GS//scon/scon_e3_p2_hard/1/ckpt/0/ckpt-817'),
-    'scon_e3_p2_hard_sp': ZppEvalPlayerData('scon_e3_p2_hard_sp', sample=True, policy='multihead', checkpoint='GS//scon/scon_e3_p2_hard/1/ckpt/0/ckpt-817'),
-    'scon_e3_p2_nhm_hard_ns': ZppEvalPlayerData('scon_e3_p2_nhm_hard_ns', sample=False, policy='multihead', checkpoint='GS//scon/scon_e3_p2_nhm_hard/1/ckpt/0/ckpt-814'),
-    'scon_e3_p2_nhm_hard_sp': ZppEvalPlayerData('scon_e3_p2_nhm_hard_sp', sample=True, policy='multihead', checkpoint='GS//scon/scon_e3_p2_nhm_hard/1/ckpt/0/ckpt-814'),
-    'scon_e3_p3_hard_ns': ZppEvalPlayerData('scon_e3_p3_hard_ns', sample=False, policy='multihead', checkpoint='GS//scon/scon_e3_p3_hard/1/ckpt/0/ckpt-812'),
-    'scon_e3_p3_hard_sp': ZppEvalPlayerData('scon_e3_p3_hard_sp', sample=True, policy='multihead', checkpoint='GS//scon/scon_e3_p3_hard/1/ckpt/0/ckpt-812'),
-    'checkpoints_selfplay_e9_ns': ZppEvalPlayerData('checkpoints_selfplay_e9_ns', sample=False, policy='multihead', checkpoint='GS//zuzanna-seed/checkpoints_sp/checkpoints_selfplay_e9/1/ckpt/0/ckpt-274'),
-    'checkpoints_selfplay_e9_sp': ZppEvalPlayerData('checkpoints_selfplay_e9_sp', sample=True, policy='multihead', checkpoint='GS//zuzanna-seed/checkpoints_sp/checkpoints_selfplay_e9/1/ckpt/0/ckpt-274'),
-    'm_sp_bt_16_e2_p1': ZppEvalPlayerData('m_sp_bt_16_e2_p', policy='multihead', sample='True', checkpoint='!latest-GS//m_sp/m_sp_bt_16_e2_p1/1/ckpt/0/'),
-    'm_sp_bt_64_e2_p1': ZppEvalPlayerData('m_sp_bt_64_e2_p1', policy='multihead', sample='True', checkpoint='!latest-GS//m_sp/m_sp_bt_64_e2_p1/1/ckpt/0/'),
-}
+GAMES = 10
 
 ABSTRACT_OPPONENTS = {
     'random': ZppEvalPlayerData('random', policy='random'),
@@ -43,12 +26,6 @@ ABSTRACT_OPPONENTS = {
 
 ZPP_SCENARIOS = [
     '5_vs_5'
-]
-
-BOTS_STAGES = [
-    EvaluationStage('5_vs_5', BotEvalPlayerData('easy_bots', 0.05), GAMES),
-    EvaluationStage('5_vs_5_medium', BotEvalPlayerData('medium_bots', 0.6), GAMES),
-    EvaluationStage('5_vs_5_hard', BotEvalPlayerData('hard_bots', 0.95), GAMES)
 ]
 
 ABSTRACT_BOT_STAGES = [
@@ -68,9 +45,12 @@ ABSTRACT_BOT_STAGES = [
     EvaluationStage('academy_5_vs_5_corner', BotEvalPlayerData('academy_5_vs_5_corner', 0.05), GAMES)
 ]
 
+BOTS_STAGES = ABSTRACT_BOT_STAGES
+ZPP_OPPONENTS = ABSTRACT_OPPONENTS
+
 ENV_ARGS = {
     'write_goal_dumps': False,
-    'write_full_episode_dumps': True,
+    'write_full_episode_dumps': False,
     'write_video': True,
     'render': False,
     'dump_frequency': 1,
