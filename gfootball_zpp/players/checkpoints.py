@@ -40,5 +40,5 @@ def select_mostly_latest(checkpoints):
     res = 1 - abs(random.normal())
     if res < 0:
         return select_mostly_latest(checkpoints)
-    sample = max(0, round(res * (len(checkpoints) - 1)))
+    sample = max(0, round(res * (len(checkpoints) - 0.501)))
     return checkpoints[sample]
