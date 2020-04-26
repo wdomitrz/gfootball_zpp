@@ -12,3 +12,5 @@ docker run \
     -e GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/application_default_credentials.json \
     -v "$(pwd)/eval_logs":/eval_logs -v \
     -ti football_eval "$@"
+
+sudo chown -R $USER eval_logs

@@ -11,7 +11,7 @@ additional named args are arguments passed as player config to zpp player.
 
 After evaluation:
 4. Copy data from local logdir to `gs://marl-leaderboard` bucket using gsutil:
-`gsutil cp -r <logdir>/* gs://marl-leaderboard`.
+`gsutil -m cp -r <logdir>/* gs://marl-leaderboard`.
 
 5. Copy json file from the main directory in logdir to `eval_results` in our
 repository and push it to master (this will trigger building the docs).

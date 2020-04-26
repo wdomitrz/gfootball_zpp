@@ -14,4 +14,4 @@ RUN mkdir -p /eval_logs
 # NOW it is redundant. In the future it may prevent some bugs
 WORKDIR /gfootball_zpp
 
-ENTRYPOINT ["python", "gfootball_zpp/eval/main.py", "--logdir", "/eval_logs"]
+ENTRYPOINT ["gfootball_zpp/eval_docker_dir/run.sh"]
