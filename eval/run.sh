@@ -15,4 +15,4 @@ docker run \
 
 sudo chown -R $USER eval_logs
 
-gsutil -m cp -r ./eval_logs/* gs://marl-leaderboard/
+#gsutil -m cp -r ./eval_logs/* gs://marl-leaderboard/
