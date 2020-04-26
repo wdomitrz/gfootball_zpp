@@ -11,7 +11,7 @@ class EnvUtilsWrapper(gym.Wrapper):
     """
     def __init__(self, env, config):
         super().__init__(env)
-        self._extra_players = config.extra_players
+        self._extra_players = config['extra_players']
         self._hidden_players = list(
             map(lambda p: re.sub(r_pl_re, 'right_playes=0', re.sub(l_pl_re, 'left_players=0', p)),
                 self._extra_players))
@@ -21,12 +21,12 @@ class EnvUtilsWrapper(gym.Wrapper):
     def hide_player(self, id=0):
         self._ids_to_show.remove(id)
         self._ids_to_hide.add(id)
-        self.unwrapped._config.values['players'][id + 1] = self._hidden_players[id]
+        self.unwrapped._config._values['players'][id + 1] = self._hidden_players[id]
 
     def show_player(self, id=0):
         self._ids_to_hide.remove(id)
         self._ids_to_show.add(id)
-        self.unwrapped._config.values['players'][id + 1] = self._extra_players[id]
+        self.unwrapped._config._values['players'][id + 1] = self._extra_players[id]
 
     def reset(self, **kwargs):
         for id in self._ids_to_hide:
@@ -38,14 +38,14 @@ class EnvUtilsWrapper(gym.Wrapper):
         super().reset(**kwargs)
 
     def set_right_player_name(self, name):
-        self.unwrapped._config.values['right_team_name'] = name
+        self.unwrapped._config._values['right_team_name'] = name
 
     def set_left_player_name(self, name):
-        self.unwrapped._config.values['left_team_name'] = name
+        self.unwrapped._config._values['left_team_name'] = name
 
     def change_scenario(self, level):
         change_scenario(self, level)
 
     def load_player_checkpoint(self, checkpoint, id=0):
-        self.unwrapped._config.values['players'][id + 1].load_checkpoint(checkpoint)
+        self.unwrapped._config._values['players'][id + 1].load_checkpoint(checkpoint)
 
