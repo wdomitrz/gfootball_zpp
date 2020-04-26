@@ -35,7 +35,7 @@ class EnvUtilsWrapper(gym.Wrapper):
             self.unwrapped._players[id].hide()
         self._ids_to_hide.clear()
         self._ids_to_show.clear()
-        super().reset(**kwargs)
+        return super().reset(**kwargs)
 
     def set_right_player_name(self, name):
         self.unwrapped._config._values['right_team_name'] = name
