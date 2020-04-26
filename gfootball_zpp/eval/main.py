@@ -21,7 +21,7 @@ ABSTRACT_OPPONENTS = {
     'opponents_curriculum_015': ZppEvalPlayerData('opponents_curriculum_015', policy='multihead', sample='True', checkpoint='GS//f5v01/f5v0to1to5_e2/1/ckpt/0/ckpt-252'),
     'opponents_curriculum_0125': ZppEvalPlayerData('opponents_curriculum_0125', policy='multihead', sample='True', checkpoint='GS//f5v01/f5v0to1to2t05_e2/1/ckpt/0/ckpt-291'),
     'checkpoints_selfplay': ZppEvalPlayerData('checkpoints_selfplay_e9_sp', sample=True, policy='multihead', checkpoint='GS//zuzanna-seed/checkpoints_sp/checkpoints_selfplay_e9/1/ckpt/0/ckpt-274'),
-    'm_sp_in_bt_4_e2_p1': ZppEvalPlayerData('m_sp_in_bt_4_e2_p1', policy='multihead', sample='True', checkpoint='GS//m_sp/m_sp_in_bt_4_e2_p1/1/ckpt/0/ckpt-294')
+    #'m_sp_in_bt_4_e2_p1': ZppEvalPlayerData('m_sp_in_bt_4_e2_p1', policy='multihead', sample='True', checkpoint='GS//m_sp/m_sp_in_bt_4_e2_p1/1/ckpt/0/ckpt-294')
 }
 
 ZPP_SCENARIOS = [
