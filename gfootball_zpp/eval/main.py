@@ -17,6 +17,7 @@ GAMES = 1
 ABSTRACT_OPPONENTS = {
     'random': ZppEvalPlayerData('random', policy='random'),
     'random_net': ZppEvalPlayerData('random_net', policy='multihead', sample='True'),
+    'm_fsp_e71_64': ZppEvalPlayerData('m_fsp_e71_64', sample=True, policy='multihead', checkpoint='!latest-GS//m_fsp/m_fsp_e71_64/1/ckpt/0/'),
     'academy_curriculum_eb': ZppEvalPlayerData('academy_curriculum_eb', policy='multihead', sample='True', checkpoint='GS//academy_5vs5_transfer/academy_5vs5_transfer_eval_3/1/ckpt/0/ckpt-809'),
     'opponents_curriculum_015': ZppEvalPlayerData('opponents_curriculum_015', policy='multihead', sample='True', checkpoint='GS//f5v01/f5v0to1to5_e2/1/ckpt/0/ckpt-252'),
     'opponents_curriculum_0125': ZppEvalPlayerData('opponents_curriculum_0125', policy='multihead', sample='True', checkpoint='GS//f5v01/f5v0to1to2t05_e2/1/ckpt/0/ckpt-291'),
