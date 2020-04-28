@@ -182,8 +182,8 @@ def compose_environment(env_config):
 
   # we enable state preserving and env usage tracker by default
   wrappers = []
+  wrappers.append(DiscreteToMulti)
   if should_preserve_state(env_config):
-    wrappers.append(DiscreteToMulti)
     wrappers.append(StatePreserver)
     wrappers.append(EnvUtilsWrapper)
     wrappers.append(EnvUsageStatsTracker)
