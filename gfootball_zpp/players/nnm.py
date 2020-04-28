@@ -9,6 +9,7 @@ from gfootball_zpp.utils.config_encoder import decode_config
 from gfootball_zpp.utils.misc import extract_number_from_txt
 from gfootball.env import player_base
 from gfootball_zpp.players.utils import add_external_player_data, create_converter, download_model, SimulatedConfig, EnvOutput, change_external_player_data
+from gfootball_zpp.players.checkpoints import select_mostly_latest
 
 
 def get_models_path(path):
@@ -51,9 +52,7 @@ def get_mostly_latest_model_path(path):  # todo
 
     if models_paths is None:
         return None
-    sample_id = max(
-        0, round((1 - abs(random.normal())) * (len(models_paths) - 1)))
-    return models_paths[sample_id]
+    return select_mostly_latest(model_paths)
 
 
 def pack_nnm_input(num_actions, num_rewards, observation, core_state):
