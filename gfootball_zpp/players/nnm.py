@@ -49,7 +49,7 @@ def get_random_model_path(path):
     return random.choice(models_paths)
 
 
-def get_mostly_latest_model_path(path):  # todo
+def get_mostly_latest_model_path(path):
     models_paths = get_models_path(path)
 
     if models_paths is None:
