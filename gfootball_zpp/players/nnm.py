@@ -31,6 +31,8 @@ def get_latest_model_path(path):
 
     model_list = list(map(extract_number_from_txt, tf.io.gfile.listdir(path)))
 
+    model_list.sort()
+
     if len(model_list) == 0:
         return None
 
