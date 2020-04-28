@@ -75,19 +75,19 @@ def evaluate(player, stage, env_args, base_logdir):
     args['logdir'] = stage_to_logdir(base_logdir, stage, player)
     json_config = {
         'dump_frequency': 1,
-        'base_logdir': base_logdir,
+        'base_logdir': args['logdir'],
         'extra_players': args['extra_players'],
         'step_log_freq': 1,
         'reset_log_freq': 1,
         'logs_enabled': True,
-        #'tf_summary_writer': tf.summary.create_file_writer(
-        #    base_logdir + '/tf/', flush_millis=20000, max_queue=1000)
+        'tf_summary_writer': tf.summary.create_file_writer(
+            args['logdir'] + '/tf/', flush_millis=20000, max_queue=1000)
     }
     env = create_environment(**args)
-    #env = StatePreserver(env, json_config)
+    env = StatePreserver(env, json_config)
     env = EnvUtilsWrapper(env, json_config)
-    #env = EnvUsageStatsTracker(env, json_config)
-    #env = LogAll(env, json_config)
+    env = EnvUsageStatsTracker(env, json_config)
+    env = LogAll(env, json_config)
 
     env.set_right_player_name(stage.opponent.name)
     env.set_left_player_name(player.name)
