@@ -216,7 +216,7 @@ class Player(player_base.PlayerBase):
 
         (action, _, _), self._core_state = self._nn_manager.get_action(
             prev_actions, env_output, core_state)
-        #logging.info('$$$$taking action %s:', str(action))
+
         self._last_action = action.numpy().flatten()
         assert self._last_action.shape[
             0] == self._left_players + self._right_players
