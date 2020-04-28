@@ -44,7 +44,7 @@ def get_random_model_path(path):
 
     return random.choice(models_paths)
 
-def get_mostly_latest_model_path(path):
+def get_mostly_latest_model_path(path): # todo
     models_paths = get_models_path(path)
 
     if models_paths is None:
@@ -106,7 +106,7 @@ class Player(player_base.PlayerBase):
 
         self._id_in_p_data = add_external_player_data(self._env_config, player_data)
 
-        logging.info('model configs %s', str(self._models_configs))
+        logging.info('NNM player: Model configs %s', str(self._models_configs))
 
         self._update_model()
 
@@ -115,7 +115,7 @@ class Player(player_base.PlayerBase):
         model_dir_id = random.choice(len(self._models_dirs), p=self._models_dirs_p)
         model_dir = self._models_dirs[model_dir_id]
 
-        logging.info('Chosed model_dir %s', model_dir)
+        logging.info('NNM player: Chosed model_dir %s', model_dir)
 
         if model_dir[:8] == '!latest-':
             dir_path = handle_gs( model_dir[8:])
@@ -138,7 +138,7 @@ class Player(player_base.PlayerBase):
         self._core_state = None
         
         if model_path is not None:
-            logging.info('MODEL DIR ID %s', str(model_dir_id))
+            logging.info('NNM player: chosed dir with id %s', str(model_dir_id))
             config = decode_config(self._models_configs[model_dir_id])
             
             logging.info('NNM player loading: %s', model_path)
