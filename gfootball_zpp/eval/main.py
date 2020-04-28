@@ -16,13 +16,17 @@ GAMES = 1
 
 ABSTRACT_OPPONENTS = {
     'random': ZppEvalPlayerData('random', policy='random'),
-    'random_net': ZppEvalPlayerData('random_net', policy='multihead', sample='True'),
-    'm_fsp_e71_64': ZppEvalPlayerData('m_fsp_e71_64', sample=True, policy='multihead', checkpoint='!latest-GS//m_fsp/m_fsp_e71_64/1/ckpt/0/'),
-    'academy_curriculum_eb': ZppEvalPlayerData('academy_curriculum_eb', policy='multihead', sample='True', checkpoint='GS//academy_5vs5_transfer/academy_5vs5_transfer_eval_3/1/ckpt/0/ckpt-809'),
-    'opponents_curriculum_015': ZppEvalPlayerData('opponents_curriculum_015', policy='multihead', sample='True', checkpoint='GS//f5v01/f5v0to1to5_e2/1/ckpt/0/ckpt-252'),
-    'opponents_curriculum_0125': ZppEvalPlayerData('opponents_curriculum_0125', policy='multihead', sample='True', checkpoint='GS//f5v01/f5v0to1to2t05_e2/1/ckpt/0/ckpt-291'),
+    'random_net': ZppEvalPlayerData('random_net', policy='multihead', sample=True),
+    'academy_curriculum_eb': ZppEvalPlayerData('academy_curriculum_eb', policy='multihead', sample=True, checkpoint='GS//academy_5vs5_transfer/academy_5vs5_transfer_eval_3/1/ckpt/0/ckpt-809'),
+    'opponents_curriculum_0125': ZppEvalPlayerData('opponents_curriculum_0125', policy='multihead', sample=True, checkpoint='GS//f5v01/f5v0to1to2t05_e2/1/ckpt/0/ckpt-291'),
     'checkpoints_selfplay': ZppEvalPlayerData('checkpoints_selfplay_e9_sp', sample=True, policy='multihead', checkpoint='GS//zuzanna-seed/checkpoints_sp/checkpoints_selfplay_e9/1/ckpt/0/ckpt-274'),
-    'randomized_env': ZppEvalPlayerData('randomized_env', policy='multihead', sample='True', checkpoint='GS//less_randomized/less_then_partially_randomized_checkpoints_bots_4_heads_38/1/ckpt/0/ckpt-104'),
+    'from0to1to5': ZppEvalPlayerData('from0to1to5', policy='multihead', sample=True, checkpoint='GS//f5v01/f5v0to1to5_e2/1/ckpt/0/ckpt-252'),
+    'scon_e3_p2_hard_sp': ZppEvalPlayerData('scon_e3_p2_hard_sp', sample=True, policy='multihead', checkpoint='GS//scon/scon_e3_p2_hard/1/ckpt/0/ckpt-817'),
+    'randomized_env': ZppEvalPlayerData('randomized_env', sample=True, policy='multihead', checkpoint='GS//less_randomized/less_then_partially_randomized_checkpoints_bots_4_heads_38/1/ckpt/0/ckpt-108'),
+    'm_sp_in_ob_32_e61_p1': ZppEvalPlayerData('m_sp_in_ob_32_e61_p1', policy='multihead', sample=True, checkpoint='GS//m_sp/m_sp_in_ob_32_e61_p1/1/ckpt/0/ckpt-185'),
+    'm_fsp_e71_64': ZppEvalPlayerData('m_fsp_e71_64', sample=True, policy='multihead', checkpoint='GS//m_fsp/m_fsp_e71_64/1/ckpt/0/ckpt-187'),
+    'checkpoints_sp_c_e1': ZppEvalPlayerData('checkpoints_sp_c_e1', sample=True, policy='multihead', checkpoint='GS//zuzanna-seed/checkpoints_sp/checkpoints_sp_c_e1/1/ckpt/0/ckpt-358'),
+    'partially_trained_randomized_diff': ZppEvalPlayerData('partially_trained_randomized_diff', sample=True, policy='multihead', checkpoint='GS//m_sp/m_sp_chin_e6/1/ckpt/0/ckpt-87'),
 }
 
 ZPP_SCENARIOS = [
@@ -31,19 +35,28 @@ ZPP_SCENARIOS = [
 
 ABSTRACT_BOT_STAGES = [
     EvaluationStage('5_vs_5', BotEvalPlayerData('easy_bots', 0.05), GAMES * 2),
-    EvaluationStage('5_vs_5_medium', BotEvalPlayerData('medium_bots', 0.6), GAMES * 2),
-    EvaluationStage('5_vs_5_hard', BotEvalPlayerData('hard_bots', 0.95), GAMES * 2),
+    EvaluationStage('5_vs_5_medium', BotEvalPlayerData(
+        'medium_bots', 0.6), GAMES * 2),
+    EvaluationStage('5_vs_5_hard', BotEvalPlayerData(
+        'hard_bots', 0.95), GAMES * 2),
     #EvaluationStage('5_vs_0', BotEvalPlayerData('0_easy', 0.05), GAMES * 2),
     #EvaluationStage('5_vs_1', BotEvalPlayerData('1_easy', 0.05), GAMES * 2),
     #EvaluationStage('5_vs_2', BotEvalPlayerData('2_easy', 0.05), GAMES * 2),
     #EvaluationStage('5_vs_3', BotEvalPlayerData('3_easy', 0.05), GAMES * 2),
-    EvaluationStage('academy_5_vs_5_3v3_pass_and_shoot', BotEvalPlayerData('academy_5_vs_5_3v3_pass_and_shoot', 0.05), GAMES * 2),
-    EvaluationStage('academy_5_vs_5_4v0_with_keeper', BotEvalPlayerData('academy_5_vs_5_4v0_with_keeper', 0.05), GAMES * 2),
-    EvaluationStage('academy_5_vs_5_4v1', BotEvalPlayerData('academy_5_vs_5_4v1', 0.05), GAMES * 2),
-    EvaluationStage('academy_5_vs_5_4v2_random_0_70', BotEvalPlayerData('academy_5_vs_5_4v2_random_0_70', 0.05), GAMES * 2),
-    EvaluationStage('academy_5_vs_5_4v3_long_pass_and_shoot', BotEvalPlayerData('academy_5_vs_5_4v3_long_pass_and_shoot', 0.05), GAMES * 2),
-    EvaluationStage('academy_5_vs_5_4v3_random_0_65', BotEvalPlayerData('academy_5_vs_5_4v3_random_0_65', 0.05), GAMES * 2),
-    EvaluationStage('academy_5_vs_5_corner', BotEvalPlayerData('academy_5_vs_5_corner', 0.05), GAMES * 2)
+    EvaluationStage('academy_5_vs_5_3v3_pass_and_shoot', BotEvalPlayerData(
+        'academy_5_vs_5_3v3_pass_and_shoot', 0.05), GAMES * 2),
+    EvaluationStage('academy_5_vs_5_4v0_with_keeper', BotEvalPlayerData(
+        'academy_5_vs_5_4v0_with_keeper', 0.05), GAMES * 2),
+    EvaluationStage('academy_5_vs_5_4v1', BotEvalPlayerData(
+        'academy_5_vs_5_4v1', 0.05), GAMES * 2),
+    EvaluationStage('academy_5_vs_5_4v2_random_0_70', BotEvalPlayerData(
+        'academy_5_vs_5_4v2_random_0_70', 0.05), GAMES * 2),
+    EvaluationStage('academy_5_vs_5_4v3_long_pass_and_shoot', BotEvalPlayerData(
+        'academy_5_vs_5_4v3_long_pass_and_shoot', 0.05), GAMES * 2),
+    EvaluationStage('academy_5_vs_5_4v3_random_0_65', BotEvalPlayerData(
+        'academy_5_vs_5_4v3_random_0_65', 0.05), GAMES * 2),
+    EvaluationStage('academy_5_vs_5_corner', BotEvalPlayerData(
+        'academy_5_vs_5_corner', 0.05), GAMES * 2)
 ]
 
 BOTS_STAGES = ABSTRACT_BOT_STAGES
