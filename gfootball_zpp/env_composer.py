@@ -15,6 +15,7 @@ from .wrappers.env_usage_stats import EnvUsageStatsTracker
 from .wrappers.players_name import UpdateTeamNamesWrapper
 from .wrappers.env_utils import EnvUtilsWrapper
 from .wrappers import evaluation_env
+from .wrappers.discrete_as_to_multi import DiscreteToMulti
 
 from .players.utils import PackedBitsObservation
 
@@ -182,6 +183,7 @@ def compose_environment(env_config):
   # we enable state preserving and env usage tracker by default
   wrappers = []
   if should_preserve_state(env_config):
+    wrappers.append(DiscreteToMulti)
     wrappers.append(StatePreserver)
     wrappers.append(EnvUtilsWrapper)
     wrappers.append(EnvUsageStatsTracker)
