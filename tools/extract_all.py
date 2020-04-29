@@ -26,7 +26,6 @@ def extract(tb_path, out_path):
     event_acc = EventAccumulator(tb_path, tf_size_guidance)
     event_acc.Reload()
 
-    
     print('Value names:', event_acc.Tags())
     data_names = event_acc.Tags()['tensors']
 
@@ -46,7 +45,12 @@ def extract(tb_path, out_path):
         #print(df)
         #print("$$$$")
         file_name = data_n.replace('/', '-')
-        df.to_csv(os.path.join(out_path, file_name), sep=';', encoding='utf-8', index=False)
+        df.to_csv(
+            os.path.join(out_path, file_name),
+            sep=';',
+            encoding='utf-8',
+            index=False)
+
 
 def main(_):
     extract(FLAGS.tb_path, FLAGS.out_path)
@@ -54,4 +58,3 @@ def main(_):
 
 if __name__ == '__main__':
     app.run(main)
-

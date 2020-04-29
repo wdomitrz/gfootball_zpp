@@ -20,14 +20,13 @@ def main(argv):
     print('Value names:', event_acc.Tags())
     tensor_event = event_acc.Tensors('reward/game/reward_0')[0]
     print(tf.make_ndarray(tensor_event.tensor_proto))
-    tensor_event = event_acc.Tensors('warning_strongly_inaccurate_actions/proportions_player_0')[0]
+    tensor_event = event_acc.Tensors(
+        'warning_strongly_inaccurate_actions/proportions_player_0')[0]
     print(tf.make_ndarray(tensor_event.tensor_proto))
     print(event_acc.Tensors('reward/game/difficulty_reward'))
     #print(event_acc.Tensors('reward/game/reward_0'))
     #print(event_acc.Tensors('warning_strongly_inaccurate_actions/proportions_player_0'))
 
 
-
 if __name__ == '__main__':
     app.run(main)
-
