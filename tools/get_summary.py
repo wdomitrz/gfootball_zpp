@@ -54,7 +54,6 @@ def make_summary(in_path, out_path, depth, metric_files, tf_extract, mode):
                 #print(df_with_specs)
             else:
                 raise Exception('unsupported mode {}'.format(mode))
-                    
 
             if mf in summary_dict:
                 summary_dict[mf] = summary_dict[mf].append(df_with_specs)
