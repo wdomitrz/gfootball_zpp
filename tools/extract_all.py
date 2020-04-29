@@ -10,8 +10,8 @@ flags.DEFINE_string('out_path', None, 'Path to output dir')
 FLAGS = flags.FLAGS
 
 
-def main(argv):
-    os.makedirs(FLAGS.out_path, exist_ok=True)
+def extract(tb_path, out_path):
+    os.makedirs(out_path, exist_ok=True)
     pd.set_option('display.max_columns', None)
     pd.set_option('display.max_rows', None)
     pd.set_option('display.width', None)
@@ -23,7 +23,7 @@ def main(argv):
         'tensors': 100000000
     }
 
-    event_acc = EventAccumulator(FLAGS.tb_path, tf_size_guidance)
+    event_acc = EventAccumulator(tb_path, tf_size_guidance)
     event_acc.Reload()
 
     
@@ -42,12 +42,14 @@ def main(argv):
             data.append([wall_time, step, value])
         names = ['wall_time', 'step', 'values']
         df = pd.DataFrame(data, columns=names)
-        print("$$$$")
-        print(df)
-        print("$$$$")
+        #print("$$$$")
+        #print(df)
+        #print("$$$$")
         file_name = data_n.replace('/', '-')
-        df.to_csv(os.path.join(FLAGS.out_path, file_name), sep=';', encoding='utf-8')
+        df.to_csv(os.path.join(out_path, file_name), sep=';', encoding='utf-8', index=False)
 
+def main(_):
+    extract(FLAGS.tb_path, FLAGS.out_path)
 
 
 if __name__ == '__main__':
