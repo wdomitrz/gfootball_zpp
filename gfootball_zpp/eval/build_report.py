@@ -39,7 +39,7 @@ def build_per_team_statistics(data):
             wins = len([1 for s in item['scores'] if s[player] > s[opponent]])
             loses = len([1 for s in item['scores'] if s[player] < s[opponent]])
 
-            for stats in [p, p['opponents'][op_name]]:
+            for stats in [p, p['opponents'][op_name]] if op_name[:9] != 'academy_5' else [p['opponents'][op_name]]:
                 stats['games'] += games
                 stats['scores'] += scores
                 stats['lost_scores'] += lost_scores
@@ -52,15 +52,15 @@ def build_per_team_statistics(data):
 
 def build_scores_table(results):
     res = list(results.items())
-    res.sort(key=lambda x: (x[1]['wins'] / x[1]['games'],
-                            -x[1]['loses'] / x[1]['games'],
+    res.sort(key=lambda x: (x[1]['wins'] / x[1]['games'] if x[1]['games'] else -1,
+                            -x[1]['loses'] / x[1]['games']if x[1]['games'] else -1,
                             x[1]['scores'] - x[1]['lost_scores']))
     table = [
         [
             name,
-            data['wins'] / data['games'],
-            data['loses'] / data['games'],
-            data['scores'] / data['lost_scores'] if data['lost_scores'] > 0 else 100
+            data['wins'] / data['games'] if data['games'] else 0,
+            data['loses'] / data['games'] if data['games'] else 0,
+            str(data['scores']) + '/' + str(data['lost_scores'])
         ]
         for name, data in res
     ]
