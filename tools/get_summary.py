@@ -10,6 +10,7 @@ flags.DEFINE_string(
     'ball-not_owning,ball-owning_first_team,ball-owning_second_team,cards-first_team-red_cards,cards-first_team-yellow_cards,cards-second_team-red_cards,cards-second_team-yellow_cards,game_modes-Corner,game_modes-FreeKick,game_modes-GoalKick,game_modes-KickOff,game_modes-Normal,game_modes-Penalty,game_modes-ThrowIn,goals-first_team-own,goals-first_team-shot,goals-second_team-own,goals-second_team-shot,local_advantages-first_team-avg_advantage_r_0.05,local_advantages-first_team-avg_advantage_r_0.1,local_advantages-first_team-avg_advantage_r_0.2,local_advantages-first_team-avg_advantage_r_0.3,passes-first_team-all_passes,passes-first_team-all_passes_avg_dist,passes-first_team-intentional_passes,passes-first_team-intentional_passes_avg_dist,passes-second_team-all_passes,passes-second_team-all_passes_avg_dist,passes-second_team-intentional_passes,passes-second_team-intentional_passes_avg_dist,player_entropy-first_team-ball_avg_dist_avg,player_entropy-second_team-ball_avg_dist_avg,reward-game-reward_0,reward-game-reward_1,reward-game-reward_2,reward-game-reward_3,reward-step-reward_0,reward-step-reward_1,reward-step-reward_2,reward-step-reward_3,scenario-left_team_difficulty,scenario-reset_occurred_after,scenario-right_team_difficulty,shots-first_team-all_shots,shots-first_team-all_shots_avg_dist_from_goal,shots-second_team-all_shots,shots-second_team-all_shots_avg_dist_from_goal',
     'files to consider')
 flags.DEFINE_boolean('extract', False, 'extract tb data to csv (slow)')
+flags.DEFINE_string('mode', 'raw', 'extract tb data to csv (slow)')
 
 FLAGS = flags.FLAGS
 
@@ -22,7 +23,7 @@ def only_dirs(path):
     return dirs
 
 
-def make_summary(in_path, out_path, depth, metric_files, tf_extract):
+def make_summary(in_path, out_path, depth, metric_files, tf_extract, mode):
     extracted_data_folder = 'env_tb_extracted'
     summary_dict = {}
 
@@ -34,12 +35,26 @@ def make_summary(in_path, out_path, depth, metric_files, tf_extract):
                 continue
             raw_df = pd.read_csv(mfp, sep=';', encoding='utf-8')
             #print(raw_df)
-            result = raw_df['values'].mean()  # so not all values are supported
+            result = raw_df['values']
+            if mode == 'avg':
+                col_names = list(map(str, range(len(specs)))) + ['avg_result']
+                result = result.mean()  # so not all values are supported
+                data = [specs + [result]]
+                #print(col_names, ' fft ', data)
+                df_with_specs = pd.DataFrame(data, columns=col_names)
+            elif mode == 'raw':
+                col_names = list(map(str, range(len(specs)))) + ['values']
+                data = {}
+                for sId, s in enumerate(specs):
+                    data[str(sId)] = [s] * result.shape[0]
 
-            col_names = list(map(str, range(len(specs)))) + ['avg_result']
-            data = [specs + [result]]
-            #print(col_names, ' fft ', data)
-            df_with_specs = pd.DataFrame(data, columns=col_names)
+                data['values'] = result
+                #print(data)
+                df_with_specs = pd.DataFrame(data, columns=col_names)
+                #print(df_with_specs)
+            else:
+                raise Exception('unsupported mode {}'.format(mode))
+                    
 
             if mf in summary_dict:
                 summary_dict[mf] = summary_dict[mf].append(df_with_specs)
@@ -81,7 +96,7 @@ def make_summary(in_path, out_path, depth, metric_files, tf_extract):
 
 def main(argv):
     make_summary(FLAGS.in_path, FLAGS.out, FLAGS.level,
-                 FLAGS.metric_files.split(','), FLAGS.extract)
+                 FLAGS.metric_files.split(','), FLAGS.extract, FLAGS.mode)
 
 
 if __name__ == '__main__':
