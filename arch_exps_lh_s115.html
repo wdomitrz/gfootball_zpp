@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Evaluation results</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="sorTable.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="sorTable.js"></script>
+</head>
+<body>
+
+<h1>Evaluation results</h1>
+
+<h2>Overview</h2>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>score ratio</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#random">random</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 0.0136986301369863</td>
+	</tr>
+	<tr>
+		<td> <a href="#m_sp_arch_separate_baseline_r101">m_sp_arch_separate_baseline_r101</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#opponents_curriculum_0125">opponents_curriculum_0125</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 0.2830188679245283</td>
+	</tr>
+	<tr>
+		<td> <a href="#academy_curriculum_eb">academy_curriculum_eb</a></td>
+		<td> 0.0</td>
+		<td> 0.875</td>
+		<td> 0.2711864406779661</td>
+	</tr>
+	<tr>
+		<td> <a href="#easy_bots">easy_bots</a></td>
+		<td> 0.25</td>
+		<td> 0.125</td>
+		<td> 1.0909090909090908</td>
+	</tr>
+	<tr>
+		<td> <a href="#m_sp_arch_smiple115_r100">m_sp_arch_smiple115_r100</a></td>
+		<td> 0.36538461538461536</td>
+		<td> 0.40384615384615385</td>
+		<td> 1.0740740740740742</td>
+	</tr>
+	<tr>
+		<td> <a href="#hard_bots">hard_bots</a></td>
+		<td> 0.375</td>
+		<td> 0.0</td>
+		<td> 2.75</td>
+	</tr>
+	<tr>
+		<td> <a href="#medium_bots">medium_bots</a></td>
+		<td> 0.5</td>
+		<td> 0.0</td>
+		<td> 2.1666666666666665</td>
+	</tr>
+	<tr>
+		<td> <a href="#m_sp_arch_longer_heads_bt_64_r100">m_sp_arch_longer_heads_bt_64_r100</a></td>
+		<td> 0.5769230769230769</td>
+		<td> 0.28846153846153844</td>
+		<td> 1.6302083333333333</td>
+	</tr>
+	<tr>
+		<td> <a href="#m_sp_in_bt_4_e2_p1">m_sp_in_bt_4_e2_p1</a></td>
+		<td> 0.625</td>
+		<td> 0.375</td>
+		<td> 1.2926829268292683</td>
+	</tr>
+	<tr>
+		<td> <a href="#checkpoints_selfplay_e9_sp">checkpoints_selfplay_e9_sp</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 3.3333333333333335</td>
+	</tr>
+</tbody>
+</table>
+
+<h2>Per player results</h2>
+
+<h3 id="academy_curriculum_eb">academy_curriculum_eb</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_64_r100">5_vs_5_m_sp_arch_longer_heads_bt_64_r100</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 4</td>
+		<td> -7.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_smiple115_r100">5_vs_5_m_sp_arch_smiple115_r100</a></td>
+		<td> 0.0</td>
+		<td> 0.75</td>
+		<td> 4</td>
+		<td> -3.25</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="checkpoints_selfplay_e9_sp">checkpoints_selfplay_e9_sp</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_64_r100">5_vs_5_m_sp_arch_longer_heads_bt_64_r100</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 6.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_smiple115_r100">5_vs_5_m_sp_arch_smiple115_r100</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 8.0</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="easy_bots">easy_bots</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_64_r100">5_vs_5_m_sp_arch_longer_heads_bt_64_r100</a></td>
+		<td> 0.0</td>
+		<td> 0.25</td>
+		<td> 4</td>
+		<td> -0.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_smiple115_r100">5_vs_5_m_sp_arch_smiple115_r100</a></td>
+		<td> 0.5</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 0.5</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="hard_bots">hard_bots</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_hard_m_sp_arch_longer_heads_bt_64_r100">5_vs_5_hard_m_sp_arch_longer_heads_bt_64_r100</a></td>
+		<td> 0.5</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 1.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_m_sp_arch_smiple115_r100">5_vs_5_hard_m_sp_arch_smiple115_r100</a></td>
+		<td> 0.25</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 0.25</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="m_sp_arch_longer_heads_bt_64_r100">m_sp_arch_longer_heads_bt_64_r100</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_academy_curriculum_eb">5_vs_5_academy_curriculum_eb</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 7.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp">5_vs_5_checkpoints_selfplay_e9_sp</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 4</td>
+		<td> -6.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 0.25</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 0.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.0</td>
+		<td> 0.5</td>
+		<td> 4</td>
+		<td> -1.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_64_r100">5_vs_5_m_sp_arch_longer_heads_bt_64_r100</a></td>
+		<td> 0.5</td>
+		<td> 0.5</td>
+		<td> 8</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_separate_baseline_r101">5_vs_5_m_sp_arch_separate_baseline_r101</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 10.75</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_smiple115_r100">5_vs_5_m_sp_arch_smiple115_r100</a></td>
+		<td> 0.75</td>
+		<td> 0.125</td>
+		<td> 8</td>
+		<td> 1.375</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_in_bt_4_e2_p1">5_vs_5_m_sp_in_bt_4_e2_p1</a></td>
+		<td> 0.75</td>
+		<td> 0.25</td>
+		<td> 4</td>
+		<td> 1.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.0</td>
+		<td> 0.75</td>
+		<td> 4</td>
+		<td> -1.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_opponents_curriculum_0125">5_vs_5_opponents_curriculum_0125</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 6.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_random">5_vs_5_random</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 9.75</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="m_sp_arch_separate_baseline_r101">m_sp_arch_separate_baseline_r101</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_64_r100">5_vs_5_m_sp_arch_longer_heads_bt_64_r100</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 4</td>
+		<td> -10.75</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_smiple115_r100">5_vs_5_m_sp_arch_smiple115_r100</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 4</td>
+		<td> -6.0</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="m_sp_arch_smiple115_r100">m_sp_arch_smiple115_r100</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_academy_curriculum_eb">5_vs_5_academy_curriculum_eb</a></td>
+		<td> 0.75</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 3.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp">5_vs_5_checkpoints_selfplay_e9_sp</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 4</td>
+		<td> -8.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 0.0</td>
+		<td> 0.5</td>
+		<td> 4</td>
+		<td> -0.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.0</td>
+		<td> 0.25</td>
+		<td> 4</td>
+		<td> -0.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_64_r100">5_vs_5_m_sp_arch_longer_heads_bt_64_r100</a></td>
+		<td> 0.125</td>
+		<td> 0.75</td>
+		<td> 8</td>
+		<td> -1.375</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_separate_baseline_r101">5_vs_5_m_sp_arch_separate_baseline_r101</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 6.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_smiple115_r100">5_vs_5_m_sp_arch_smiple115_r100</a></td>
+		<td> 0.375</td>
+		<td> 0.375</td>
+		<td> 8</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_in_bt_4_e2_p1">5_vs_5_m_sp_in_bt_4_e2_p1</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 4</td>
+		<td> -4.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.0</td>
+		<td> 0.25</td>
+		<td> 4</td>
+		<td> -0.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_opponents_curriculum_0125">5_vs_5_opponents_curriculum_0125</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 3.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_random">5_vs_5_random</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 8.25</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="m_sp_in_bt_4_e2_p1">m_sp_in_bt_4_e2_p1</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_64_r100">5_vs_5_m_sp_arch_longer_heads_bt_64_r100</a></td>
+		<td> 0.25</td>
+		<td> 0.75</td>
+		<td> 4</td>
+		<td> -1.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_smiple115_r100">5_vs_5_m_sp_arch_smiple115_r100</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 4.5</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="medium_bots">medium_bots</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_medium_m_sp_arch_longer_heads_bt_64_r100">5_vs_5_medium_m_sp_arch_longer_heads_bt_64_r100</a></td>
+		<td> 0.75</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 1.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_m_sp_arch_smiple115_r100">5_vs_5_medium_m_sp_arch_smiple115_r100</a></td>
+		<td> 0.25</td>
+		<td> 0.0</td>
+		<td> 4</td>
+		<td> 0.5</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="opponents_curriculum_0125">opponents_curriculum_0125</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_64_r100">5_vs_5_m_sp_arch_longer_heads_bt_64_r100</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 4</td>
+		<td> -6.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_smiple115_r100">5_vs_5_m_sp_arch_smiple115_r100</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 4</td>
+		<td> -3.0</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="random">random</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_64_r100">5_vs_5_m_sp_arch_longer_heads_bt_64_r100</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 4</td>
+		<td> -9.75</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_smiple115_r100">5_vs_5_m_sp_arch_smiple115_r100</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 4</td>
+		<td> -8.25</td>
+	</tr>
+</tbody>
+</table>
+</body>
+</html>
