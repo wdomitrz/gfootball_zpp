@@ -54,7 +54,7 @@ def get_mostly_latest_model_path(path):
 
     if models_paths is None:
         return None
-    return select_mostly_latest(model_paths)
+    return select_mostly_latest(models_paths)
 
 
 def pack_nnm_input(num_actions, num_rewards, observation, core_state):
