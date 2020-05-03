@@ -1,5 +1,4 @@
-import os
-
+from absl import logging
 from numpy import random
 
 from gfootball.env import player_base
@@ -71,12 +70,12 @@ class Player(player_base.PlayerBase):
         self._num_right_controlled_players = 0
 
     def show(self):
-        self.hidden = False
+        self._hidden = False
         self._num_left_controlled_players = self._left_players
         self._num_right_controlled_players = self._right_players
 
     def take_action(self, observation):
-        if self.hidden:
+        if self._hidden:
             return []
         observation = self._policy.pre_stacking_convert_obs(observation)
         observation = self._stacker.get(observation)
@@ -84,6 +83,10 @@ class Player(player_base.PlayerBase):
 
     def update_checkpoint(self):
         checkpoint = random.choice(self._checkpoints, p=self._checkpoints_p)
+        logging.info('Loading checkpoint: %s', str(checkpoint))
+        self.load_checkpoint(checkpoint)
+
+    def load_checkpoint(self, checkpoint):
         if checkpoint is None:
             return
         checkpoint_info = {
@@ -118,6 +121,7 @@ class Player(player_base.PlayerBase):
             self._policy.load_checkpoint(checkpoint)
             self.checkpoints_info.append(checkpoint_info)
             self.current_checkpoint = checkpoint_info
+        logging.info('Current checkpoint %s', checkpoint_info)
 
     def __getattr__(self, item):
         return getattr(self._policy, item)

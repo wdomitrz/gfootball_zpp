@@ -73,14 +73,14 @@ def build_team_scores_table(results, player):
     table = [
         [
             name,
-            data['wins'] / data['games'],
-            data['loses'] / data['games'],
-            data['scores'] / data['lost_scores'] if data['lost_scores'] > 0 else 100,
-            ';'.join(data['logdirs'])
+            data['wins']/data['games'],
+            data['loses']/data['games'],
+            data['games'],
+            (data['scores'] - data['lost_scores']) / data['games']
         ]
         for name, data in res
     ]
-    return html_table(table, ['name', 'won', 'lost', 'score ratio', 'logdirs'])
+    return html_table(table, ['name', 'won', 'lost', 'games', 'avg score'])
 
 
 def html_table(table, header):

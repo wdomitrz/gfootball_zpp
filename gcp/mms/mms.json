@@ -1,0 +1,33 @@
+{
+    "env_name": "11_vs_11_competition",
+    "enable_goal_videos": false,
+    "enable_full_episode_videos": false,
+    "logdir": "",
+    "enable_sides_swap": false,
+    "number_of_left_players_agent_controls": 1,
+    "number_of_right_players_agent_controls": 0,
+    "env_change_params": [
+        {},
+        {
+            "extra_players": null
+        }
+    ],
+    "extra_players": [
+        "zpp:right_players=1,policy=multihead,sampe=True,checkpoint_reload_rate=42,checkpoints=!mostly_latest-GS//m_mms/mms_e9/1/ckpt/0/"
+    ],
+    "env_change_rate": 1073741824,
+    "env_change_probabilities": [
+        0.9,
+        0.1
+    ],
+    "render": false,
+    "write_video": false,
+    "stacked_frames": 4,
+    "channel_dimensions": [
+        96,
+        72
+    ],
+    "rewards": "scoring,checkpoints",
+    "dump_frequency": 10,
+    "wrappers": "periodic_dump,checkpoint_score,obs_extract,obs_stack,old_single_map"
+}

@@ -13,6 +13,8 @@ def get_num(filename):
 
 
 def get_checkpoint(checkpoint_directory, selection_fn):
+    if checkpoint_directory[-1] != '/':
+        checkpoint_directory += '/'
     try:
         checkpoints = gsutil.ls(checkpoint_directory)
     except tf.errors.NotFoundError:
@@ -35,5 +37,8 @@ def select_latest(checkpoints):
 
 
 def select_mostly_latest(checkpoints):
-    sample = max(0, round((1 - abs(random.normal())) * (len(checkpoints) - 1)))
+    res = 1 - abs(random.normal(scale=0.35))
+    if res < 0:
+        return select_mostly_latest(checkpoints)
+    sample = max(0, round(res * (len(checkpoints) - 0.501)))
     return checkpoints[sample]

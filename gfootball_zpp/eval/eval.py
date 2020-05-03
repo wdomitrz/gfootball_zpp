@@ -3,7 +3,11 @@ from collections import namedtuple
 from absl import logging
 from gfootball.env import create_environment
 from gfootball_zpp.players.zpp import Player
-
+from gfootball_zpp.logging.api import LogAll
+from gfootball_zpp.wrappers.state_preserver import StatePreserver
+from gfootball_zpp.wrappers.env_usage_stats import EnvUsageStatsTracker
+from gfootball_zpp.wrappers.env_utils import EnvUtilsWrapper
+import tensorflow as tf
 
 class EvalPlayerData:
     def __init__(self, type, name, extra_player_args=None):
@@ -65,9 +69,32 @@ def evaluate(player, stage, env_args, base_logdir):
     args['extra_players'] = stage.opponent.extra_player_args
     if args['extra_players']:
         args['extra_players'] = [args['extra_players']]
+    else:
+        args['extra_players'] = []
     args['env_name'] = stage.scenario
     args['logdir'] = stage_to_logdir(base_logdir, stage, player)
+    json_config = {
+        'dump_frequency': 1,
+        'base_logdir': base_logdir,
+        'extra_players': args['extra_players'],
+        'step_log_freq': 1,
+        'reset_log_freq': 1,
+        'logs_enabled': True,
+        'tf_summary_writer': tf.summary.create_file_writer(
+            base_logdir + '/tf/', flush_millis=20000, max_queue=1000)
+    }
     env = create_environment(**args)
+    env = StatePreserver(env, json_config)
+    env = EnvUtilsWrapper(env, json_config)
+    env = EnvUsageStatsTracker(env, json_config)
+    env = LogAll(env, json_config)
+
+    env.set_right_player_name(stage.opponent.name)
+    env.set_left_player_name(player.name)
+    env.unwrapped._config['external_players_data'] = [{
+        'name': stage.opponent.type,
+        'description': stage.opponent.name
+    }]
 
     scores = []
     for i in range(stage.games):
@@ -84,7 +111,8 @@ def evaluate(player, stage, env_args, base_logdir):
         scores.append(score)
         logging.info('Finished game (%d/%d) %s: %s - %d : %d - %s', i + 1, stage.games,
                      stage.scenario, player, score['left'], score['right'], stage.opponent)
-
+    env.reset()
+    env.close()
     return EvaluationResult(scores=scores, stage=stage, logdir=args['logdir'])
 
 

@@ -14,6 +14,9 @@ from .wrappers.state_preserver import StatePreserver
 from .wrappers.env_usage_stats import EnvUsageStatsTracker
 from .wrappers.players_name import UpdateTeamNamesWrapper
 from .wrappers.obs_pick import Simple115PickFirst
+from .wrappers.env_utils import EnvUtilsWrapper
+from .wrappers import evaluation_env
+from .wrappers.discrete_as_to_multi import DiscreteToMulti
 
 from .players.utils import PackedBitsObservation
 
@@ -233,8 +236,8 @@ def get_known_wrappers():
     'simple115_pick_first':
     Simple115PickFirst,
     'simple115v2':
-    lambda env, config: Simple115StateWrapper(env, True)
-     
+    lambda env, config: Simple115StateWrapper(env, True),
+    'eval': evaluation_env.EvalWrapper
   }
   result.update(get_loggers_dict())
   return result
@@ -257,8 +260,10 @@ def compose_environment(env_config):
 
   # we enable state preserving and env usage tracker by default
   wrappers = []
+  wrappers.append(DiscreteToMulti)
   if should_preserve_state(env_config):
     wrappers.append(StatePreserver)
+    wrappers.append(EnvUtilsWrapper)
     wrappers.append(EnvUsageStatsTracker)
 
   wrapper_names = env_config['wrappers'].split(',')
@@ -267,7 +272,15 @@ def compose_environment(env_config):
     logging.info('!!!!No loggers detected so added log_all: %s!!!!',
                  str(wrapper_names))
 
-  wrappers.append(UpdateTeamNamesWrapper)
+  #wrappers.append(UpdateTeamNamesWrapper)
+  if env_config['actor_id'] == env_config.get('evaluation_actor', -1):
+    logging.info('Creating evaluation actor!')
+    env_config = evaluation_env.preprocess_config(env_config)
+    wrappers.append(evaluation_env.EvalWrapper)
+    #wrappCreatinger_names = evaluation_env.prepare_wrappers(wrapper_names)
+  else:
+    logging.warning('Not creating evaluation since current agent id %d is not %d.',
+                    env_config['actor_id'], env_config.get('evaluation_actor', -1))
 
   for w in wrapper_names:
     assert(w in KNOWN_WRAPPERS)
