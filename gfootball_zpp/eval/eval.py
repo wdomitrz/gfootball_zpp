@@ -81,7 +81,7 @@ def evaluate(player, stage, env_args, base_logdir):
         'reset_log_freq': 1,
         'logs_enabled': True,
         'tf_summary_writer': tf.summary.create_file_writer(
-            base_logdir + '/tf/', flush_millis=20000, max_queue=1000)
+            args['logdir'] + '/tf/', flush_millis=20000, max_queue=1000)
     }
     env = create_environment(**args)
     env = StatePreserver(env, json_config)
