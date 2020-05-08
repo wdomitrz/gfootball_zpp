@@ -153,7 +153,8 @@ class Player(player_base.PlayerBase):
             config = decode_config(self._models_configs[model_dir_id])
 
             logging.info('NNM player loading: %s', model_path)
-            time.sleep(3*60) # prevent race
+            if model_dir[0] == '!':
+                time.sleep(3*60) # prevent race
             self._nn_manager = download_model(model_path)
             logging.info('NNM player loading done: %s', model_path)
             self._current_model_name = model_path
