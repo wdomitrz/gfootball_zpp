@@ -1,4 +1,48 @@
-FROM football_base
+# Copyright 2019 The SEED Authors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+FROM tensorflow/tensorflow:2.1.0-gpu-py3
+
+# Needed to disable interactive configuration by tzdata.
+RUN ln -fs /usr/share/zoneinfo/Europe/Dublin /etc/localtime
+
+RUN apt-get update && apt-get install -y \
+  git \
+  cmake \
+  build-essential \
+  libgl1-mesa-dev \
+  libsdl2-dev \
+  libsdl2-image-dev \
+  libsdl2-ttf-dev \
+  libsdl2-gfx-dev \
+  libboost-all-dev \
+  libdirectfb-dev \
+  libst-dev \
+  glee-dev \
+  mesa-utils \
+  xvfb \
+  x11vnc \
+  libsdl-sge-dev \
+  python3-pip \
+  libboost-all-dev \
+  libboost-python-dev \
+  tmux
+
+
+WORKDIR /
+RUN pip3 install gfootball==2.0.4
+RUN pip3 install tensorflow_probability==0.9.0
+
 
 # gcloud install
 RUN \
@@ -7,6 +51,20 @@ RUN \
   curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - &&\
   apt-get update --yes &&\
   apt-get install --yes google-cloud-sdk
+
+
+WORKDIR /
+ADD ./gfootball_zpp /gfootball_zpp/
+WORKDIR /gfootball_zpp
+RUN pip3 install -e .
+
+RUN \
+  cp gfootball_zpp/scenarios/* /usr/local/lib/python3.6/dist-packages/gfootball/scenarios/ &&\
+  rm -rf /usr/local/lib/python3.6/dist-packages/gfootball/scenarios/__pycache__ &&\
+  cp gfootball_zpp/env/observation_processor.py /usr/local/lib/python3.6/dist-packages/gfootball/env/ &&\
+  rm -rf /usr/local/lib/python3.6/dist-packages/gfootball/env/__pycache__ &&\
+  cp gfootball_zpp/players/{zpp,nnm}.py /usr/local/lib/python3.6/dist-packages/gfootball/env/players/ &&\
+  rm -rf /usr/local/lib/python3.6/dist-packages/gfootball/env/players/__pycache__
 
 RUN mkdir -p /root/.config/gcloud
 RUN mkdir -p /eval_logs
