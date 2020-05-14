@@ -52,7 +52,7 @@ def encode_models_dirs(model_dirs_cfg):
 
 def encode_config_extra_player(player_name, player_cfg):
     if "models_dirs" in player_cfg:
-        player_cfg["model_dirs"] = encode_models_dirs(player_cfg["models_dirs"])
+        player_cfg["models_dirs"] = encode_models_dirs(player_cfg["models_dirs"])
     return player_name + ':' + ','.join(maybe_str(name) + '=' + maybe_str(value) for name, value in player_cfg.items())
 
 
