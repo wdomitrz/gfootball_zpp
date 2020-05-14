@@ -47,7 +47,7 @@ start_training () {
 }
 
 
-ENV_CONFIG=$(cat "$ENV_CONFIG_FILE" | tr '\n' ' ')
+ENV_CONFIG=$(python3 $DIR/../gfootball_zpp/utils/config_encoder.py --f "$ENV_CONFIG_FILE")
 
 
 sed "s|ENV_CONFIG_HERE|${ENV_CONFIG}|g" "$AI_PLATFORM_CONFIG_FILE" > "$CONFIG_OUT_FILE"
