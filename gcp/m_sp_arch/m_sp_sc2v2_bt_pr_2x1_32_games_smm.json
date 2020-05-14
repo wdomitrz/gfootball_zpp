@@ -1,5 +1,5 @@
 {
-    "env_name": "2_vs_2",
+    "env_name": "2vs2",
     "enable_goal_videos": false,
     "enable_full_episode_videos": false,
     "logdir": "",
@@ -23,10 +23,10 @@
             "model_reload_rate": 32,
             "models_dirs": [
                 {
-                    "path": "!mostly_latest-GS//m_sp_arch/m_sp_sc2v2_arch_2x1_bt_32_r500/1/model/nn_manager/",
+                    "path": "!mostly_latest-GS//m_sp_arch/m_sp_sc2v2_arch_2x1_bt_32_r501/1/model/nn_manager/",
                     "proba": 1.0,
                     "config": {
-                        "env_name": "2_vs_2",
+                        "env_name": "2vs2",
                         "enable_goal_videos": false,
                         "enable_full_episode_videos": false,
                         "logdir": "",
