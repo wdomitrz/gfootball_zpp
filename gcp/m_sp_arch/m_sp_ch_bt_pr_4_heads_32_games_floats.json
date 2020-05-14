@@ -23,7 +23,7 @@
                 "model_reload_rate": 32,
                 "models_dirs": [
                     {
-                        "path": "!mostly_latest-GS//m_sp_arch/m_sp_arch_smiple115_bt32_r201/1/model/nn_manager/204",
+                        "path": "!mostly_latest-GS//m_sp_arch/m_sp_arch_smiple115_bt32_r201/1/model/nn_manager/",
                         "proba": 0.7,
                         "config": {
                             "env_name": "5_vs_5_partially_randomized",
