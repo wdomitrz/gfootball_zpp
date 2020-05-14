@@ -9,11 +9,11 @@ FLAGS = flags.FLAGS
 
 
 REPLACE_TABLE = [
-    (':', '¦'),
-    (',', '᎖'),
+    (':', '%'),
+    (',', '@'),
     ('\n', ' '),
-    ('"', '᭤'),
-    ('\'', '᭥')
+    ('"', '~'),
+    ('\'', '^')
 ]
 
 
@@ -67,7 +67,8 @@ def main(argv):
     with open(FLAGS.f) as f:
         str_config = f.read()
         cfg = json.loads(str_config)
-        print(encode_config_base(cfg))
+        str_cfg = json.dumps(encode_config_base(cfg))
+        print(str_cfg)
 
 
 if __name__ == '__main__':
