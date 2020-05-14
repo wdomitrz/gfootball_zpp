@@ -238,7 +238,7 @@ def get_known_wrappers():
     Simple115PickFirst,
     'simple115v2':
     lambda env, config: Simple115StateWrapper(env, True),
-    'eval': evaluation_env.EvalWrapper
+    'eval': evaluation_env.EvalWrapper,
     'extracted_stacked_with_roles':
     ObservationExtractStackWithRoles
     
