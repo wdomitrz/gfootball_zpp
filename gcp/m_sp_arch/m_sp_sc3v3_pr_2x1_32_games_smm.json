@@ -1,0 +1,60 @@
+{
+    "env_name": "3_vs_3_rand_uniform",
+    "enable_goal_videos": false,
+    "enable_full_episode_videos": false,
+    "logdir": "",
+    "enable_sides_swap": false,
+    "number_of_left_players_agent_controls": 2,
+    "number_of_right_players_agent_controls": 0,
+    "env_change_params": [
+        {},
+        {
+            "extra_players": null
+        }
+    ],
+    "env_change_rate": 1073741824,
+    "env_change_probabilities": [
+        1.0,
+        0.0
+    ],
+    "extra_players": {
+	"nnm": {
+            "right_players": 2,
+            "model_reload_rate": 32,
+            "models_dirs": [
+                {
+                    "path": "!mostly_latest-GS//m_sp_arch/m_sp_sc3v3_arch_2x1_32_r500/1/model/nn_manager/",
+                    "proba": 1.0,
+                    "config": {
+                        "env_name": "3_vs_3_rand_uniform",
+                        "enable_goal_videos": false,
+                        "enable_full_episode_videos": false,
+                        "logdir": "",
+                        "enable_sides_swap": false,
+                        "number_of_left_players_agent_controls": 2,
+                        "number_of_right_players_agent_controls": 0,
+                        "render": false,
+                        "write_video": false,
+                        "stacked_frames": 4,
+                        "channel_dimensions": [
+                            96,
+                            72
+                        ],
+                        "rewards": "scoring",
+                        "dump_frequency": 10,
+                        "wrappers": "checkpoint_score,obs_extract,single_agent,obs_stack,pack_bits"
+                    }
+                }]
+	}
+    },
+    "render": false,
+    "write_video": false,
+    "stacked_frames": 4,
+    "channel_dimensions": [
+        96,
+        72
+    ],
+    "rewards": "scoring",
+    "dump_frequency": 5,
+    "wrappers": "periodic_dump,checkpoint_score,obs_extract,single_agent,obs_stack"
+}

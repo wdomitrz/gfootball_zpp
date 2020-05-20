@@ -3,6 +3,7 @@ from collections import namedtuple
 from absl import logging
 from gfootball.env import create_environment
 from gfootball_zpp.players.zpp import Player
+from gfootball_zpp.players import nnm
 from gfootball_zpp.logging.api import LogAll
 from gfootball_zpp.wrappers.state_preserver import StatePreserver
 from gfootball_zpp.wrappers.env_usage_stats import EnvUsageStatsTracker
@@ -46,6 +47,30 @@ class ZppEvalPlayerData(EvalPlayerData):
         summary['args'] = self.args
         return summary
 
+class NNMEvalPlayerData(EvalPlayerData):
+    def __init__(self, name, controlled_players=4, **kwargs):
+        EvalPlayerData.__init__(self, 'nnm', name,
+                                extra_player_args="nnm:left_players=0,right_players=" + str(controlled_players) +
+                                ',' + ','.join([k + '=' + str(kwargs[k]) for k in kwargs]))
+        print(self.extra_player_args)
+        self.args = kwargs
+        self._player = None
+
+    @property
+    def player(self):
+        if not self._player:
+            self._player = nnm.Player(
+                dict(self.args,
+                     left_players=4,
+                     right_players=0,
+                     index=0,
+                     model_reload_rate=1000500100900), {})
+        return self._player
+
+    def write_summary(self):
+        summary = EvalPlayerData.write_summary(self)
+        summary['args'] = self.args
+        return summary
 
 class BotEvalPlayerData(EvalPlayerData):
     def __init__(self, name, dificulty):

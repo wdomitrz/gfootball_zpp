@@ -1,6 +1,6 @@
 from absl import app, flags, logging
 from gfootball_zpp.eval.eval import evaluate_all, EvaluationStage, \
-    ZppEvalPlayerData, BotEvalPlayerData
+    ZppEvalPlayerData, BotEvalPlayerData, NNMEvalPlayerData
 from time import time
 import json
 
@@ -25,6 +25,22 @@ SELF_PLAY_ZPP_OPPONENTS = {
     'checkpoints_selfplay_e9': ZppEvalPlayerData('checkpoints_selfplay_e9', sample=True, policy='multihead', checkpoint='GS//zuzanna-seed/checkpoints_sp/checkpoints_selfplay_e9/1/ckpt/0/ckpt-335'),
 }
 
+
+NNM_OPPONENTS = {
+    'm_sp_arch_longer_heads_bt_64_r100': NNMEvalPlayerData('m_sp_arch_longer_heads_bt_64_r100', models_dirs='GS//m_sp_arch/m_sp_arch_longer_heads_bt_64_r100/1/model/nn_manager/183;1.0;{~env_name~% ~5_vs_5_partially_randomized~@ ~enable_goal_videos~% false@ ~enable_full_episode_videos~% false@ ~logdir~% ~~@ ~enable_sides_swap~% false@ ~number_of_left_players_agent_controls~% 4@ ~number_of_right_players_agent_controls~% 0@ ~render~% false@ ~write_video~% false@ ~stacked_frames~% 4@ ~channel_dimensions~% [96@ 72]@ ~rewards~% ~scoring@checkpoints~@ ~dump_frequency~% 10@ ~wrappers~% ~checkpoint_score@obs_extract@single_agent@obs_stack@old_single_map@pack_bits~}'),
+
+    'm_sp_arch_longer_heads_bt_32_r201_m335': NNMEvalPlayerData('m_sp_arch_longer_heads_bt_32_r201_m335', models_dirs='GS//m_sp_arch/m_sp_arch_longer_heads_bt_32_r201/1/model/nn_manager/335;1.0;{~env_name~% ~5_vs_5_partially_randomized~@ ~enable_goal_videos~% false@ ~enable_full_episode_videos~% false@ ~logdir~% ~~@ ~enable_sides_swap~% false@ ~number_of_left_players_agent_controls~% 4@ ~number_of_right_players_agent_controls~% 0@ ~render~% false@ ~write_video~% false@ ~stacked_frames~% 4@ ~channel_dimensions~% [96@ 72]@ ~rewards~% ~scoring@checkpoints~@ ~dump_frequency~% 10@ ~wrappers~% ~checkpoint_score@obs_extract@single_agent@obs_stack@old_single_map@pack_bits~}'),
+
+    'm_sp_arch_medium_heads_bt_32_r201_m335': NNMEvalPlayerData('m_sp_arch_medium_heads_bt_32_r201_m335', models_dirs='GS//m_sp_arch/m_sp_arch_medium_heads_bt_32_r201/1/model/nn_manager/335;1.0;{~env_name~% ~5_vs_5_partially_randomized~@ ~enable_goal_videos~% false@ ~enable_full_episode_videos~% false@ ~logdir~% ~~@ ~enable_sides_swap~% false@ ~number_of_left_players_agent_controls~% 4@ ~number_of_right_players_agent_controls~% 0@ ~render~% false@ ~write_video~% false@ ~stacked_frames~% 4@ ~channel_dimensions~% [96@ 72]@ ~rewards~% ~scoring@checkpoints~@ ~dump_frequency~% 10@ ~wrappers~% ~checkpoint_score@obs_extract@single_agent@obs_stack@old_single_map@pack_bits~}'),
+    
+    'm_sp_arch_smiple115_r100': NNMEvalPlayerData('m_sp_arch_smiple115_r100', models_dirs='GS//m_sp_arch/m_sp_arch_smiple115_r100/1/model/nn_manager/183;1.0;{~env_name~% ~5_vs_5_partially_randomized~@ ~enable_goal_videos~% false@ ~enable_full_episode_videos~% false@ ~logdir~% ~~@ ~enable_sides_swap~% false@ ~number_of_left_players_agent_controls~% 4@ ~number_of_right_players_agent_controls~% 0@ ~render~% false@ ~write_video~% false@ ~stacked_frames~% 4@ ~channel_dimensions~% [96@ 72]@ ~rewards~% ~scoring@checkpoints~@ ~dump_frequency~% 10@ ~wrappers~% ~checkpoint_score@simple115v2@simple115_pick_first~}'),
+
+    'm_sp_arch_smiple115_bt32_r201_m204': NNMEvalPlayerData('m_sp_arch_smiple115_bt32_r201_m204', models_dirs='GS//m_sp_arch/m_sp_arch_smiple115_bt32_r201/1/model/nn_manager/204;1.0;{~env_name~% ~5_vs_5_partially_randomized~@ ~enable_goal_videos~% false@ ~enable_full_episode_videos~% false@ ~logdir~% ~~@ ~enable_sides_swap~% false@ ~number_of_left_players_agent_controls~% 4@ ~number_of_right_players_agent_controls~% 0@ ~render~% false@ ~write_video~% false@ ~stacked_frames~% 4@ ~channel_dimensions~% [96@ 72]@ ~rewards~% ~scoring@checkpoints~@ ~dump_frequency~% 10@ ~wrappers~% ~checkpoint_score@simple115v2@simple115_pick_first~}'),
+    
+    'm_sp_arch_4x1_bt_32_r201_m335':  NNMEvalPlayerData('m_sp_arch_4x1_bt_32_r201_m335', models_dirs='GS//m_sp_arch/m_sp_arch_4x1_bt_32_r201/1/model/nn_manager/335;1.0;{~env_name~% ~5_vs_5_partially_randomized~@ ~enable_goal_videos~% false@ ~enable_full_episode_videos~% false@ ~logdir~% ~~@ ~enable_sides_swap~% false@ ~number_of_left_players_agent_controls~% 4@ ~number_of_right_players_agent_controls~% 0@ ~render~% false@ ~write_video~% false@ ~stacked_frames~% 4@ ~channel_dimensions~% [96@ 72]@ ~rewards~% ~scoring@checkpoints~@ ~dump_frequency~% 10@ ~wrappers~% ~checkpoint_score@obs_extract@single_agent@obs_stack@pack_bits~}')
+}
+
+
 SELF_PLAY_BOTS_STAGES = [
     EvaluationStage('5_vs_5', BotEvalPlayerData('easy_bots', 0.05), GAMES * 2),
     EvaluationStage('5_vs_5_medium', BotEvalPlayerData(
@@ -33,7 +49,7 @@ SELF_PLAY_BOTS_STAGES = [
         'hard_bots', 0.95), GAMES * 2),
 ]
 
-ZPP_OPPONENTS = SELF_PLAY_ZPP_OPPONENTS
+ZPP_OPPONENTS = {**SELF_PLAY_ZPP_OPPONENTS, **NNM_OPPONENTS}
 
 
 ZPP_SCENARIOS = [
