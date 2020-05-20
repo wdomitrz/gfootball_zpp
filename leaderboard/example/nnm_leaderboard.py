@@ -10,7 +10,7 @@ from gfootball_zpp.players.nnm import Player as NNMPlayer
 
 
 flags.DEFINE_string('player_config_file', None, 'Path to nnm player config file')
-flags.DEFINE_string('username', 'multiPandasUW', 'Username to use')
+flags.DEFINE_string('username', 'MultiPandasUW', 'Username to use')
 flags.DEFINE_string('token', None, 'Token to use.')
 flags.mark_flag_as_required('token')
 flags.DEFINE_string('track', 'multiagent', 'Name of the competition track.')
