@@ -17,6 +17,7 @@ from .wrappers.obs_pick import Simple115PickFirst
 from .wrappers.env_utils import EnvUtilsWrapper
 from .wrappers import evaluation_env
 from .wrappers.discrete_as_to_multi import DiscreteToMulti
+from .wrappers.obs_extracted_stacked_with_roles import ObservationExtractStackWithRoles
 
 from .players.utils import PackedBitsObservation
 
@@ -237,7 +238,10 @@ def get_known_wrappers():
     Simple115PickFirst,
     'simple115v2':
     lambda env, config: Simple115StateWrapper(env, True),
-    'eval': evaluation_env.EvalWrapper
+    'eval': evaluation_env.EvalWrapper,
+    'extracted_stacked_with_roles':
+    ObservationExtractStackWithRoles
+    
   }
   result.update(get_loggers_dict())
   return result
