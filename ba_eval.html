@@ -1,0 +1,2914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Evaluation results</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="sorTable.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="sorTable.js"></script>
+</head>
+<body>
+
+<h1>Evaluation results</h1>
+
+<h2>Overview</h2>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>score ratio</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#easy_bots">easy_bots</a></td>
+		<td> 0.14375</td>
+		<td> 0.740625</td>
+		<td> 0.22551546391752578</td>
+	</tr>
+	<tr>
+		<td> <a href="#reward_shaping_checkpoints_bots_4_heads_1_ckpt360">reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 0.20526315789473684</td>
+		<td> 0.7526315789473684</td>
+		<td> 0.3395539371870733</td>
+	</tr>
+	<tr>
+		<td> <a href="#scon_e3_p2_hard_ckpt840">scon_e3_p2_hard_ckpt840</a></td>
+		<td> 0.2710526315789474</td>
+		<td> 0.6789473684210526</td>
+		<td> 0.4721115537848606</td>
+	</tr>
+	<tr>
+		<td> <a href="#medium_bots">medium_bots</a></td>
+		<td> 0.30625</td>
+		<td> 0.553125</td>
+		<td> 0.4156829679595278</td>
+	</tr>
+	<tr>
+		<td> <a href="#less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 0.3131578947368421</td>
+		<td> 0.6342105263157894</td>
+		<td> 0.51932929669306</td>
+	</tr>
+	<tr>
+		<td> <a href="#less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.3157894736842105</td>
+		<td> 0.6394736842105263</td>
+		<td> 0.5051789077212806</td>
+	</tr>
+	<tr>
+		<td> <a href="#f5v0to1to5_e2_ckpt252">f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.34210526315789475</td>
+		<td> 0.5815789473684211</td>
+		<td> 0.6695011337868481</td>
+	</tr>
+	<tr>
+		<td> <a href="#f5v0to1to2t05_e2_ckpt291">f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.3736842105263158</td>
+		<td> 0.5710526315789474</td>
+		<td> 0.6859852476290832</td>
+	</tr>
+	<tr>
+		<td> <a href="#m_sp_arch_medium_heads_bt_32_r201_m335">m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.3736842105263158</td>
+		<td> 0.5263157894736842</td>
+		<td> 0.9260504201680673</td>
+	</tr>
+	<tr>
+		<td> <a href="#hard_bots">hard_bots</a></td>
+		<td> 0.396875</td>
+		<td> 0.453125</td>
+		<td> 0.5658324265505985</td>
+	</tr>
+	<tr>
+		<td> <a href="#m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.4052631578947368</td>
+		<td> 0.47368421052631576</td>
+		<td> 0.737719298245614</td>
+	</tr>
+	<tr>
+		<td> <a href="#m_sp_arch_longer_heads_bt_32_r201_m335">m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.4263157894736842</td>
+		<td> 0.4710526315789474</td>
+		<td> 0.9917780061664954</td>
+	</tr>
+	<tr>
+		<td> <a href="#checkpoints_selfplay_e9_sp_ckpt274">checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.4473684210526316</td>
+		<td> 0.4394736842105263</td>
+		<td> 1.2700787401574802</td>
+	</tr>
+	<tr>
+		<td> <a href="#checkpoints_sp_c_nb_e2_ckpt667">checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.5921052631578947</td>
+		<td> 0.32105263157894737</td>
+		<td> 1.9245982694684796</td>
+	</tr>
+	<tr>
+		<td> <a href="#explt_v0_7_2_m54">explt_v0_7_2_m54</a></td>
+		<td> 0.618421052631579</td>
+		<td> 0.2026315789473684</td>
+		<td> 1.9705882352941178</td>
+	</tr>
+	<tr>
+		<td> <a href="#m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.6947368421052632</td>
+		<td> 0.21052631578947367</td>
+		<td> 4.137546468401487</td>
+	</tr>
+	<tr>
+		<td> <a href="#m_sp_arch_4x1_bt_32_r201_m335">m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.7368421052631579</td>
+		<td> 0.1763157894736842</td>
+		<td> 5.425531914893617</td>
+	</tr>
+	<tr>
+		<td> <a href="#m_sp_arch_4x1_bt_32_r201_cont3_m650">m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.7684210526315789</td>
+		<td> 0.12105263157894737</td>
+		<td> 6.393650793650794</td>
+	</tr>
+	<tr>
+		<td> <a href="#m_sp_arch_4x1_bt_32_roles_r500_m335">m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.7921052631578948</td>
+		<td> 0.11842105263157894</td>
+		<td> 5.537735849056604</td>
+	</tr>
+</tbody>
+</table>
+
+<h2>Per player results</h2>
+
+<h3 id="checkpoints_selfplay_e9_sp_ckpt274">checkpoints_selfplay_e9_sp_ckpt274</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.35</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.0</td>
+		<td> 0.85</td>
+		<td> 20</td>
+		<td> -3.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 0.85</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 2.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.1</td>
+		<td> 0.7</td>
+		<td> 20</td>
+		<td> -0.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.95</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.9</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 4.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.1</td>
+		<td> 0.65</td>
+		<td> 20</td>
+		<td> -1.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.95</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 7.85</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 7.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.0</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -5.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -4.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -4.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.2</td>
+		<td> 0.5</td>
+		<td> 20</td>
+		<td> -1.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.4</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.7</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.35</td>
+		<td> 0.5</td>
+		<td> 20</td>
+		<td> -0.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.05</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -4.4</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.2</td>
+		<td> 0.6</td>
+		<td> 20</td>
+		<td> -1.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 8.4</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.85</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="checkpoints_sp_c_nb_e2_ckpt667">checkpoints_sp_c_nb_e2_ckpt667</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.85</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 3.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.45</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 0.35</td>
+		<td> 0.25</td>
+		<td> 20</td>
+		<td> 0.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.05</td>
+		<td> 0.75</td>
+		<td> 20</td>
+		<td> -1.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.9</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 4.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.95</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.4</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.2</td>
+		<td> 0.7</td>
+		<td> 20</td>
+		<td> -1.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.65</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.05</td>
+		<td> 0.9</td>
+		<td> 20</td>
+		<td> -2.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.2</td>
+		<td> 0.7</td>
+		<td> 20</td>
+		<td> -2.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.2</td>
+		<td> 0.75</td>
+		<td> 20</td>
+		<td> -2.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.8</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 2.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.9</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 2.9</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.05</td>
+		<td> 0.85</td>
+		<td> 20</td>
+		<td> -2.4</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.3</td>
+		<td> 0.6</td>
+		<td> 20</td>
+		<td> -0.7</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.8</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="easy_bots">easy_bots</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.05</td>
+		<td> 0.85</td>
+		<td> 20</td>
+		<td> -2.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.25</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> -0.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.1</td>
+		<td> 0.75</td>
+		<td> 20</td>
+		<td> -1.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -10.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -7.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -8.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -9.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.15</td>
+		<td> 0.8</td>
+		<td> 20</td>
+		<td> -1.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.1</td>
+		<td> 0.85</td>
+		<td> 20</td>
+		<td> -1.85</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.05</td>
+		<td> 0.85</td>
+		<td> 20</td>
+		<td> -1.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.7</td>
+		<td> 0.15</td>
+		<td> 20</td>
+		<td> 0.75</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.4</td>
+		<td> 0.25</td>
+		<td> 20</td>
+		<td> 0.4</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.2</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> -0.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.3</td>
+		<td> 0.55</td>
+		<td> 20</td>
+		<td> -0.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -7.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -8.15</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="explt_v0_7_2_m54">explt_v0_7_2_m54</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.7</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 0.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.75</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 1.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 0.75</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 1.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.35</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.75</td>
+		<td> 0.15</td>
+		<td> 20</td>
+		<td> 1.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.7</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 2.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.15</td>
+		<td> 0.65</td>
+		<td> 20</td>
+		<td> -1.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.8</td>
+		<td> 0.15</td>
+		<td> 20</td>
+		<td> 2.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 0.8</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 1.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.55</td>
+		<td> 0.25</td>
+		<td> 20</td>
+		<td> 1.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.5</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.3</td>
+		<td> 0.5</td>
+		<td> 20</td>
+		<td> -0.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.75</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 1.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.7</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 1.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.75</td>
+		<td> 0.15</td>
+		<td> 20</td>
+		<td> 2.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.3</td>
+		<td> 0.5</td>
+		<td> 20</td>
+		<td> -0.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.3</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> -0.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 0.95</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 2.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 0.9</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 1.95</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="f5v0to1to2t05_e2_ckpt291">f5v0to1to2t05_e2_ckpt291</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.0</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -6.9</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.0</td>
+		<td> 0.9</td>
+		<td> 20</td>
+		<td> -4.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 10.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.15</td>
+		<td> 0.75</td>
+		<td> 20</td>
+		<td> -1.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.45</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.45</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> -0.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.55</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.85</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 0.6</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -9.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -9.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -10.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.05</td>
+		<td> 0.9</td>
+		<td> 20</td>
+		<td> -3.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -5.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.1</td>
+		<td> 0.75</td>
+		<td> 20</td>
+		<td> -1.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -10.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 7.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 0.95</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 3.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 0.8</td>
+		<td> 0.15</td>
+		<td> 20</td>
+		<td> 3.35</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="f5v0to1to5_e2_ckpt252">f5v0to1to5_e2_ckpt252</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -4.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.0</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -5.4</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 7.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.0</td>
+		<td> 0.7</td>
+		<td> 20</td>
+		<td> -2.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.45</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> 0.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.45</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.55</td>
+		<td> 0.4</td>
+		<td> 20</td>
+		<td> 0.15</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 0.45</td>
+		<td> 0.4</td>
+		<td> 20</td>
+		<td> 0.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -7.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -10.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.05</td>
+		<td> 0.9</td>
+		<td> 20</td>
+		<td> -3.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 0.9</td>
+		<td> 20</td>
+		<td> -3.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.15</td>
+		<td> 0.7</td>
+		<td> 20</td>
+		<td> -1.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -8.9</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 0.7</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 1.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 0.7</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 1.25</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="hard_bots">hard_bots</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_hard_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_hard_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.65</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 1.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_hard_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.7</td>
+		<td> 0.2</td>
+		<td> 20</td>
+		<td> 1.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_explt_v0_7_2_m54">5_vs_5_hard_explt_v0_7_2_m54</a></td>
+		<td> 0.65</td>
+		<td> 0.15</td>
+		<td> 20</td>
+		<td> 1.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_f5v0to1to2t05_e2_ckpt291">5_vs_5_hard_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_f5v0to1to5_e2_ckpt252">5_vs_5_hard_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_hard_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -4.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_hard_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 0.05</td>
+		<td> 0.9</td>
+		<td> 20</td>
+		<td> -4.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_hard_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.35</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> 0.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_hard_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.5</td>
+		<td> 0.2</td>
+		<td> 20</td>
+		<td> 0.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_hard_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.35</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_hard_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.75</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 1.85</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_hard_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.9</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 2.65</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_hard_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.85</td>
+		<td> 0.15</td>
+		<td> 20</td>
+		<td> 2.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_hard_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.45</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 0.75</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_hard_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 0.15</td>
+		<td> 0.7</td>
+		<td> 20</td>
+		<td> -2.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_scon_e3_p2_hard_ckpt840">5_vs_5_hard_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -7.95</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.0</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -7.85</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.65</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 8.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.15</td>
+		<td> 0.8</td>
+		<td> 20</td>
+		<td> -2.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.3</td>
+		<td> 0.55</td>
+		<td> 20</td>
+		<td> -0.85</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.4</td>
+		<td> 0.55</td>
+		<td> 20</td>
+		<td> -0.15</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 4.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.45</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 0.4</td>
+		<td> 0.55</td>
+		<td> 20</td>
+		<td> -0.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -10.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -10.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -11.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -5.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -4.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.2</td>
+		<td> 0.75</td>
+		<td> 20</td>
+		<td> -1.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -13.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 0.75</td>
+		<td> 0.2</td>
+		<td> 20</td>
+		<td> 2.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 0.35</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> 0.25</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -7.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 9.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.05</td>
+		<td> 0.8</td>
+		<td> 20</td>
+		<td> -1.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.3</td>
+		<td> 0.6</td>
+		<td> 20</td>
+		<td> -0.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.4</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> -0.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.9</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 4.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.55</td>
+		<td> 0.4</td>
+		<td> 20</td>
+		<td> 0.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 0.45</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -11.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -10.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -11.65</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -3.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -5.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.05</td>
+		<td> 0.8</td>
+		<td> 20</td>
+		<td> -2.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -13.4</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 0.75</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 2.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 0.5</td>
+		<td> 0.4</td>
+		<td> 20</td>
+		<td> 0.35</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="m_sp_arch_4x1_bt_32_r201_cont3_m650">m_sp_arch_4x1_bt_32_r201_cont3_m650</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.95</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.9</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 2.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 0.8</td>
+		<td> 0.15</td>
+		<td> 20</td>
+		<td> 1.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.25</td>
+		<td> 0.55</td>
+		<td> 20</td>
+		<td> -1.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 9.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 7.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.45</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> -0.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 10.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 11.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.3</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.55</td>
+		<td> 0.15</td>
+		<td> 20</td>
+		<td> 0.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.45</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> 0.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 4.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 4.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.65</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 1.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.3</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> -0.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 10.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 10.35</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="m_sp_arch_4x1_bt_32_r201_m335">m_sp_arch_4x1_bt_32_r201_m335</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.95</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 4.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.7</td>
+		<td> 0.2</td>
+		<td> 20</td>
+		<td> 2.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 0.85</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 1.85</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.3</td>
+		<td> 0.5</td>
+		<td> 20</td>
+		<td> -0.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 9.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.2</td>
+		<td> 0.5</td>
+		<td> 20</td>
+		<td> -0.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 10.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 10.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.15</td>
+		<td> 0.55</td>
+		<td> 20</td>
+		<td> -0.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.45</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.4</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> -0.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.95</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 4.65</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.9</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.9</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.6</td>
+		<td> 0.25</td>
+		<td> 20</td>
+		<td> 1.75</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.45</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 10.65</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 11.0</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="m_sp_arch_4x1_bt_32_roles_r500_m335">m_sp_arch_4x1_bt_32_roles_r500_m335</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 4.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.75</td>
+		<td> 0.2</td>
+		<td> 20</td>
+		<td> 2.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 0.85</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 1.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.5</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 10.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 10.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.3</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 11.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 11.65</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.35</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> -0.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.45</td>
+		<td> 0.4</td>
+		<td> 20</td>
+		<td> 0.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.35</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.85</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 2.75</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.65</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 0.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 11.7</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 11.0</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="m_sp_arch_longer_heads_bt_32_r201_m335">m_sp_arch_longer_heads_bt_32_r201_m335</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.5</td>
+		<td> 0.2</td>
+		<td> 20</td>
+		<td> 1.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.1</td>
+		<td> 0.8</td>
+		<td> 20</td>
+		<td> -2.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 0.15</td>
+		<td> 0.7</td>
+		<td> 20</td>
+		<td> -0.75</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.1</td>
+		<td> 0.75</td>
+		<td> 20</td>
+		<td> -1.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.9</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 3.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.9</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 3.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.0</td>
+		<td> 0.75</td>
+		<td> 20</td>
+		<td> -1.85</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 3.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -5.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -4.65</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -5.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.5</td>
+		<td> 0.5</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.65</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 1.65</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.3</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -5.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.0</td>
+		<td> 0.8</td>
+		<td> 20</td>
+		<td> -1.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 4.3</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="m_sp_arch_medium_heads_bt_32_r201_m335">m_sp_arch_medium_heads_bt_32_r201_m335</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.3</td>
+		<td> 0.4</td>
+		<td> 20</td>
+		<td> -0.7</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -5.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 0.25</td>
+		<td> 0.4</td>
+		<td> 20</td>
+		<td> -0.4</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.1</td>
+		<td> 0.7</td>
+		<td> 20</td>
+		<td> -1.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.95</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.9</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 3.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.0</td>
+		<td> 0.9</td>
+		<td> 20</td>
+		<td> -2.65</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 4.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -4.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -5.9</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.1</td>
+		<td> 0.65</td>
+		<td> 20</td>
+		<td> -1.65</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.4</td>
+		<td> 0.4</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.1</td>
+		<td> 0.8</td>
+		<td> 20</td>
+		<td> -1.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.0</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -4.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.0</td>
+		<td> 0.8</td>
+		<td> 20</td>
+		<td> -1.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 6.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 7.1</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.5</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> 0.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.05</td>
+		<td> 0.9</td>
+		<td> 20</td>
+		<td> -2.9</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 0.45</td>
+		<td> 0.2</td>
+		<td> 20</td>
+		<td> 0.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.15</td>
+		<td> 0.75</td>
+		<td> 20</td>
+		<td> -2.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.75</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 1.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.7</td>
+		<td> 0.15</td>
+		<td> 20</td>
+		<td> 1.6</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.15</td>
+		<td> 0.85</td>
+		<td> 20</td>
+		<td> -2.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.75</td>
+		<td> 0.2</td>
+		<td> 20</td>
+		<td> 1.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 0.8</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 2.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -4.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -5.9</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.3</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.8</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 1.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.35</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.0</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -4.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.2</td>
+		<td> 0.65</td>
+		<td> 20</td>
+		<td> -1.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 0.85</td>
+		<td> 0.1</td>
+		<td> 20</td>
+		<td> 2.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 0.9</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 3.5</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.95</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 4.4</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.85</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 2.4</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 0.55</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.5</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 10.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 8.9</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.1</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> -0.75</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 13.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 13.4</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.1</td>
+		<td> 0.65</td>
+		<td> 20</td>
+		<td> -1.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.25</td>
+		<td> 0.6</td>
+		<td> 20</td>
+		<td> -1.75</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.1</td>
+		<td> 0.85</td>
+		<td> 20</td>
+		<td> -2.75</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 5.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.95</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 4.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.95</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 4.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.4</td>
+		<td> 0.4</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.5</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> 0.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 11.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 11.85</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="medium_bots">medium_bots</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_medium_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_medium_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.6</td>
+		<td> 0.2</td>
+		<td> 20</td>
+		<td> 1.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_medium_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.6</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.7</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_explt_v0_7_2_m54">5_vs_5_medium_explt_v0_7_2_m54</a></td>
+		<td> 0.35</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_f5v0to1to2t05_e2_ckpt291">5_vs_5_medium_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -7.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_f5v0to1to5_e2_ckpt252">5_vs_5_medium_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_medium_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_medium_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_medium_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.3</td>
+		<td> 0.3</td>
+		<td> 20</td>
+		<td> 0.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_medium_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.35</td>
+		<td> 0.45</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_medium_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.05</td>
+		<td> 0.65</td>
+		<td> 20</td>
+		<td> -0.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_medium_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.8</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 1.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_medium_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.8</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 1.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_medium_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.65</td>
+		<td> 0.2</td>
+		<td> 20</td>
+		<td> 1.05</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_medium_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.35</td>
+		<td> 0.5</td>
+		<td> 20</td>
+		<td> -0.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_medium_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 0.05</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -4.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_scon_e3_p2_hard_ckpt840">5_vs_5_medium_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -8.35</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="reward_shaping_checkpoints_bots_4_heads_1_ckpt360">reward_shaping_checkpoints_bots_4_heads_1_ckpt360</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -8.4</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 7.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.0</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -2.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.0</td>
+		<td> 0.95</td>
+		<td> 20</td>
+		<td> -3.55</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.1</td>
+		<td> 0.7</td>
+		<td> 20</td>
+		<td> -1.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 0.7</td>
+		<td> 0.15</td>
+		<td> 20</td>
+		<td> 2.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.2</td>
+		<td> 0.75</td>
+		<td> 20</td>
+		<td> -2.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 0.1</td>
+		<td> 0.75</td>
+		<td> 20</td>
+		<td> -2.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -10.2</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -10.65</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -11.7</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -5.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.1</td>
+		<td> 0.85</td>
+		<td> 20</td>
+		<td> -2.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -11.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 0.95</td>
+		<td> 0.05</td>
+		<td> 20</td>
+		<td> 4.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 0.5</td>
+		<td> 0.5</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 0.25</td>
+		<td> 0.65</td>
+		<td> 20</td>
+		<td> -1.45</td>
+	</tr>
+</tbody>
+</table>
+
+<h3 id="scon_e3_p2_hard_ckpt840">scon_e3_p2_hard_ckpt840</h3>
+
+<table class="table sortable table-striped table-bordered table-sm">
+<thead>
+	<tr>
+		<th>name</th>
+		<th>won</th>
+		<th>lost</th>
+		<th>games</th>
+		<th>avg score</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_selfplay_e9_sp_ckpt274">5_vs_5_checkpoints_selfplay_e9_sp_ckpt274</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -6.85</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_checkpoints_sp_c_nb_e2_ckpt667">5_vs_5_checkpoints_sp_c_nb_e2_ckpt667</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -5.8</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_easy_bots">5_vs_5_easy_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 8.15</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_explt_v0_7_2_m54">5_vs_5_explt_v0_7_2_m54</a></td>
+		<td> 0.0</td>
+		<td> 0.9</td>
+		<td> 20</td>
+		<td> -1.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to2t05_e2_ckpt291">5_vs_5_f5v0to1to2t05_e2_ckpt291</a></td>
+		<td> 0.15</td>
+		<td> 0.8</td>
+		<td> 20</td>
+		<td> -3.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_f5v0to1to5_e2_ckpt252">5_vs_5_f5v0to1to5_e2_ckpt252</a></td>
+		<td> 0.1</td>
+		<td> 0.7</td>
+		<td> 20</td>
+		<td> -1.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_hard_hard_bots">5_vs_5_hard_hard_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 7.95</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108">5_vs_5_less_then_partially_randomized_checkpoints_bots_4_heads_38_ckpt108</a></td>
+		<td> 0.35</td>
+		<td> 0.35</td>
+		<td> 20</td>
+		<td> -0.25</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109">5_vs_5_less_then_partially_randomized_entropy_checkpoints_bots_4_heads_39_ckpt109</a></td>
+		<td> 0.4</td>
+		<td> 0.5</td>
+		<td> 20</td>
+		<td> -0.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650">5_vs_5_m_sp_arch_4x1_bt_32_r201_cont3_m650</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -10.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_r201_m335">5_vs_5_m_sp_arch_4x1_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -11.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335">5_vs_5_m_sp_arch_4x1_bt_32_roles_r500_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -11.0</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_longer_heads_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -4.3</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335">5_vs_5_m_sp_arch_medium_heads_bt_32_r201_m335</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -7.1</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335">5_vs_5_m_sp_arch_medium_heads_conv16_0_bt_32_r313_m335</a></td>
+		<td> 0.0</td>
+		<td> 0.9</td>
+		<td> 20</td>
+		<td> -3.5</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224">5_vs_5_m_sp_sc3v3_arch_2x1_32_r500_cont4x1_m224</a></td>
+		<td> 0.0</td>
+		<td> 1.0</td>
+		<td> 20</td>
+		<td> -11.85</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_medium_medium_bots">5_vs_5_medium_medium_bots</a></td>
+		<td> 1.0</td>
+		<td> 0.0</td>
+		<td> 20</td>
+		<td> 8.35</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360">5_vs_5_reward_shaping_checkpoints_bots_4_heads_1_ckpt360</a></td>
+		<td> 0.65</td>
+		<td> 0.25</td>
+		<td> 20</td>
+		<td> 1.45</td>
+	</tr>
+	<tr>
+		<td> <a href="#5_vs_5_scon_e3_p2_hard_ckpt840">5_vs_5_scon_e3_p2_hard_ckpt840</a></td>
+		<td> 0.5</td>
+		<td> 0.5</td>
+		<td> 20</td>
+		<td> 0.0</td>
+	</tr>
+</tbody>
+</table>
+</body>
+</html>
