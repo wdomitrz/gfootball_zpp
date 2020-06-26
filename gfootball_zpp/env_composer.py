@@ -62,7 +62,8 @@ class FrameStack(gym.Wrapper):
     return np.concatenate(list(self.obs), axis=-1)
 
 # added from gfootball
-
+# This wrapper was adopted from https://github.com/google-research/football
+# See link for license.
 class Simple115StateWrapper(gym.ObservationWrapper):
   """A wrapper that converts an observation to 115-features state."""
 

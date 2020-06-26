@@ -45,6 +45,7 @@ class DummyEnv(object):
         self.players = controlled_agents
 
 
+# This wrapper was adapted from SEED RL repository (see Readme)
 class PackedBitsObservation(gym.ObservationWrapper):
     """Wrapper that encodes a frame as packed bits instead of booleans.
 
@@ -66,6 +67,7 @@ class PackedBitsObservation(gym.ObservationWrapper):
         return packbits(observation)
 
 
+# These two functions were adapted from SEED RL repository (see Readme)
 def packbits(frame):
     data = np.packbits(frame, axis=-1)  # This packs to uint8
     # Now we want to pack pairs of uint8 into uint16's.

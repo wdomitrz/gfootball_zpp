@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# This file was adopted from GFootball repository
+
 
 """Observation processor, providing multiple support methods for analyzing observations."""
 

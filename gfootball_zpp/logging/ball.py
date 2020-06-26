@@ -171,7 +171,6 @@ class BallOwnInfo():
         obs = self.last_observation[0]
         player_team = self.last_team
 
-        #print (obs)
 
         if goal_id == 1:
             op = lambda x, y: x >= y
@@ -183,7 +182,6 @@ class BallOwnInfo():
         opponents = [remove_closest_goal(obs['left_team'], 0),
                      remove_closest_goal(obs['right_team'], 1)]
 
-        #print('player: {} opponenets {}'.format(player_team, opponents[1 - player_team]))
 
         if op(0.0, player_pos[0]): # half check
             return False
@@ -249,17 +247,14 @@ class LogPassStatsTeam(LogBasicTracker):
             self._all_passes_dist_sum[
                 self._ball_own_info.last_team] += self._ball_own_info.dist(
                     current_ball_own_info)
-            #print("$$$$$$$$$$PASS DETECTED", self._all_passes,
-                  #self._all_passes_dist_sum)
+
             if self._ball_own_info.ball_passed_intentionally(
                     current_ball_own_info):
                 self._intentional_passes[self._ball_own_info.last_team] += 1
                 self._intentional_passes_dist_sum[
                     self._ball_own_info.last_team] += self._ball_own_info.dist(
                         current_ball_own_info)
-                #print("$$$$$$$$$$###INT PASS DETECTED",
-                      #self._intentional_passes,
-                      #self._intentional_passes_dist_sum)
+
 
         self._ball_own_info = current_ball_own_info
 
@@ -339,7 +334,7 @@ class LogShotStatsTeam(LogBasicTracker):
                 self._ball_own_info.
                 last_team] += self._ball_own_info.dist_from_goal(1 - self._ball_own_info.
                 last_team)
-            #print("$$$ shot detected", self._all_shots, ",", self._all_shots_dist_sum)
+
             self._ball_own_info = BallOwnInfo()
         else:
             self._ball_own_info = current_ball_own_info
@@ -396,11 +391,8 @@ class LogOffsidesTeam(LogBasicTracker):
     def _update_stats(self, observation, action):
         current_ball_own_info = self._ball_own_info.update(observation, action)
 
-        #print(observation)
-        #print(self._ball_own_info.last_player)
         if self._ball_own_info.inited() and self._ball_own_info.ball_offside(current_ball_own_info):
             self._offsides[self._ball_own_info.last_team] += 1
-            #print("&&&OFFSIDE ", str(self._offsides))
 
         current_ball_own_info.delay_counter = 0
         if observation[0]['game_mode'] != 0:  # reset tracking when gamemode is not normal

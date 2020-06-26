@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This is a modified version of the original SEED file
+
 set -e
 
 if [ "$#" -ne "4" ] && [ "$#" -ne "5" ] ; then

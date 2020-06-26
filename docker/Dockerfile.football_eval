@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# This is a modified version of the original file
+
 FROM tensorflow/tensorflow:2.1.0-gpu-py3
 
 # Needed to disable interactive configuration by tzdata.
