@@ -41,9 +41,6 @@ def extract(tb_path, out_path):
             data.append([wall_time, step, value])
         names = ['wall_time', 'step', 'values']
         df = pd.DataFrame(data, columns=names)
-        #print("$$$$")
-        #print(df)
-        #print("$$$$")
         file_name = data_n.replace('/', '-')
         df.to_csv(
             os.path.join(out_path, file_name),

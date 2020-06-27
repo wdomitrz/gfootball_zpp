@@ -13,6 +13,8 @@
 # limitations under the License.
 
 
+# This is a modified version of the original file
+
 import random
 from gfootball.scenarios import *
 from .utils import get_player_position_from_uniform

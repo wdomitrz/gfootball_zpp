@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# this is a modified version of the original file
 
 set -e
 die () {
